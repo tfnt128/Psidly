@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Psidly.Shared.Data.Data;
 
@@ -11,9 +12,11 @@ using Psidly.Shared.Data.Data;
 namespace Psidly.Shared.Data.Migrations
 {
     [DbContext(typeof(PsidlyContext))]
-    partial class PsidlyContextModelSnapshot : ModelSnapshot
+    [Migration("20251118004016_AddCrpAndBirthDate")]
+    partial class AddCrpAndBirthDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,12 +50,6 @@ namespace Psidly.Shared.Data.Migrations
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ResetPasswordCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ResetPasswordCodeExpiry")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
