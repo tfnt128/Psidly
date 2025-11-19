@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Psidly.Shared.Data.Data;
 using Psidly.Shared.Models.Models;
 using psidly_backend.DTOs;
+using psidly_backend.Interfaces;
 using System.Security.Cryptography;
 
 namespace psidly_backend.Controllers
@@ -14,10 +15,12 @@ namespace psidly_backend.Controllers
     public class AuthController : ControllerBase
     {
         private readonly PsidlyContext _context;
+        private readonly IEmailService _emailService; 
 
-        public AuthController(PsidlyContext context)
+        public AuthController(PsidlyContext context, IEmailService emailService) 
         {
             _context = context;
+            _emailService = emailService; 
         }
 
         [HttpPost("login")]
@@ -159,15 +162,14 @@ namespace psidly_backend.Controllers
                 }
 
                 var resetCode = RandomNumberGenerator.GetInt32(100000, 999999).ToString();
-                var resetCodeExpiry = DateTime.UtcNow.AddMinutes(15); 
+                var resetCodeExpiry = DateTime.UtcNow.AddMinutes(15);
 
                 user.ResetPasswordCode = resetCode;
                 user.ResetPasswordCodeExpiry = resetCodeExpiry;
 
                 await _context.SaveChangesAsync();
 
-                // aqui é onde vai ser mandado o codigo ao email
-                // preciso criar um service de email, talvez usando interface;
+                await _emailService.SendPasswordResetCodeAsync(user.Email!, resetCode, user.Name ?? "Usuário");
 
                 return Ok(new AuthResponseDto
                 {
