@@ -1,0 +1,67 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Aboreto&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lexend+Deca:wght@100..900&display=swap');
+
+
+
+
+:root{
+    --font-arboreto: 'Aboreto', system-ui;
+    --font-lexenddeca: 'Lexend Deca', sans-serif;
+    --font-inter: 'Inter', sans-serif;
+}
+
+.font-arboreto{
+  font-family: var(--font-arboreto);
+}
+
+.font-lexenddeca{
+  font-family: var(--font-lexenddeca);
+}
+
+.font-inter{
+  font-family: var(--font-inter);
+}
+
+@layer utilities{
+
+  .bg-primario{
+    background-color: #fff;
+  }
+
+  .bg-secundario{
+    background-color: #9AC8FF;
+  }
+
+  .bg-terciario{
+    background-color: #13295F;
+  }
+
+  .bg-quarternario{
+    background-color: #7091E4;
+  }
+
+  .bg-alertbox{
+    background-color: #AA2B2B;
+  }
+
+  .color-primario{
+    color: black;
+  }
+
+  .color-secundario{
+    color:#fff;
+  }
+
+  .color-terciario{
+    color: #9AC8FF;
+  }
+
+  .color-quarternario{
+    color:#13295F;
+  }
+
+  .color-placeholder{
+    color: #a9a9a9;
+  }
+
+}
