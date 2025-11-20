@@ -1,19 +1,15 @@
-import LoadingBgImg from "../../assets/bg-images/bgicarregamento.png"
+
 import LoadingCircle from "../../components/Animations/LoadingCircle"
 import Title from "../../components/Titles/Title"
 
 export default function LoadingPage(){
      
     return(
-        <div className=" flex flex-col items-center w-full min-h-screen" 
-        style={{backgroundImage:`url(${LoadingBgImg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'}}>
-            <div className="mt-[50%] flex flex-col items-center">
+        <div className=" bg-loading flex flex-col items-center w-full min-h-screen">
+            <div className=" mt-[200px] lg:mt-[120px] flex flex-col items-center">
                 <Title/>
-                <LoadingCircle Style={'w-[40%] mt-[-25%]'}/>
-                <h1 className="font-aboreto color-secundario">Cuidar, suportar e agilizar</h1>
+                <LoadingCircle Style={'w-[40%] mt-[-25%] lg:mt-[-15%]'}/>
+                <h1 className="font-aboreto color-secundario lg:mt-[10%] lg:text-[30px]">Cuidar, suportar e agilizar</h1>
 
             </div>
             

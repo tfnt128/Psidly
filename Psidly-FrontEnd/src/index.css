@@ -65,3 +65,16 @@
   }
 
 }
+
+.bg-loading {
+    background-image: url('./assets/bg-images/bgicarregamento.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@media (min-width: 800px) {
+    .bg-loading {
+        background-image: url('./assets/bg-images/bgicarregamentodesktop.png');
+    }
+}
