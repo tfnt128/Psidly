@@ -8,7 +8,8 @@ export default function LoadingCircle({Style}){
             <Lottie
                 animationData={LoadingIcon}
                 loop={true}
-                autoPlay={true}/>
+                autoPlay={true}
+                initialSegment={[0, 60]}/>
         </div>
     )
 }
