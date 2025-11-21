@@ -3,6 +3,7 @@ import Login from './pages/LoginPages/Login';
 import LoadingPage from './pages/LoadingPages/LoadingPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Cadastropage from './pages/Cadastro/Cadastropage';
+import Esquecisenha from './pages/Esquecisenha/Esquecisenha';
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<LoadingPage/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/cadastro" element={<Cadastropage/>}/>
+          <Route path="/esqueceuasenha" element={<Esquecisenha/>}/>
         </Routes>
       </BrowserRouter>
     </>

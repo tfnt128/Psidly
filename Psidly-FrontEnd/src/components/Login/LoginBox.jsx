@@ -10,6 +10,10 @@ export default function LoginBox(){
         navigator("/cadastro");
     }
 
+    function goToEsqueciSenha(){
+        navigator("/esqueceuasenha")
+    }
+
     return(
         <div className="flex flex-col items-center mt-20 bg-terciario rounded-[30px] lg:rounded-[80px] w-[80%] min-w-[80%] h-[510px] lg:h-[1500px]">
             <h1 className="font-lexenddeca color-terciario text-[20px] lg:text-[50px] mt-4">Login</h1>
@@ -17,7 +21,7 @@ export default function LoginBox(){
             <Input Style={"w-[80%] outline-none bg-primario p-[15px] lg:p-[55px] rounded-[15px] lg:rounded-[35px] lg:text-[40px] placeholder:text-[15px] lg:placeholder:text-[40px] placeholder:font-lexenddeca"} PlaceHolder={'Insira seu e-mail'} Type={"email"}/>
             <Input Style={"w-[80%] outline-none bg-primario p-[15px] lg:p-[55px] rounded-[15px] lg:rounded-[35px] lg:text-[40px] placeholder:text-[15px] lg:placeholder:text-[40px] placeholder:font-lexenddeca mt-[15px] lg:mt-[30px]"} PlaceHolder={'Insira sua senha'} Type={"password"}/>
             <div className="flex flex-row items-start">
-                <h2 className="font-lexenddeca text-[12px] lg:text-[40px] color-terciario"><a>Esqueceu a senha?</a></h2>
+                <h2 className="font-lexenddeca text-[12px] lg:text-[40px] color-terciario"><a onClick={goToEsqueciSenha} className="hover:cursor-pointer hover:color-secundario transition duration-300 ease-in-out">Esqueceu a senha?</a></h2>
             </div>
             <div className="flex lg:w-[800px] flex-row items-center gap-2.5 lg:gap-5 mt-[60px] lg:mt-[90px]">
                 <Button Style={"w-[80%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[150px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white transition duration-300 ease-in-out"} Text={"Cadastrar"} OnClickFunction={goToCadastro}/>
