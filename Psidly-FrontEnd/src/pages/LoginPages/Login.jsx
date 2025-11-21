@@ -5,13 +5,13 @@ import Title from "../../components/Titles/Title"
 export default function Login(){
     return(
         <>
-            <div className="flex md:hidden">
+            <div className="flex lg:hidden">
                 <div className="w-full h-screen bg-linear-to-b from-[#ffffff] to-[#9AC8FF] flex flex-col items-center">
                     <Title Style={'w-[25%] lg:w-[20%]'}/>
                     <LoginBox/>
                 </div>
             </div>
-            <div className="hidden md:flex">
+            <div className="hidden lg:flex">
                 <div className="w-[40%] h-screen bg-linear-to-b from-[#ffffff] to-[#9AC8FF] flex flex-col items-center">
                     <Title Style={'w-[25%] lg:w-[20%]'}/>
                     <LoginBox/>
