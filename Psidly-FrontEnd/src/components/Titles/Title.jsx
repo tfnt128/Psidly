@@ -4,7 +4,7 @@ export default function Title({Style}){
 
     return(
         <>
-            <img src={LogoPsidly} className={`${Style}`}/>
+            <img src={LogoPsidly} className={`${Style} inline`}/>
         </>
     )
 }

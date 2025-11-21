@@ -1,8 +1,11 @@
-
+@import "tailwindcss-animated";
 
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Aboreto&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lexend+Deca:wght@100..900&display=swap');
 
+*{
+  overflow: hidden;
+}
 
 :root{
     --font-arboreto: 'Aboreto', system-ui;
@@ -81,6 +84,13 @@
 
 .bg-sideimglogin {
     background-image: url('./assets/bg-images/bgisideimglogin.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bg-sideimgcadastro {
+    background-image: url('./assets/bg-images/bgisideimgcadastro.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
