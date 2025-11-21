@@ -1,19 +1,33 @@
 import Input from "../General/Input"
 import Button from "../General/Button"
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function BoxCodigo(){
 
     const [time, setTime] = useState(null)
     useEffect(()=>{
-        setTime(60)
+        setTime(5)
         const timer = setInterval(()=>{
-            setTime((prev) => prev - 1)
+            setTime(prev => {
+                if (prev <= 1) {
+                    clearInterval(timer);
+                    goToTempoEsg()
+                    return 0;
+                }
+                return prev - 1;
+            })
         }, 1000)
 
-        if(timer == 0){}
+
+        
         return ()=> clearInterval(timer);
     }, [])
+
+    const navigator = useNavigate();
+    function goToTempoEsg(){
+        navigator("/esqueceuasenhatempoesgotado")
+    }
 
     return(
         <div className="flex flex-col items-center animate-fade-left mt-20 bg-terciario rounded-[30px] lg:rounded-[100px] w-[80%] min-w-[80%] h-[420px] lg:h-[1400px]">
