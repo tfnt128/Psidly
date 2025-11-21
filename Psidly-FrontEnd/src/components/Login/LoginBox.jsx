@@ -20,8 +20,8 @@ export default function LoginBox(){
                 <h2 className="font-lexenddeca text-[12px] lg:text-[40px] color-terciario"><a>Esqueceu a senha?</a></h2>
             </div>
             <div className="flex lg:w-[800px] flex-row items-center gap-2.5 lg:gap-5 mt-[60px] lg:mt-[90px]">
-                <Button Style={"w-[80%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[150px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px]"} Text={"Cadastrar"} OnClickFunction={goToCadastro}/>
-                <Button Style={"w-[80%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[150px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px]"} Text={"Entrar"}/>
+                <Button Style={"w-[80%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[150px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white transition duration-300 ease-in-out"} Text={"Cadastrar"} OnClickFunction={goToCadastro}/>
+                <Button Style={"w-[80%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[150px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white transition duration-300 ease-in-out"} Text={"Entrar"}/>
             </div>
         </div>
     )
