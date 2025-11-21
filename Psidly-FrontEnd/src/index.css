@@ -78,3 +78,10 @@
         background-image: url('./assets/bg-images/bgicarregamentodesktop.png');
     }
 }
+
+.bg-sideimglogin {
+    background-image: url('./assets/bg-images/bgisideimglogin.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
