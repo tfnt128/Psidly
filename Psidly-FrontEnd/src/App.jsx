@@ -11,6 +11,7 @@ import Homepage from './pages/Homepage/Homepage';
 import Graphicspage from './pages/Graphicspage/Graphicspage';
 import Profilepage from './pages/Profilepage/Profilepage';
 import Configuracoes from './pages/Configuracoes/Configuracoes';
+import ExcluirConta from './pages/Configuracoes/ExcluirConta';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/graphicspage" element={<Graphicspage/>}/>
           <Route path="/profilepage" element={<Profilepage/>}/>
           <Route path="/configuracoes" element={<Configuracoes/>}/>
+          <Route path="/excluirconta" element={<ExcluirConta/>}/>
         </Routes>
       </BrowserRouter>
     </>
