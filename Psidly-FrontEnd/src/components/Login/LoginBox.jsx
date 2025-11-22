@@ -14,6 +14,10 @@ export default function LoginBox(){
         navigator("/esqueceuasenha")
     }
 
+    function goToHomepage(){
+        navigator("/homepage")
+    }
+
     return(
         <div className="flex flex-col items-center mt-20 bg-terciario rounded-[30px] lg:rounded-[80px] w-[80%] min-w-[80%] h-[510px] lg:h-[1500px]">
             <h1 className="font-lexenddeca color-terciario text-[20px] lg:text-[50px] mt-4">Login</h1>
@@ -25,7 +29,7 @@ export default function LoginBox(){
             </div>
             <div className="flex lg:w-[800px] flex-row items-center gap-2.5 lg:gap-5 mt-[60px] lg:mt-[90px]">
                 <Button Style={"w-[80%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[150px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white transition duration-300 ease-in-out"} Text={"Cadastrar"} OnClickFunction={goToCadastro}/>
-                <Button Style={"w-[80%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[150px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white transition duration-300 ease-in-out"} Text={"Entrar"}/>
+                <Button Style={"w-[80%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[150px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white transition duration-300 ease-in-out"} Text={"Entrar"} OnClickFunction={goToHomepage}/>
             </div>
         </div>
     )

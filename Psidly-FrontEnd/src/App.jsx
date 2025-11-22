@@ -7,6 +7,8 @@ import Esquecisenha from './pages/Esquecisenha/Esquecisenha';
 import Esquecisenhacod from './pages/Esquecisenha/Esquecisenhacod';
 import Esqueciasenhatempoesg from './pages/Esquecisenha/Esquecisenhatempoesg';
 import Esquecisenhaconfirmar from './pages/Esquecisenha/Esquecisenhaconfirmar';
+import Homepage from './pages/Homepage/Homepage';
+import Graphicspage from './pages/Graphicspage/Graphicspage';
 
 
 function App() {
@@ -21,7 +23,8 @@ function App() {
           <Route path="/esqueceuasenhacodigo" element={<Esquecisenhacod/>}/>
           <Route path="/esqueceuasenhatempoesgotado" element={<Esqueciasenhatempoesg/>}/>
           <Route path="/esqueceuasenhaconfirmar" element={<Esquecisenhaconfirmar/>}/>
-
+          <Route path="/homepage" element={<Homepage/>}/>
+          <Route path="/graphicspage" element={<Graphicspage/>}/>
         </Routes>
       </BrowserRouter>
     </>
