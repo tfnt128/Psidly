@@ -8,11 +8,10 @@ export default function Homepage(){
         <div className="min-h-screen flex flex-col">
             <Homeheader/>
 
-            <div className="flex-1">
-                <div className="fixed bottom-30 right-4 ">
-                    <AddButton/>
-                </div>
+            <div className="fixed  bottom-[120px] lg:right-30 right-4 ">
+                <AddButton/>
             </div>
+
             <div className="fixed lg:hidden bottom-0 left-0 w-full ">
                 <Homemenu BgSelectPsi={"bg-quarternario"} />
             </div>

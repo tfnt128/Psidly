@@ -9,6 +9,7 @@ import Esqueciasenhatempoesg from './pages/Esquecisenha/Esquecisenhatempoesg';
 import Esquecisenhaconfirmar from './pages/Esquecisenha/Esquecisenhaconfirmar';
 import Homepage from './pages/Homepage/Homepage';
 import Graphicspage from './pages/Graphicspage/Graphicspage';
+import Profilepage from './pages/Profilepage/Profilepage';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/esqueceuasenhaconfirmar" element={<Esquecisenhaconfirmar/>}/>
           <Route path="/homepage" element={<Homepage/>}/>
           <Route path="/graphicspage" element={<Graphicspage/>}/>
+          <Route path="/profilepage" element={<Profilepage/>}/>
         </Routes>
       </BrowserRouter>
     </>
