@@ -95,3 +95,10 @@
     background-position: center;
     background-repeat: no-repeat;
 }
+
+.bg-sideimgesq {
+    background-image: url('./assets/bg-images/bgisideimgesq.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
