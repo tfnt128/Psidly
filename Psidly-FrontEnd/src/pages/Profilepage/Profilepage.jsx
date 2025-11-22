@@ -1,4 +1,4 @@
-import AddButton from "../../components/Homepage/AddButton";
+import { useNavigate } from "react-router-dom";
 import Homeheader from "../../components/Homepage/Homeheader";
 import Homemenu from "../../components/Homepage/Homemenu";
 import Homemenuaside from "../../components/Homepage/Homemenuaside";
@@ -6,6 +6,12 @@ import Boxoption from "../../components/Profilepage/Boxoption";
 import Profilebox from "../../components/Profilepage/Profilebox";
 
 export default function Profilepage(){
+
+    const navigator = useNavigate();
+    function goToConfig(){
+        navigator("/configuracoes");
+    }
+
     return(
         <div className="min-h-screen ">
             <Homeheader/>
@@ -21,7 +27,7 @@ export default function Profilepage(){
                 <Profilebox/>
                 <div className=" w-[85%] lg:w-[80%] h-[830px]  lg:h-[804px] lg:ml-[850px] lg:mt-[3%] mt-[7%] ml-[8%] grid grid-cols-1 items-start justify-items-center
                 lg:grid-cols-3 lg:grid-rows-3">
-                    <Boxoption tituloOpt={"Configurações"}/>
+                    <Boxoption tituloOpt={"Configurações"} onClickWay={goToConfig} />
                 </div>
             </div>
 

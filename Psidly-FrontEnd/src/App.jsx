@@ -10,6 +10,7 @@ import Esquecisenhaconfirmar from './pages/Esquecisenha/Esquecisenhaconfirmar';
 import Homepage from './pages/Homepage/Homepage';
 import Graphicspage from './pages/Graphicspage/Graphicspage';
 import Profilepage from './pages/Profilepage/Profilepage';
+import Configuracoes from './pages/Configuracoes/Configuracoes';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/homepage" element={<Homepage/>}/>
           <Route path="/graphicspage" element={<Graphicspage/>}/>
           <Route path="/profilepage" element={<Profilepage/>}/>
+          <Route path="/configuracoes" element={<Configuracoes/>}/>
         </Routes>
       </BrowserRouter>
     </>
