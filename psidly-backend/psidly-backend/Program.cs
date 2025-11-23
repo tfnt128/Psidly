@@ -3,7 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Pega a DATABASE_URL diretamente (já está no formato correto)
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL")
     ?? "Host=localhost;Database=Psidly;Username=postgres;Password=postgres";
 
