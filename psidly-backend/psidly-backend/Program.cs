@@ -25,7 +25,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Aplicar migrations
 try
 {
     using var scope = app.Services.CreateScope();
