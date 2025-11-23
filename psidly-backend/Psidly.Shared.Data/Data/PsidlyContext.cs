@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Psidly.Shared.Models.Models;
+using Microsoft.EntityFrameworkCore.Proxies;
 
 namespace Psidly.Shared.Data.Data
 {
@@ -12,10 +13,12 @@ namespace Psidly.Shared.Data.Data
     {
         public DbSet<User> Users { get; set; }
 
+        // Construtor que aceita options (para injeção de dependência)
         public PsidlyContext(DbContextOptions<PsidlyContext> options) : base(options)
         {
         }
 
+        // Construtor sem parâmetros (para migrations)
         public PsidlyContext()
         {
         }
@@ -24,21 +27,9 @@ namespace Psidly.Shared.Data.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-                string connectionString;
-
-                if (!string.IsNullOrEmpty(databaseUrl))
-                {
-                    // Converter URL do Render para connection string
-                    var uri = new Uri(databaseUrl);
-                    var userInfo = uri.UserInfo.Split(':');
-
-                    connectionString = $"Host={uri.Host};Port={uri.Port};Database={uri.LocalPath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
-                }
-                else
-                {
-                    connectionString = "Host=localhost;Database=Psidly;Username=postgres;Password=postgres";
-                }
+                // Pega da variável de ambiente ou usa localhost para desenvolvimento
+                var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL")
+                    ?? "Host=localhost;Database=Psidly;Username=postgres;Password=postgres";
 
                 optionsBuilder
                     .UseNpgsql(connectionString)
