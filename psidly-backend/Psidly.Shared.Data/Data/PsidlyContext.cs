@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Psidly.Shared.Models.Models;
+using Microsoft.EntityFrameworkCore.Proxies;
 
 namespace Psidly.Shared.Data.Data
 {
@@ -12,14 +13,26 @@ namespace Psidly.Shared.Data.Data
     {
         public DbSet<User> Users { get; set; }
 
-        private string _connectionStringRemote = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Psidly;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+        // Construtor que aceita options (para injeção de dependência)
+        public PsidlyContext(DbContextOptions<PsidlyContext> options) : base(options)
+        {
+        }
+
+        // Construtor sem parâmetros (para migrations)
+        public PsidlyContext()
+        {
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
+                // Pega da variável de ambiente ou usa localhost para desenvolvimento
+                var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL")
+                    ?? "Host=localhost;Database=Psidly;Username=postgres;Password=postgres";
+
                 optionsBuilder
-                    .UseSqlServer(_connectionStringRemote)
+                    .UseNpgsql(connectionString)
                     .UseLazyLoadingProxies();
             }
         }

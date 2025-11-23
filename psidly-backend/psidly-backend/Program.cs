@@ -1,9 +1,16 @@
 using Psidly.Shared.Data.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configurar DbContext com PostgreSQL
+var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL")
+    ?? "Host=localhost;Database=Psidly;Username=postgres;Password=postgres";
+
+builder.Services.AddDbContext<PsidlyContext>(options =>
+    options.UseNpgsql(connectionString).UseLazyLoadingProxies());
+
 builder.Services.AddControllers();
-builder.Services.AddDbContext<PsidlyContext>();
 
 builder.Services.AddCors(options =>
 {
@@ -21,6 +28,13 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Aplicar migrations automaticamente ao iniciar (IMPORTANTE!)
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<PsidlyContext>();
+    db.Database.Migrate();
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -28,10 +42,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
-
 app.UseCors("AllowAll");
-
-
 app.MapControllers();
-
 app.Run();
