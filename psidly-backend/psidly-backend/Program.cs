@@ -8,7 +8,10 @@ var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL")
     ?? "Host=localhost;Database=Psidly;Username=postgres;Password=postgres";
 
 builder.Services.AddDbContext<PsidlyContext>(options =>
-    options.UseNpgsql(connectionString).UseLazyLoadingProxies());
+{
+    options.UseNpgsql(connectionString);
+    options.UseLazyLoadingProxies();
+});
 
 builder.Services.AddControllers();
 
@@ -28,11 +31,19 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Aplicar migrations automaticamente ao iniciar (IMPORTANTE!)
-using (var scope = app.Services.CreateScope())
+// Aplicar migrations automaticamente
+try
 {
-    var db = scope.ServiceProvider.GetRequiredService<PsidlyContext>();
-    db.Database.Migrate();
+    using (var scope = app.Services.CreateScope())
+    {
+        var db = scope.ServiceProvider.GetRequiredService<PsidlyContext>();
+        db.Database.Migrate();
+    }
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Migration error: {ex.Message}");
+    // Não para a aplicação mesmo se migration falhar
 }
 
 if (app.Environment.IsDevelopment())
