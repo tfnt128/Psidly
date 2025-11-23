@@ -211,15 +211,46 @@ namespace psidly_backend.Controllers
                 var user = await _context.Users
                     .FirstOrDefaultAsync(u => u.Email == verifyDto.Email);
 
-                if (user == null ||
-                    user.ResetPasswordCode != verifyDto.Code ||
-                    user.ResetPasswordCodeExpiry == null ||
-                    user.ResetPasswordCodeExpiry < DateTime.UtcNow)
+                if (user == null)
                 {
                     return Ok(new AuthResponseDto
                     {
                         Success = false,
-                        Message = "Código inválido ou expirado"
+                        Message = "Usuário não encontrado"
+                    });
+                }
+
+                // LOG PARA DEBUG
+                Console.WriteLine($"🔍 Código enviado: {verifyDto.Code}");
+                Console.WriteLine($"🔍 Código armazenado: {user.ResetPasswordCode}");
+                Console.WriteLine($"🔍 Expira em: {user.ResetPasswordCodeExpiry}");
+                Console.WriteLine($"🔍 Hora atual (UTC): {DateTime.UtcNow}");
+                Console.WriteLine($"🔍 Expirado? {user.ResetPasswordCodeExpiry < DateTime.UtcNow}");
+
+                if (user.ResetPasswordCode != verifyDto.Code)
+                {
+                    return Ok(new AuthResponseDto
+                    {
+                        Success = false,
+                        Message = "Código incorreto"
+                    });
+                }
+
+                if (user.ResetPasswordCodeExpiry == null)
+                {
+                    return Ok(new AuthResponseDto
+                    {
+                        Success = false,
+                        Message = "Código não tem validade"
+                    });
+                }
+
+                if (user.ResetPasswordCodeExpiry < DateTime.UtcNow)
+                {
+                    return Ok(new AuthResponseDto
+                    {
+                        Success = false,
+                        Message = "Código expirado"
                     });
                 }
 
@@ -231,6 +262,7 @@ namespace psidly_backend.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"❌ Erro: {ex.Message}");
                 return StatusCode(500, new AuthResponseDto
                 {
                     Success = false,
