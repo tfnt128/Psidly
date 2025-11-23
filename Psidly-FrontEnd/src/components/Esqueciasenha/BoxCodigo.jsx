@@ -8,7 +8,7 @@ export default function BoxCodigo(){
 
     const [time, setTime] = useState(null)
     useEffect(()=>{
-        setTime(5)
+        setTime(900)
         const timer = setInterval(()=>{
             setTime(prev => {
                 if (prev <= 1) {
@@ -38,6 +38,10 @@ export default function BoxCodigo(){
         try {
             const resposta = await postCodigoEsqueciSenha(codigo);
 
+            if(resposta == true){
+                goToConfirm();
+            }
+
         } catch (err) {
             console.log(err)
         }
@@ -54,7 +58,7 @@ export default function BoxCodigo(){
                 Type={"text"}
                 value={codigo}
                 setValue={setCodigo}/>
-            <Button Style={"w-[50%] lg:w-[40%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[170px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white mt-8 transition duration-300 ease-in-out"} Text={"Verificar código"} OnClickFunction={goToConfirm} />
+            <Button Style={"w-[50%] lg:w-[40%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[170px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white mt-8 transition duration-300 ease-in-out"} Text={"Verificar código"} OnClickFunction={handleCodigo} />
                 
         </div>
     )

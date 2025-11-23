@@ -2,7 +2,7 @@ import Input from "../General/Input"
 import Button from "../General/Button"
 import { use, useState } from "react";
 import { postCadastro } from "../../services/api";
-import { data } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
 
 export default function CadastroBox({}){
     
@@ -13,10 +13,17 @@ export default function CadastroBox({}){
     const [senha, setSenha] = useState("");
     const [senhaConfirmada, setSenhaConfirmada] = useState("");
 
+    const navigator = useNavigate();
+    function goToInicio(){
+        navigator("/");
+    }
+
     const handleCadastro = async ()=>{
         try {
             const response = await postCadastro(crp, nome, email, dataNasc, senha, senhaConfirmada);
-            return response.data;
+            if(response == true){
+                goToInicio();
+            }
         } catch (err) {
             console.log(err);
         }
@@ -66,7 +73,7 @@ export default function CadastroBox({}){
                 </div>
                 
             </div>
-            <Button Style={"w-[50%] mt-5 lg:mt-15 bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[150px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white transition duration-300 ease-in-out"} Text={"Cadastrar"}/>
+            <Button Style={"w-[50%] mt-5 lg:mt-15 bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[150px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white transition duration-300 ease-in-out"} Text={"Cadastrar"} OnClickFunction={handleCadastro}/>
 
 
         </div>

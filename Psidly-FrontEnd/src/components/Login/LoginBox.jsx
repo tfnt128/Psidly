@@ -26,6 +26,10 @@ export default function LoginBox(){
     const handleLogin = async () =>{
         try {
             const response = await postLogin(email, senha);
+            if (response == true){
+                goToHomepage();
+            }
+            
             
         } catch (err) {
             console.log(err)
@@ -51,7 +55,7 @@ export default function LoginBox(){
             </div>
             <div className="flex lg:w-[800px] flex-row items-center gap-2.5 lg:gap-5 mt-[60px] lg:mt-[90px]">
                 <Button Style={"w-[80%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[150px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white transition duration-300 ease-in-out"} Text={"Cadastrar"} OnClickFunction={goToCadastro}/>
-                <Button Style={"w-[80%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[150px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white transition duration-300 ease-in-out"} Text={"Entrar"} OnClickFunction={goToHomepage}/>
+                <Button Style={"w-[80%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[150px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white transition duration-300 ease-in-out"} Text={"Entrar"} OnClickFunction={handleLogin}/>
             </div>
         </div>
     )

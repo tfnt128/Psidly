@@ -12,12 +12,25 @@ export default function BoxEmail({Style}){
     }
 
     const [email, setEmail] = useState("");
-    const handleEmail = async () =>{
+    const handleEmail = async () => {
+        console.log("🔵 Iniciando handleEmail");
+        console.log("📧 Email digitado:", email);
+        
         try {
+            console.log("🚀 Enviando requisição...");
             const response = await postEmailEsqueciSenha(email);
+            
+            console.log("✅ Resposta recebida:", response);
+
+            if(response == true){
+                console.log("✔️ Sucesso! Redirecionando...");
+                goToCode();
+            } else {
+                console.log("❌ Falha na requisição");
+            }
 
         } catch (err) {
-            console.log(err);
+            console.log("🔴 Erro capturado:", err);
         }
     }
 
@@ -32,7 +45,7 @@ export default function BoxEmail({Style}){
                 Type={"email"}
                 value={email}
                 setValue={setEmail}/>
-            <Button Style={"w-[50%] lg:w-[40%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[170px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white mt-8 transition duration-300 ease-in-out"} Text={"Enviar código"} OnClickFunction={goToCode}/>
+            <Button Style={"w-[50%] lg:w-[40%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[170px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white mt-8 transition duration-300 ease-in-out"} Text={"Enviar código"} OnClickFunction={handleEmail}/>
                 
         </div>
     )

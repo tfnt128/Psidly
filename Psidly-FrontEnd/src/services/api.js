@@ -1,75 +1,99 @@
 import axios from "axios"
 
-const API_URL = "";
+const API_URL = "https://psidly.onrender.com/api/auth";
 
 export async function postLogin(email, senha){
     try {
 
-        const response = await axios.post(`${API_URL}`,{
+        const response = await axios.post(`${API_URL}/login`,{
             email:email,
-            senha:senha
+            password:senha
         })
         
-        return response.data;
+        if(response.data.success == false){
+            alert(response.data.message);
+        }
+        return response.data.success;
     } catch (err) {
         console.log(err)    
     }
 }
 
-export async function postEmailEsqueciSenha(email){
+export async function postEmailEsqueciSenha(email) {
+    console.log("📤 postEmailEsqueciSenha chamado com:", email);
+    
     try {
-        const response = axios.post(`${API_URL}`, {
-            email:email
+        const response = await axios.post(`${API_URL}/forgot-password`, {
+            email: email
         })
 
-        return response.data;
+        console.log("📥 Resposta da API:", response.data);
+        alert(response.data.message)
+        return response.data.success;
     } catch (err) {
-        console.log(err);
+        console.log("❗ Erro na requisição:", err);
+        console.log("❗ Detalhes:", err.response?.data);
+        throw err;
     }
 }
-
-export async function postCodigoEsqueciSenha(codigo){
+export async function postCodigoEsqueciSenha(email, codigo) {
     try {
-        
-        const response = await axios.post(`${API_URL}`, {
-            codigo:codigo
+        const response = await axios.post(`${API_URL}/verify-reset-code`, {
+            email: email,
+            code: codigo
         })
 
-        return response.data;
+        console.log(response.data);
+        alert(response.data.message)
 
+        return response.data.success;
     } catch (err) {
         console.log(err);
+        throw err;
     }
 }
 
-export async function postConfirmarSenha(senha, senhaConfirmada){
+export async function postConfirmarSenha(email, codigo, senha, senhaConfirmada) {
     try {
-        
-        const response = await axios.post(senha, senhaConfirmada); 
-        return response.data;
+        const response = await axios.post(`${API_URL}/reset-password`, {
+            email: email,
+            code: codigo,
+            newPassword: senha,
+            confirmPassword: senhaConfirmada
+        }); 
 
+        console.log(response.data);
+        alert(response.data.message)
+
+        return response.data.success;
     } catch (err) {
         console.log(err);
+        throw err;
     }
 }
+
 
 export async function postCadastro(crp, nome, email, dataNasc, senha, senhaConfirmada) {
     try {
-        const response = axios.post(`${API_URL}`, {
-            crp:crp,
-            nome:nome,
-            email:email,
-            dataNasc: dataNasc,
-            senha: senha,
-            senhaConfirmada: senhaConfirmada
+        const response = await axios.post(`${API_URL}/register`, {
+            name: nome,              
+            email: email,
+            crp: crp,
+            birthDate: dataNasc,     
+            password: senha,         
+            confirmPassword: senhaConfirmada  
         })
 
-        return response.data;
+        if(response.data.success == false){
+            alert(response.data.message);
+        }
+        
+        return response.data.success;
     } catch (err) {
         console.log(err);
+        throw err;  
     }
 }
-
 export async function getNomeProfile(){
     try {
         const response = await axios.get(`${API_URL}`);
@@ -85,6 +109,21 @@ export async function getEmailProfile(){
         const response = await axios.get(`${API_URL}`);
 
         return response.data.email;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
+export async function postSenhaExcluir({senhaExcluir}){
+    try {
+        const response = await axios.post(`${API_URL}`, {
+            senhaExcluir:senhaExcluir
+        })
+
+        return response.data;
+
+        
     } catch (err) {
         console.log(err);
     }

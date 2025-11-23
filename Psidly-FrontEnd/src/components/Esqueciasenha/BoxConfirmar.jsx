@@ -20,7 +20,10 @@ export default function BoxConfirmar({Style, Okay, Error, MnsgOkay, MnsgError, s
 
     const handleSenhaConfirmada = async () =>{
         try {
-            const response = postConfirmarSenha(senha, senhaConfirmada);
+            const response = await postConfirmarSenha(senha, senhaConfirmada);
+            if(response == true){
+                goToHome();
+            }
             
         } catch (err) {
             console.log(err);
@@ -43,7 +46,7 @@ export default function BoxConfirmar({Style, Okay, Error, MnsgOkay, MnsgError, s
                 Type={"password"}
                 value={senhaConfirmada}
                 setValue={setSenhaConfirmada}/>
-            <Button Style={"w-[50%] lg:w-[40%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[170px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white mt-8 transition duration-300 ease-in-out"} Text={"Redefinir"} OnClickFunction={goToHome}/>
+            <Button Style={"w-[50%] lg:w-[40%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[170px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white mt-8 transition duration-300 ease-in-out"} Text={"Redefinir"} OnClickFunction={handleSenhaConfirmada}/>
 
                 
         </div>
