@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Psidly.Shared.Models.Models;
 
 namespace Psidly.Shared.Data.Data
@@ -12,14 +7,23 @@ namespace Psidly.Shared.Data.Data
     {
         public DbSet<User> Users { get; set; }
 
-        private string _connectionStringRemote = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Psidly;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+        public PsidlyContext(DbContextOptions<PsidlyContext> options) : base(options)
+        {
+        }
+
+        public PsidlyContext()
+        {
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
+                var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL")
+                    ?? "Host=localhost;Database=Psidly;Username=postgres;Password=postgres";
+
                 optionsBuilder
-                    .UseSqlServer(_connectionStringRemote)
+                    .UseNpgsql(connectionString)
                     .UseLazyLoadingProxies();
             }
         }
