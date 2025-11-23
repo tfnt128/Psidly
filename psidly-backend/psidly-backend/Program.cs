@@ -11,35 +11,46 @@ string GetConnectionString()
 
     if (string.IsNullOrEmpty(databaseUrl))
     {
-        // Fallback para desenvolvimento local
+        Console.WriteLine("?? DATABASE_URL not found, using localhost");
         return "Host=localhost;Database=Psidly;Username=postgres;Password=postgres";
     }
 
     try
     {
-        // Remove o prefixo postgres:// ou postgresql://
-        databaseUrl = databaseUrl.Replace("postgres://", "").Replace("postgresql://", "");
+        Console.WriteLine($"?? Raw DATABASE_URL format: {databaseUrl.Substring(0, Math.Min(20, databaseUrl.Length))}...");
 
-        // Parse da URL
-        var parts = databaseUrl.Split('@');
-        var credentials = parts[0].Split(':');
-        var username = credentials[0];
-        var password = credentials[1];
+        // Parse usando Uri (mais robusto)
+        var uri = new Uri(databaseUrl);
 
-        var serverParts = parts[1].Split('/');
-        var hostAndPort = serverParts[0].Split(':');
-        var host = hostAndPort[0];
-        var port = hostAndPort.Length > 1 ? hostAndPort[1] : "5432";
-        var database = serverParts[1];
+        var host = uri.Host;
+        var port = uri.Port > 0 ? uri.Port : 5432;
+        var database = uri.LocalPath.TrimStart('/');
+
+        // Extrai usuário e senha
+        string username = "";
+        string password = "";
+
+        if (!string.IsNullOrEmpty(uri.UserInfo))
+        {
+            var userInfo = uri.UserInfo.Split(':');
+            username = userInfo[0];
+            password = userInfo.Length > 1 ? userInfo[1] : "";
+        }
 
         var connectionString = $"Host={host};Port={port};Database={database};Username={username};Password={password};SSL Mode=Require;Trust Server Certificate=true";
 
-        Console.WriteLine($"? Connection string configured for host: {host}");
+        Console.WriteLine($"? Connection configured:");
+        Console.WriteLine($"  Host: {host}");
+        Console.WriteLine($"  Port: {port}");
+        Console.WriteLine($"  Database: {database}");
+        Console.WriteLine($"  Username: {username}");
+
         return connectionString;
     }
     catch (Exception ex)
     {
         Console.WriteLine($"? Error parsing DATABASE_URL: {ex.Message}");
+        Console.WriteLine($"? Stack trace: {ex.StackTrace}");
         throw;
     }
 }
@@ -73,7 +84,8 @@ try
 catch (Exception ex)
 {
     Console.WriteLine($"? Migration Error: {ex.Message}");
-    Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+    Console.WriteLine($"? Inner Exception: {ex.InnerException?.Message}");
+    Console.WriteLine($"? Stack Trace: {ex.StackTrace}");
 }
 
 if (app.Environment.IsDevelopment())

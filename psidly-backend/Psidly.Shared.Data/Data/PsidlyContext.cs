@@ -38,18 +38,21 @@ namespace Psidly.Shared.Data.Data
 
             try
             {
-                databaseUrl = databaseUrl.Replace("postgres://", "").Replace("postgresql://", "");
+                var uri = new Uri(databaseUrl);
 
-                var parts = databaseUrl.Split('@');
-                var credentials = parts[0].Split(':');
-                var username = credentials[0];
-                var password = credentials[1];
+                var host = uri.Host;
+                var port = uri.Port > 0 ? uri.Port : 5432;
+                var database = uri.LocalPath.TrimStart('/');
 
-                var serverParts = parts[1].Split('/');
-                var hostAndPort = serverParts[0].Split(':');
-                var host = hostAndPort[0];
-                var port = hostAndPort.Length > 1 ? hostAndPort[1] : "5432";
-                var database = serverParts[1];
+                string username = "";
+                string password = "";
+
+                if (!string.IsNullOrEmpty(uri.UserInfo))
+                {
+                    var userInfo = uri.UserInfo.Split(':');
+                    username = userInfo[0];
+                    password = userInfo.Length > 1 ? userInfo[1] : "";
+                }
 
                 return $"Host={host};Port={port};Database={database};Username={username};Password={password};SSL Mode=Require;Trust Server Certificate=true";
             }
