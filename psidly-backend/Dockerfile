@@ -3,11 +3,12 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copiar o .csproj e restaurar dependências
-COPY ["psidly-backend.csproj", "./"]
-RUN dotnet restore "psidly-backend.csproj"
+COPY ["psidly-backend/psidly-backend.csproj", "psidly-backend/"]
+RUN dotnet restore "psidly-backend/psidly-backend.csproj"
 
 # Copiar todo o código
-COPY . .
+COPY psidly-backend/ psidly-backend/
+WORKDIR /src/psidly-backend
 
 # Build
 RUN dotnet build "psidly-backend.csproj" -c Release -o /app/build
