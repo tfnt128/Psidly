@@ -2,15 +2,19 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copiar o .csproj e restaurar dependências
+# Copiar TODOS os arquivos .csproj
 COPY ["psidly-backend/psidly-backend.csproj", "psidly-backend/"]
+COPY ["Psidly.Shared.Data/Psidly.Shared.Data.csproj", "Psidly.Shared.Data/"]
+COPY ["Psidly.Shared.Models/Psidly.Shared.Models.csproj", "Psidly.Shared.Models/"]
+
+# Restaurar dependências
 RUN dotnet restore "psidly-backend/psidly-backend.csproj"
 
-# Copiar todo o código
-COPY psidly-backend/ psidly-backend/
-WORKDIR /src/psidly-backend
+# Copiar TODO o código fonte
+COPY . .
 
 # Build
+WORKDIR /src/psidly-backend
 RUN dotnet build "psidly-backend.csproj" -c Release -o /app/build
 
 # Stage 2: Publish
