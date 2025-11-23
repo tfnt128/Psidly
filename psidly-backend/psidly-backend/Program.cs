@@ -1,5 +1,7 @@
 ﻿using Psidly.Shared.Data.Data;
 using Microsoft.EntityFrameworkCore;
+using psidly_backend.Interfaces;
+using psidly_backend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,8 @@ Console.WriteLine("✓ Using DATABASE_URL from environment");
 
 builder.Services.AddDbContext<PsidlyContext>(options =>
     options.UseNpgsql(connectionString).UseLazyLoadingProxies());
+
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddControllers();
 builder.Services.AddCors(options =>
