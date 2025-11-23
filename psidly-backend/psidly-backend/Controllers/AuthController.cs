@@ -22,6 +22,22 @@ namespace psidly_backend.Controllers
             _context = context;
             _emailService = emailService;
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var users = await _context.Users.ToListAsync();
+            return Ok(users);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+                return NotFound();
+
+            return Ok(user);
+        }
 
         [HttpPost("login")]
         public async Task<ActionResult<AuthResponseDto>> Login(LoginDto loginDto)
