@@ -11,7 +11,7 @@ namespace psidly_backend.Services
             try
             {
                 // Pega a API Key da variável de ambiente
-                var apiKey = Environment.GetEnvironmentVariable("SG.wHy3CYHORzOfU-G64xtLpQ.v4r1vSW7V4aXStnywxt71tg6ISrOlLMnztSnTOtHndE");
+                var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
 
                 if (string.IsNullOrEmpty(apiKey))
                 {
