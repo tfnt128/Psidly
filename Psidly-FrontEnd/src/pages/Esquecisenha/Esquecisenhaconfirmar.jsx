@@ -12,6 +12,8 @@ export default function Esquecisenhaconfirmar(){
     const [mnsgOkay, setMnsgOkay] = useState("Senha redefinida. Aguarde e você será redirecionado para a tela de inicio."); /*alterar*/
     const [mnsgError, setMnsgError] = useState();
 
+
+
     return(
             <div>
                 <div className=" flex lg:hidden">
