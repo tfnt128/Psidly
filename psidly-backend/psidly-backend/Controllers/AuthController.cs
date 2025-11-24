@@ -380,5 +380,39 @@ namespace psidly_backend.Controllers
                 });
             }
         }
+        [HttpGet("profile")]
+        public async Task<ActionResult> GetProfile([FromQuery] string email)
+        {
+            try
+            {
+                var user = await _context.Users
+                    .FirstOrDefaultAsync(u => u.Email == email);
+
+                if (user == null)
+                {
+                    return NotFound(new
+                    {
+                        Success = false,
+                        Message = "Usuário não encontrado"
+                    });
+                }
+
+                return Ok(new
+                {
+                    Success = true,
+                    Nome = user.Name,
+                    Email = user.Email
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Erro ao buscar perfil: {ex.Message}");
+                return StatusCode(500, new
+                {
+                    Success = false,
+                    Message = "Erro interno do servidor"
+                });
+            }
+        }
     }
 }
