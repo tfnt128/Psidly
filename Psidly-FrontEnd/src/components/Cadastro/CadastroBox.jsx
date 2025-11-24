@@ -31,7 +31,7 @@ export default function CadastroBox({}){
 
 
     return(
-        <div className="flex flex-col items-center  bg-terciario rounded-[30px] lg:rounded-[100px] w-[80%] min-w-[80%] h-[800px] lg:h-[2200px] ">
+        <div className="flex flex-col items-center bg-terciario rounded-[30px] lg:rounded-[100px] w-[80%] min-w-[80%] min-h-[800px] lg:h-[2200px] pb-8 mb-8">
             <h1 className="font-lexenddeca color-terciario text-[20px] lg:text-[50px] mt-4">Cadastro</h1>
             <h2 className="font-lexenddeca color-terciario text-[12px] lg:text-[37px] w-[250px] lg:w-[600px] text-center m-4 lg:m-8">Informe abaixo o que se pede para realizar seu registro na plataforma</h2>
             <Input Style={"w-[80%] outline-none bg-primario p-[15px] lg:p-[55px] rounded-[15px] lg:rounded-[35px] lg:text-[40px] placeholder:text-[15px] lg:placeholder:text-[45px] placeholder:font-lexenddeca mt-[10px]"} 
