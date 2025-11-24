@@ -330,5 +330,55 @@ namespace psidly_backend.Controllers
                 });
             }
         }
+        [HttpDelete("delete-account")]
+        public async Task<ActionResult<AuthResponseDto>> DeleteAccount(DeleteAccountDto deleteDto)
+        {
+            try
+            {
+                Console.WriteLine($"🗑️ Tentativa de exclusão de conta: {deleteDto.Email}");
+
+                var user = await _context.Users
+                    .FirstOrDefaultAsync(u => u.Email == deleteDto.Email);
+
+                if (user == null)
+                {
+                    return Ok(new AuthResponseDto
+                    {
+                        Success = false,
+                        Message = "Email ou senha inválidos"
+                    });
+                }
+
+                if (!BCrypt.Net.BCrypt.Verify(deleteDto.Password, user.PasswordHash))
+                {
+                    Console.WriteLine($"❌ Senha incorreta para: {deleteDto.Email}");
+                    return Ok(new AuthResponseDto
+                    {
+                        Success = false,
+                        Message = "Email ou senha inválidos"
+                    });
+                }
+
+                _context.Users.Remove(user);
+                await _context.SaveChangesAsync();
+
+                Console.WriteLine($"✅ Conta excluída com sucesso: {deleteDto.Email}");
+
+                return Ok(new AuthResponseDto
+                {
+                    Success = true,
+                    Message = "Conta excluída com sucesso"
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Erro ao excluir conta: {ex.Message}");
+                return StatusCode(500, new AuthResponseDto
+                {
+                    Success = false,
+                    Message = "Erro interno do servidor"
+                });
+            }
+        }
     }
 }
