@@ -7,9 +7,13 @@ export default function Profilebox(){
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
 
-    useEffect(()=>{
-        getNomeProfile().then(nome => setNome(nome));
-        getEmailProfile().then(email => setEmail(email))
+    useEffect(() => {
+        const emailLocal = localStorage.getItem('resetPasswordEmail');
+        
+        if(emailLocal) {
+            getNomeProfile(emailLocal).then(nome => setNome(nome));
+            getEmailProfile(emailLocal).then(email => setEmail(email));
+        }
     }, [])
 
 

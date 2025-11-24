@@ -12,6 +12,9 @@ export default function BoxEmail({Style}){
     }
 
     const [email, setEmail] = useState("");
+
+
+    
     const handleEmail = async () => {
         console.log("🔵 Iniciando handleEmail");
         console.log("📧 Email digitado:", email);
@@ -24,6 +27,7 @@ export default function BoxEmail({Style}){
 
             if(response == true){
                 console.log("✔️ Sucesso! Redirecionando...");
+                localStorage.setItem('resetPasswordEmail', email);
                 goToCode();
             } else {
                 console.log("❌ Falha na requisição");

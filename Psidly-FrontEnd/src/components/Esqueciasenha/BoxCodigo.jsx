@@ -5,8 +5,19 @@ import { useNavigate } from "react-router-dom"
 import { postCodigoEsqueciSenha } from "../../services/api"
 
 export default function BoxCodigo(){
+    const navigator = useNavigate();
 
     const [time, setTime] = useState(null)
+
+    const email = localStorage.getItem('resetPasswordEmail');
+    
+    useEffect(() => {
+        if (!email) {
+            console.log("❌ Email não encontrado! Redirecionando...");
+            navigator("/esqueceuasenha");
+        }
+    }, [email, navigator]);
+
     useEffect(()=>{
         setTime(900)
         const timer = setInterval(()=>{
@@ -23,7 +34,7 @@ export default function BoxCodigo(){
         return ()=> clearInterval(timer);
     }, [])
 
-    const navigator = useNavigate();
+    
     function goToTempoEsg(){
         navigator("/esqueceuasenhatempoesgotado")
     }
@@ -36,9 +47,10 @@ export default function BoxCodigo(){
     const [codigo, setCodigo] = useState("");
     const handleCodigo = async () =>{
         try {
-            const resposta = await postCodigoEsqueciSenha(codigo);
+            const resposta = await postCodigoEsqueciSenha(email, codigo);
 
             if(resposta == true){
+                localStorage.setItem('resetPasswordCodigo', codigo);
                 goToConfirm();
             }
 

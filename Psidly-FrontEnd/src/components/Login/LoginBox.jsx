@@ -27,6 +27,8 @@ export default function LoginBox(){
         try {
             const response = await postLogin(email, senha);
             if (response == true){
+                localStorage.setItem('resetPasswordEmail', email);
+
                 goToHomepage();
             }
             

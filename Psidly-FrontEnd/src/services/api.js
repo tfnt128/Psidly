@@ -55,6 +55,9 @@ export async function postCodigoEsqueciSenha(email, codigo) {
 
 export async function postConfirmarSenha(email, codigo, senha, senhaConfirmada) {
     try {
+
+        console.log(senha);
+        console.log(senhaConfirmada);
         const response = await axios.post(`${API_URL}/reset-password`, {
             email: email,
             code: codigo,
@@ -94,20 +97,18 @@ export async function postCadastro(crp, nome, email, dataNasc, senha, senhaConfi
         throw err;  
     }
 }
-export async function getNomeProfile(){
+export async function getNomeProfile(email){
     try {
-        const response = await axios.get(`${API_URL}`);
-
+        const response = await axios.get(`${API_URL}/profile?email=${email}`);
         return response.data.nome;
     } catch (err) {
         console.log(err);
     }
 }
 
-export async function getEmailProfile(){
+export async function getEmailProfile(email){
     try {
-        const response = await axios.get(`${API_URL}`);
-
+        const response = await axios.get(`${API_URL}/profile?email=${email}`);
         return response.data.email;
     } catch (err) {
         console.log(err);
@@ -115,16 +116,25 @@ export async function getEmailProfile(){
 }
 
 
-export async function postSenhaExcluir({senhaExcluir}){
+export async function postSenhaExcluir(email, senhaExcluir){
     try {
-        const response = await axios.post(`${API_URL}`, {
-            senhaExcluir:senhaExcluir
+        const response = await axios.delete(`${API_URL}/delete-account`, {
+            data: {
+                email: email,
+                password: senhaExcluir
+            }
         })
 
-        return response.data;
-
+        alert(response.data.message);
         
+        if(response.data.success){
+            localStorage.clear();
+        }
+        
+        return response.data.success;
     } catch (err) {
         console.log(err);
+        alert("Erro ao excluir conta");
+        throw err;
     }
 }

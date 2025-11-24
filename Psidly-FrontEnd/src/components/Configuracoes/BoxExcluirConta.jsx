@@ -2,14 +2,23 @@ import { useState } from "react";
 import Button from "../General/Button";
 import Input from "../General/Input";
 import { postSenhaExcluir } from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 export default function BoxExcluirConta(){
+    const email = localStorage.getItem('resetPasswordEmail');
 
     const [senhaExcluir, setSenhaExcluir] = useState("");
 
+    const navigator = useNavigate();
+
     const handleSenhaExcluir = async ()=>{
         try {
-            const resposta = await postSenhaExcluir(senhaExcluir);
+            const resposta = await postSenhaExcluir(email, senhaExcluir);
+
+            if (resposta == true){
+                alert("Conta excluida")
+                navigator("/")
+            }
         } catch (err) {
             console.log(err);
         }
@@ -23,7 +32,7 @@ export default function BoxExcluirConta(){
                 PlaceHolder={"Digite sua senha"}
                 value={senhaExcluir}
                 setValue={setSenhaExcluir} />
-            <Button Style={"bg-alertbox w-[50%] lg:w-[30%] h-[70px] lg:h-[190px] rounded-[20px] lg:rounded-[50px] mt-[10%] color-secundario lg:text-[50px]"} Text={"Excluir"}/>
+            <Button Style={"bg-alertbox w-[50%] lg:w-[30%] h-[70px] lg:h-[190px] rounded-[20px] lg:rounded-[50px] mt-[10%] color-secundario lg:text-[50px]"} Text={"Excluir"} OnClickFunction={handleSenhaExcluir}/>
         </div>
     )
 }

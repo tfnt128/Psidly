@@ -15,12 +15,15 @@ export default function BoxConfirmar({Style, Okay, Error, MnsgOkay, MnsgError, s
         return ()=> clearTimeout(timer);
     }
 
+    const codigo = localStorage.getItem('resetPasswordCodigo');
+    const email = localStorage.getItem('resetPasswordEmail');
+
     const [senha, setSenha] = useState("");
     const [senhaConfirmada, setSenhaConfirmada] = useState("");
 
     const handleSenhaConfirmada = async () =>{
         try {
-            const response = await postConfirmarSenha(senha, senhaConfirmada);
+            const response = await postConfirmarSenha(email, codigo, senha, senhaConfirmada);
             if(response == true){
                 goToHome();
             }
