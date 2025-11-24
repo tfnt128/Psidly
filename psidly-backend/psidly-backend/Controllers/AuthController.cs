@@ -211,15 +211,46 @@ namespace psidly_backend.Controllers
                 var user = await _context.Users
                     .FirstOrDefaultAsync(u => u.Email == verifyDto.Email);
 
-                if (user == null ||
-                    user.ResetPasswordCode != verifyDto.Code ||
-                    user.ResetPasswordCodeExpiry == null ||
-                    user.ResetPasswordCodeExpiry < DateTime.UtcNow)
+                if (user == null)
                 {
                     return Ok(new AuthResponseDto
                     {
                         Success = false,
-                        Message = "Código inválido ou expirado"
+                        Message = "Usuário não encontrado"
+                    });
+                }
+
+                // LOG PARA DEBUG
+                Console.WriteLine($"🔍 Código enviado: {verifyDto.Code}");
+                Console.WriteLine($"🔍 Código armazenado: {user.ResetPasswordCode}");
+                Console.WriteLine($"🔍 Expira em: {user.ResetPasswordCodeExpiry}");
+                Console.WriteLine($"🔍 Hora atual (UTC): {DateTime.UtcNow}");
+                Console.WriteLine($"🔍 Expirado? {user.ResetPasswordCodeExpiry < DateTime.UtcNow}");
+
+                if (user.ResetPasswordCode != verifyDto.Code)
+                {
+                    return Ok(new AuthResponseDto
+                    {
+                        Success = false,
+                        Message = "Código incorreto"
+                    });
+                }
+
+                if (user.ResetPasswordCodeExpiry == null)
+                {
+                    return Ok(new AuthResponseDto
+                    {
+                        Success = false,
+                        Message = "Código não tem validade"
+                    });
+                }
+
+                if (user.ResetPasswordCodeExpiry < DateTime.UtcNow)
+                {
+                    return Ok(new AuthResponseDto
+                    {
+                        Success = false,
+                        Message = "Código expirado"
                     });
                 }
 
@@ -231,6 +262,7 @@ namespace psidly_backend.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"❌ Erro: {ex.Message}");
                 return StatusCode(500, new AuthResponseDto
                 {
                     Success = false,
@@ -292,6 +324,90 @@ namespace psidly_backend.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, new AuthResponseDto
+                {
+                    Success = false,
+                    Message = "Erro interno do servidor"
+                });
+            }
+        }
+        [HttpDelete("delete-account")]
+        public async Task<ActionResult<AuthResponseDto>> DeleteAccount(DeleteAccountDto deleteDto)
+        {
+            try
+            {
+                Console.WriteLine($"🗑️ Tentativa de exclusão de conta: {deleteDto.Email}");
+
+                var user = await _context.Users
+                    .FirstOrDefaultAsync(u => u.Email == deleteDto.Email);
+
+                if (user == null)
+                {
+                    return Ok(new AuthResponseDto
+                    {
+                        Success = false,
+                        Message = "Email ou senha inválidos"
+                    });
+                }
+
+                if (!BCrypt.Net.BCrypt.Verify(deleteDto.Password, user.PasswordHash))
+                {
+                    Console.WriteLine($"❌ Senha incorreta para: {deleteDto.Email}");
+                    return Ok(new AuthResponseDto
+                    {
+                        Success = false,
+                        Message = "Email ou senha inválidos"
+                    });
+                }
+
+                _context.Users.Remove(user);
+                await _context.SaveChangesAsync();
+
+                Console.WriteLine($"✅ Conta excluída com sucesso: {deleteDto.Email}");
+
+                return Ok(new AuthResponseDto
+                {
+                    Success = true,
+                    Message = "Conta excluída com sucesso"
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Erro ao excluir conta: {ex.Message}");
+                return StatusCode(500, new AuthResponseDto
+                {
+                    Success = false,
+                    Message = "Erro interno do servidor"
+                });
+            }
+        }
+        [HttpGet("profile")]
+        public async Task<ActionResult> GetProfile([FromQuery] string email)
+        {
+            try
+            {
+                var user = await _context.Users
+                    .FirstOrDefaultAsync(u => u.Email == email);
+
+                if (user == null)
+                {
+                    return NotFound(new
+                    {
+                        Success = false,
+                        Message = "Usuário não encontrado"
+                    });
+                }
+
+                return Ok(new
+                {
+                    Success = true,
+                    Nome = user.Name,
+                    Email = user.Email
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Erro ao buscar perfil: {ex.Message}");
+                return StatusCode(500, new
                 {
                     Success = false,
                     Message = "Erro interno do servidor"
