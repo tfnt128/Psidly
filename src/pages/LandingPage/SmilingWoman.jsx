@@ -1,17 +1,17 @@
 import SmilingW from "../../assets/icons_landingpage/feliz-removebg-preview.png"
 import FundoSmilingW from "../../assets/icons_landingpage/fundomulhersorrindo.png"
 
-export default function SmilingWoman({ClassName}){
+export default function SmilingWoman({ClassName, StyleFundo, StyleW}){
     return(
-    <div className="relative">
+    <div className=" flex flex-col items-center">
         <img
             src={FundoSmilingW}
-            className="aw-full"
+            className={`w-[200px] lg:w-[400px] ${StyleFundo}`}
         />
 
         <img
             src={SmilingW}
-            className="absolute top-12 w-[400px] "
+            className={`absolute ${StyleW} `}
         />
     </div>
     )
