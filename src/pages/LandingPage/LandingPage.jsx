@@ -8,6 +8,7 @@ import SmilingWoman from "./SmilingWoman"
 import Cerebro from "../../assets/icons/cerebro.png"
 import ThinkingW from "./ThinkingW"
 import PlanCard from "./PlanCard"
+import DownloadButton from "./DownlaodButton"
 
 export default function LandingPage() {
   return (
@@ -15,7 +16,9 @@ export default function LandingPage() {
       
       <div className=" flex flex-col items-center lg:flex-row lg:gap-80">
           <Title Style={"w-[160px] lg:w-[300px] lg:mr-[90px]"}/>
-          <Navbar idSobre={"#about"} idBeneficios={"#beneficios"}/>
+          <Navbar idSobre={"#about"} 
+          idBeneficios={"#beneficios"}
+          idPlanos={"#planos"}/>
       </div>
 
       <div className={`flex flex-col items-center lg:flex-row lg:gap-30`}>
@@ -40,9 +43,9 @@ export default function LandingPage() {
 
       </section>
 
-      <section className="flex flex-col items-center mt-[40px]" id="beneficios">
-          <h1 className="font-aboreto color-quarteriario text-[22px] lg:text-[27px]">Benefícios</h1>
-          <div className="flex lg:flex-row flex-col items-center lg:gap-80 lg:mt-[50px]">
+      <section className="flex flex-col items-center mt-[60px] lg:mt-[40px]" id="beneficios">
+          <h1 className="font-aboreto color-quarteriario text-[22px] lg:text-[27px] ">Benefícios</h1>
+          <div className="flex lg:flex-row flex-col items-center lg:gap-80 mt-[30px] lg:mt-[50px]">
             <BeneCard 
               Style=" w-[290px] h-[550px] lg:w-[435px] "
               Title="Para Psicólogos"
@@ -67,26 +70,37 @@ export default function LandingPage() {
           </div>
       </section>
 
-      <section className="mt-[110px] bg-terciario lg:h-[650px] h-[450px] w-full flex flex-col items-center">
+      <section className="mt-[110px] bg-terciario lg:h-[550px] h-[450px] w-full flex flex-col items-center" id="planos">
           <h1 className="font-aboreto color-terciario text-[22px] lg:text-[27px] mt-[25px]">Planos</h1>
-          <div className="flex flex-row items-center gap-5 mt-[30px]">
+          <div className="flex flex-row items-center lg:gap-5 gap-2 mt-[30px]">
             <PlanCard 
-              Style="w-[200px] lg:w-[300px] h-[220px] lg:h-[320px]" 
+              Style="w-[180px] lg:w-[300px] h-[250px] lg:h-[320px]" 
               Title="Freemium" 
-              item1="- Acesso aos gráficos de emoções" 
-              item2="- Sem uso de inteligência artificial"
+              item1=" Acesso aos gráficos de emoções" 
+              item2=" Sem uso de inteligência artificial"
               int="00"
               cent=",00"
+              StyleP2="ml-[10px] lg:ml-[4px]"
             />
             <PlanCard 
-              Style="w-[200px] lg:w-[300px] h-[270px] lg:h-[370px]" 
+              Style="w-[180px] lg:w-[300px] h-[300px] lg:h-[370px]" 
               Title="Premium" 
-              item1="- Acesso aos gráficos de emoções" 
-              item2="- Auxilio de uma inteligência artificial para resumir e verbalizar gráficos"
+              item1=" Acesso aos gráficos de emoções" 
+              item2=" Auxilio de uma inteligência artificial para resumir e verbalizar gráficos"
               int="19"
               cent=",00"
+              StyleP2="ml-[17px]"
             />
           </div>
+      </section>
+
+      <section className="flex flex-col items-center">
+        <div className="flex flex-col items-center mt-[60px] lg:mt-[150px]">
+          <h1 className="font-inter mr-[90px] text-[22px]">Clique no botão abaixo e </h1>
+          <h1 className="font-aboreto color-secundario ml-[50px] text-[40px]">Baixe agora!</h1>
+        </div>
+
+        <DownloadButton Style="w-[90%] h-[80px] text-white mt-[40px] bg-terciario rounded-[35px] font-aboreto text-[23px]" Text="Download"/>
       </section>
     </div>
   )
