@@ -6,6 +6,8 @@
 html, body {
   overflow-x: hidden;
   overflow-y: auto;
+  scroll-behavior: smooth;
+
 }
 
 
@@ -44,6 +46,10 @@ html, body {
 
   .bg-quarternario{
     background-color: #7091E4;
+  }
+
+  .bg-plan{
+    background-color: #d9d9d9;
   }
 
   .bg-alertbox{
