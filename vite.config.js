@@ -19,17 +19,18 @@ export default defineConfig({
         "masked-icon.svg",
       ],
       manifest: {
-        name: "Minha Aplicação",
-        short_name: "MeuApp",
-        description: "Minha aplicação React PWA",
+        name: "Psidly APP",
+        short_name: "Psidly",
+        description: "",
         theme_color: "#0f172a",
         background_color: "#0f172a",
         display: "standalone",
-        start_url: "/",
+        start_url: "/loading",
+        scope: "/",
         icons: [
           {
-            src: "/pwa-192x192.png",
-            sizes: "192x192",
+            src: "/pwa-200x200.png",
+            sizes: "200x200",
             type: "image/png",
           },
           {
