@@ -16,17 +16,6 @@ namespace Psidly.Shared.Data.Data
         {
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL")
-                    ?? "Host=localhost;Database=Psidly;Username=postgres;Password=postgres";
-
-                optionsBuilder
-                    .UseNpgsql(connectionString)
-                    .UseLazyLoadingProxies();
-            }
-        }
+        
     }
 }
