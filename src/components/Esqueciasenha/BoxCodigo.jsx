@@ -44,16 +44,18 @@ export default function BoxCodigo({setResponseEmail, setBgOkay}){
     const handleCodigo = async () =>{
         try {
             setStandState(true);
+            console.log("chamando função")
             const resposta = await postCodigoEsqueciSenha(email, codigo);
+            console.log("chamou a função")
 
             if(resposta.success == true){
+                localStorage.setItem("codigoSenha", codigo)
                 setStandState(false);
-                localStorage.setItem('resetPasswordCodigo', codigo);
                 setResponseEmail(resposta.message);
-                console.log("codigo ok")
+                console.log("codigo ok")  //debug
                 setBgOkay("bg-terciario");
                 goToConfirm();
-                console.log("boa codigo correto");
+                console.log("boa codigo correto"); //debug
             }
             else{
                 setStandState(false);

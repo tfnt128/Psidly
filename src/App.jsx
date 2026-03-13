@@ -12,7 +12,6 @@ import Graphicspage from './pages/Graphicspage/Graphicspage';
 import Profilepage from './pages/Profilepage/Profilepage';
 import Configuracoes from './pages/Configuracoes/Configuracoes';
 import ExcluirConta from './pages/Configuracoes/ExcluirConta';
-import LandingPage from './pages/LandingPage/LandingPage';
 
 
 function App() {
@@ -20,8 +19,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LandingPage/>}/>
-          <Route path="/loading" element={<LoadingPage/>}/>
+          <Route path="/" element={<LoadingPage/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/cadastro" element={<Cadastropage/>}/>
           <Route path="/esqueceuasenha" element={<Esquecisenha/>}/>

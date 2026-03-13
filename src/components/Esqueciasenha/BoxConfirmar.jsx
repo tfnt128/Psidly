@@ -15,8 +15,8 @@ export default function BoxConfirmar({Style, Okay, Error, MnsgOkay, MnsgError, s
         return ()=> clearTimeout(timer);
     }
 
-    const codigo = localStorage.getItem('resetPasswordCodigo');
-    const email = localStorage.getItem('resetPasswordEmail');
+    const codigo = localStorage.getItem('codigoSenha');
+    const email = localStorage.getItem('email');
 
     const [senha, setSenha] = useState("");
     const [senhaConfirmada, setSenhaConfirmada] = useState("");

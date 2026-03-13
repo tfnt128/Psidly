@@ -6,7 +6,7 @@ import Homemenuaside from "../../components/Homepage/Homemenuaside";
 export default function Homepage(){
     return(
         <div className="min-h-screen flex flex-col">
-            <Homeheader/>
+            {/* <Homeheader/> */}
 
             <div className="fixed  bottom-[120px] lg:right-30 right-4 ">
                 <AddButton/>
@@ -15,7 +15,7 @@ export default function Homepage(){
             <div className="fixed lg:hidden bottom-0 left-0 w-full ">
                 <Homemenu BgSelectPsi={"bg-quarternario"} />
             </div>
-            <div className="hidden lg:flex lg:fixed bottom-0 left-0 h-[calc(100vh-300px)] w-[10%] ">
+            <div className="hidden lg:flex lg:fixed bottom-0 left-0 h-full w-[10%] ">
                 <Homemenuaside BgSelectPsi={"bg-quarternario"} />
             </div>
         </div>

@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const API_URL = "https://psidly.onrender.com/api/auth";
+const API_URL = "http://psidly-api-env-env.eba-jiwtkzde.us-east-2.elasticbeanstalk.com/api/auth";
 
 export async function postLogin(email, senha){
     try {
@@ -17,27 +17,29 @@ export async function postLogin(email, senha){
 }
 
 export async function postEmailEsqueciSenha(email) {
-    console.log("📤 postEmailEsqueciSenha chamado com:", email);
+    console.log(" postEmailEsqueciSenha chamado com:", email);
     
     try {
         const response = await axios.post(`${API_URL}/forgot-password`, {
             email: email
         })
 
-        console.log("📥 Resposta da API:", response.data);
+        console.log(" Resposta da API:", response.data);
         return response.data;
     } catch (err) {
-        console.log("❗ Erro na requisição:", err);
-        console.log("❗ Detalhes:", err.response?.data);
+        console.log(" Erro na requisição:", err);
+        console.log("Detalhes:", err.response?.data);
         throw err;
     }
 }
+
 export async function postCodigoEsqueciSenha(email, codigo) {
     try {
         const response = await axios.post(`${API_URL}/verify-reset-code`, {
             email: email,
             code: codigo
         })
+        console.log(response.data)
 
 
         return response.data;
@@ -49,6 +51,7 @@ export async function postCodigoEsqueciSenha(email, codigo) {
 
 export async function postConfirmarSenha(email, codigo, senha, senhaConfirmada) {
     try {
+        console.log("📦 ENVIANDO PRO C#:", { email: email, code: codigo, newPassword: senha, confirmPassword: senhaConfirmada });
 
         console.log(senha);
         console.log(senhaConfirmada);
@@ -59,8 +62,8 @@ export async function postConfirmarSenha(email, codigo, senha, senhaConfirmada) 
             confirmPassword: senhaConfirmada
         }); 
 
-        console.log(response.data);
-        alert(response.data.message)
+        console.log(response.data);  //debug
+        alert(response.data.message)  //debug
 
         return response.data.success;
     } catch (err) {
@@ -73,24 +76,25 @@ export async function postConfirmarSenha(email, codigo, senha, senhaConfirmada) 
 export async function postCadastro(crp, nome, email, dataNasc, senha, senhaConfirmada) {
     try {
         const response = await axios.post(`${API_URL}/register`, {
+            crp: crp,
             name: nome,              
             email: email,
-            crp: crp,
             birthDate: dataNasc,     
             password: senha,         
             confirmPassword: senhaConfirmada  
         })
 
         if(response.data.success == false){
-            alert(response.data.message);
+            alert(response.data.message);  //debug
         }
         
         return response.data.success;
     } catch (err) {
-        console.log(err);
+        console.log(err);  //debug
         throw err;  
     }
 }
+
 export async function getNomeProfile(email){
     try {
         const response = await axios.get(`${API_URL}/profile?email=${email}`);
