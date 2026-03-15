@@ -66,12 +66,13 @@ export default function BoxEmail({Style, setBgOkay, setResponseEmail}){
                 value={email}
                 setValue={setEmail}/>
             <div className=" w-full flex flex-row items-center justify-center gap-3">
-                <Button Style={"w-[45%] lg:w-[45%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[170px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white mt-8 transition duration-300 ease-in-out"} Text={"Enviar código"} OnClickFunction={handleEmail}/>
                 <Button 
-                    Style={"w-[45%] mt-8 lg:mt-10 bg-alertbox color-secundario min-w-[130px] min-h-[60px] lg:h-[170px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white hover:color-primario transition duration-300 ease-in-out"} 
+                    Style={"w-[30%] mt-8 lg:mt-10 bg-alertbox color-secundario min-w-[130px] min-h-[60px] lg:h-[170px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-red-400 hover:color-primario transition duration-300 ease-in-out"} 
                     Text={"Voltar"} 
                     OnClickFunction={handleVoltar}
                 />
+                <Button Style={"w-[35%] lg:w-[30%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[170px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white mt-8 transition duration-300 ease-in-out"} Text={"Enviar código"} OnClickFunction={handleEmail}/>
+
             </div>
 
         </div>

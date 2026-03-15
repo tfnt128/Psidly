@@ -65,7 +65,7 @@ export default function Login(){
                     {okayNotifInfo == "invalido" && <OkayNotf bgColor={"bg-alertbox"} Mnsg={responseLogin}/>}
                     {okayNotifInfo == "valido" && <OkayNotf bgColor={"bg-terciario"} Mnsg={responseLogin}/>}
                     <LoginBox setOkayNotifInfo={setOkayNotifInfo} setResponseLogin={setResponseLogin}/>
-                    <DownloadButton Style="w-[75%] h-[10%] text-white mt-[40px] bg-terciario rounded-[65px] mb-[100px] font-aboreto text-[23px]  transition-all duration-300 hover:shadow-[0_0_30px_rgba(154,200,255,0.8)] hover:scale-105" 
+                    <DownloadButton Style="w-[75%] h-[10%] text-white mt-[40px] bg-terciario rounded-[65px] mb-[100px] font-aboreto text-[43px]  transition-all duration-300 hover:shadow-[0_0_30px_rgba(154,200,255,0.8)] hover:scale-105" 
                             Text="Download APP"
                             onClickFunction={handleInstallPWA}/>
                     
