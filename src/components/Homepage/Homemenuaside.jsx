@@ -23,9 +23,9 @@ export default function Homemenuaside({BgSelectGraph, BgSelectPerfil, BgSelectPs
     return(
 
             <div className="bg-secundario flex flex-col h-full w-full">
-                <Button Style={`w-full h-[20%] flex ${BgSelectPsi} justify-center items-center`} Src={Psico} ImgStyle={"w-[105px]"} OnClickFunction={goToHomePage} />
-                <Button Style={`w-full h-[20%] flex justify-center items-center ${BgSelectGraph}`} Src={SimbGraph} ImgStyle={"w-[105px]"} OnClickFunction={goToGraphicsPage} />
-                <Button Style={`w-full h-[20%] mt-[170%] flex justify-center items-center ${BgSelectPerfil}`} Src={simbperfil} ImgStyle={"w-[145px]"}  OnClickFunction={gotToProfilePage} />
+                <Button Style={`w-full h-[70%] flex ${BgSelectPsi} justify-center items-center ease-in-out transition hover:bg-blue-200 hover:duration-300`} Src={Psico} ImgStyle={"w-[105px]"} OnClickFunction={goToHomePage} />
+                <Button Style={`w-full h-[70%] flex justify-center items-center ease-in-out transition hover:bg-blue-200 hover:duration-300 ${BgSelectGraph}`} Src={SimbGraph} ImgStyle={"w-[105px]"} OnClickFunction={goToGraphicsPage} />
+                <Button Style={`w-full h-full mt-[170%] flex justify-center items-center ease-in-out transition hover:bg-blue-200 hover:duration-300 ${BgSelectPerfil}`} Src={simbperfil} ImgStyle={"w-[145px]"}  OnClickFunction={gotToProfilePage} />
             </div>
 
     )

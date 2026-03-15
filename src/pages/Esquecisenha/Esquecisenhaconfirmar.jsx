@@ -19,7 +19,7 @@ export default function Esquecisenhaconfirmar(){
                 <div className=" flex lg:hidden">
                     <div className="w-full h-screen bg-linear-to-b from-[#ffffff] to-[#9AC8FF] flex flex-col items-center">
                         <Title Style={'w-[25%] lg:w-[20%]'}/>
-                        <BoxConfirmar Okay={Okay} Error={Error} MnsgOkay={mnsgOkay} MnsgError={mnsgError} setOkay={setOkay} setError={setError} />
+                        <BoxConfirmar Okay={Okay} Error={Error}  setOkay={setOkay} setError={setError} />
                     </div>
     
                 </div>
@@ -27,7 +27,7 @@ export default function Esquecisenhaconfirmar(){
                     <div className="w-[50%] h-screen bg-linear-to-b from-[#ffffff] to-[#9AC8FF] flex flex-col items-center">
                         <Title Style={'w-[25%] lg:w-[20%]'}/>
 
-                        <BoxConfirmar Okay={Okay} Error={Error} MnsgOkay={mnsgOkay} MnsgError={mnsgError} setOkay={setOkay} setError={setError} />
+                        <BoxConfirmar Okay={Okay} Error={Error}  setOkay={setOkay} setError={setError} />
 
 
                     </div>

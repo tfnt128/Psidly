@@ -26,20 +26,24 @@ export default function BoxEmail({Style, setBgOkay, setResponseEmail}){
             
 
             if(response.success == true){
-                console.log("entrou no true")
-                localStorage.setItem('resetPasswordEmail', email);
+                localStorage.setItem("email", email)
+                console.log("entrou no true") //debug
                 setBgOkay("bg-terciario");
 
                 goToCode();
             } else {
-                console.log("❌ Falha na requisição");
+                console.log(" Falha na requisição"); //debug
                 setBgOkay("bg-alertbox");
                 setResponseEmail(response.message);
             }
 
         } catch (err) {
-            console.log("🔴 Erro capturado:", err);
+            console.log("Erro capturado:", err); //debug
         }
+    }
+    
+    const handleVoltar = ()=>{ 
+        navigator("/login") 
     }
 
     const [standState, setStandState] = useState(false);
@@ -61,8 +65,16 @@ export default function BoxEmail({Style, setBgOkay, setResponseEmail}){
                 Type={"email"}
                 value={email}
                 setValue={setEmail}/>
-            <Button Style={"w-[50%] lg:w-[40%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[170px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white mt-8 transition duration-300 ease-in-out"} Text={"Enviar código"} OnClickFunction={handleEmail}/>
-                
+            <div className=" w-full flex flex-row items-center justify-center gap-3">
+                <Button 
+                    Style={"w-[30%] mt-8 lg:mt-10 bg-alertbox color-secundario min-w-[130px] min-h-[60px] lg:h-[170px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-red-400 hover:color-primario transition duration-300 ease-in-out"} 
+                    Text={"Voltar"} 
+                    OnClickFunction={handleVoltar}
+                />
+                <Button Style={"w-[35%] lg:w-[30%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[170px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white mt-8 transition duration-300 ease-in-out"} Text={"Enviar código"} OnClickFunction={handleEmail}/>
+
+            </div>
+
         </div>
     )
 

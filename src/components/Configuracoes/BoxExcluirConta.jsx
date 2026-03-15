@@ -16,7 +16,7 @@ export default function BoxExcluirConta(){
             const resposta = await postSenhaExcluir(email, senhaExcluir);
 
             if (resposta == true){
-                alert("Conta excluida")
+                alert("Conta excluida")  //tochange
                 navigator("/")
             }
         } catch (err) {
