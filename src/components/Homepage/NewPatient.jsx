@@ -1,5 +1,6 @@
 import ProfilePhoto from "../../assets/icons/profilephoto.jpg"
 import { useState, useRef } from "react";
+import Input from "../General/Input";
 
 
 
@@ -29,6 +30,25 @@ export default function NewPatient(){
                 className="hidden"
                 onChange={handleFoto}
             />
+
+            <Input PlaceHolder={"Insira o nome do paciente"}
+                Style={"w-[90%] h-[50px] p-3 rounded-[10px] bg-white mt-10"}/>
+
+            <Input PlaceHolder={"Insira o CPF"}
+                Style={"w-[90%] h-[50px] p-3 rounded-[10px] bg-white mt-6"}/>
+            <Input PlaceHolder={"Insira o e-mail"}
+                Style={"w-[90%] h-[50px] p-3 rounded-[10px] bg-white mt-6"}
+                Type={"email"}/>
+            <Input PlaceHolder={"Crie uma senha para o paciente"}
+                Style={"w-[90%] h-[50px] p-3 rounded-[10px] bg-white mt-6"}
+                Type={"password"}/>
+            <Input PlaceHolder={"Insira o telefone do paciente"}
+                Style={"w-[90%] h-[50px] p-3 rounded-[10px] bg-white mt-6"}
+                Type={"number"}/>
+            <h3 className="text-[10px] font-aboreto mt-3">Insira a data de nascimento</h3>
+            <Input PlaceHolder={"Insira a data de nascimento"}
+                Type={"date"}
+                Style={"w-[40%] h-[50px] p-3 rounded-[10px] bg-white mt-1"}/>
         </div>
     )
 }
