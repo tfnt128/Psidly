@@ -51,7 +51,7 @@ export default function LoginBox({setOkayNotifInfo, setResponseLogin}){
     }
 
     return(
-        <div className={`relative flex flex-col items-center mt-20 bg-terciario rounded-[30px] lg:rounded-[80px] w-[80%] min-w-[80%] h-[510px] lg:h-[1500px]`}>
+        <div className={`relative flex flex-col items-center mt-20 bg-terciario rounded-[30px] lg:rounded-[80px] w-[80%] min-w-[80%] h-[810px] lg:h-[1500px]`}>
             {
                 standState &&
                     <div className="absolute inset-0 bg-black/90 rounded-[30px] lg:rounded-[80px] z-10 flex flex-col items-center">
@@ -76,7 +76,7 @@ export default function LoginBox({setOkayNotifInfo, setResponseLogin}){
                 <h2 className="font-lexenddeca text-[12px] lg:text-[40px] color-terciario"><a onClick={goToEsqueciSenha} className="hover:cursor-pointer hover:color-secundario transition duration-300 ease-in-out">Esqueceu a senha?</a></h2>
             </div>
 
-            <div className="flex lg:w-[800px] flex-row  items-center gap-2.5 lg:gap-5 mt-[60px] lg:mt-[90px]">
+            <div className="flex lg:w-[800px] flex-row  items-center gap-2.5 lg:gap-5 mt-[30px] lg:mt-[90px]">
                 <Button Style={"w-[80%] bg-secundario color-quarternario w-[90%] min-w-[130px] min-h-[60px] lg:h-[150px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white transition duration-300 ease-in-out"} Text={"Cadastrar"} OnClickFunction={goToCadastro}/>
                 <Button Style={"w-[80%] bg-secundario color-quarternario min-w-[130px] min-h-[60px] lg:h-[150px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white transition duration-300 ease-in-out"} Text={"Entrar"} OnClickFunction={handleLogin}/>
             </div>

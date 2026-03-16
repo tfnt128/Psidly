@@ -40,6 +40,8 @@ export default function Login(){
 
         setDeferredPrompt(null);
         setCanInstall(false);
+        console.log("beforeinstallprompt disparou!") 
+
 
         const navigate = useNavigate()
         navigate("/")
