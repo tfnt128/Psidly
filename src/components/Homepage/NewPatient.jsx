@@ -3,10 +3,11 @@ import { useState, useRef } from "react";
 import Input from "../General/Input";
 import Button from "../General/Button"
 import LoadingCircle from "../Animations/LoadingCircle";
+import MessagePad from "../General/MessagePad";
 
 
 
-export default function NewPatient(){
+export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, setTextBtnMessagePad, setScreenBlur, setSlide}){
     const [foto, setFoto] = useState(null);
     const inputRef = useRef(null);
 
@@ -25,7 +26,12 @@ export default function NewPatient(){
     const [standState, setStandState] = useState(false)
 
     function handleAddPatient(){
-        setStandState(true)
+        // setStandState(true)
+        setSlide("animate-slide-up")
+        setScreenBlur(false)
+        setMessageOk(true)
+        setTextMessagePad("Paciente adicionado com sucesso")
+        setTextBtnMessagePad("Ok")
     }
 
     return(
@@ -36,6 +42,7 @@ export default function NewPatient(){
                         <LoadingCircle/>
                     </div>
             }
+
             <h1 className="font-aboreto text-[30px] mt-3">Novo paciente</h1>
 
             <img

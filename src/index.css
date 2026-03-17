@@ -29,7 +29,25 @@ html, body {
   font-family: var(--font-inter);
 }
 
+@keyframes slideUp {
+    0% { transform: translateY(100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideDown {
+    0% { transform: translateY(-100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
 @layer utilities{
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .animate-slide-down{
+    animation: slideDown 0.3s ease-out
+  }
 
   .bg-primario{
     background-color: #fff;

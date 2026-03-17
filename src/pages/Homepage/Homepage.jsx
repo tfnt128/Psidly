@@ -5,6 +5,7 @@ import Homeheader from "../../components/Homepage/Homeheader";
 import Homemenu from "../../components/Homepage/Homemenu";
 import Homemenuaside from "../../components/Homepage/Homemenuaside";
 import NewPatient from "../../components/Homepage/NewPatient";
+import MessagePad from "../../components/General/MessagePad";
 
 export default function Homepage(){
 
@@ -13,6 +14,17 @@ export default function Homepage(){
     function openNewPatientModal(){
         setScreenBlur(true)
         setAnimationSpaw("animate-fade animate-duration-[300ms]")
+    }
+
+    const [messageOk, setMessageOk] = useState(false)
+    const [textMessagePad, setTextMessagePad] = useState()
+    const [textBtnMessagePad, setTextBtnMessagePad] = useState()
+
+    const[slide, setSlide] = useState()
+
+    function closeMsgPad(){
+        setMessageOk(false)
+
     }
 
     return(
@@ -27,11 +39,22 @@ export default function Homepage(){
 
                     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center pointer-events-none">
                         <div className={`pointer-events-auto flex flex-col items-center ${animationSpaw} justify-center`}>
-                            <NewPatient onClose={() => setScreenBlur(false)} />
+                            <NewPatient onClose={() => setScreenBlur(false)} 
+                                setMessageOk={setMessageOk}
+                                setTextMessagePad={setTextMessagePad}
+                                setTextBtnMessagePad={setTextBtnMessagePad} 
+                                setScreenBlur={setScreenBlur}
+                                setSlide={setSlide}/>
                         </div>
                     </div>
                 </>
             )}
+            {
+                messageOk &&
+                    <div className="absolute h-full w-full inset-0 bg-black/80 z-10 flex flex-col items-center">
+                        <MessagePad Text={textMessagePad} textButton={textBtnMessagePad} OnClickFunction={closeMsgPad} Slide={slide}/>
+                    </div>
+            }
 
             <div className="fixed  bottom-[120px] lg:right-30 right-4 ">
                 <AddButton onClickFunction={openNewPatientModal}/>
