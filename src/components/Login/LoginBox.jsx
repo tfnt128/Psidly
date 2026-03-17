@@ -51,7 +51,7 @@ export default function LoginBox({setOkayNotifInfo, setResponseLogin}){
     }
 
     return(
-        <div className={`relative flex flex-col items-center mt-20 bg-terciario rounded-[30px] lg:rounded-[80px] w-[80%] min-w-[80%] h-[810px] lg:h-[1500px]`}>
+        <div className={`relative flex flex-col items-center mt-20 bg-terciario rounded-[30px] lg:rounded-[80px] w-[80%] min-w-[80%] h-[850px] lg:h-[1500px]`}>
             {
                 standState &&
                     <div className="absolute inset-0 bg-black/90 rounded-[30px] lg:rounded-[80px] z-10 flex flex-col items-center">
