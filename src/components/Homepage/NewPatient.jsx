@@ -27,10 +27,15 @@ export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, 
 
     function handleAddPatient(){
         // setStandState(true)
-        setSlide("animate-slide-up")
+        if(window.innerWidth >= 1024){
+            setSlide("animate-slide-left")
+        }
+        else{
+            setSlide("animate-slide-up")
+        }
         setScreenBlur(false)
         setMessageOk(true)
-        setTextMessagePad("Paciente adicionado com sucesso")
+        setTextMessagePad("Paciente adicionado com sucesso.")
         setTextBtnMessagePad("Ok")
     }
 

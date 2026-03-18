@@ -39,11 +39,23 @@ html, body {
     100% { transform: translateY(0); opacity: 1; }
 }
 
+@keyframes slideLeft {
+    0% { transform: translateX(-100%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+
+
 @layer utilities{
 
   .animate-slide-up {
     animation: slideUp 0.3s ease-out;
   }
+
+  .animate-slide-left{
+    animation: slideLeft 0.3s ease-out
+  }
+
 
   .animate-slide-down{
     animation: slideDown 0.3s ease-out

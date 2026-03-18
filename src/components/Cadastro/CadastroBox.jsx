@@ -4,6 +4,7 @@ import { use, useState } from "react";
 import { postCadastro } from "../../services/api";
 import { data, useNavigate } from "react-router-dom";
 import LoadingCircle from "../Animations/LoadingCircle";
+import ConvOption from "./ConvOption";
 
 export default function CadastroBox({}){
     
@@ -37,9 +38,16 @@ export default function CadastroBox({}){
         navigator("/login") 
     }
 
+    const [name, setName] = useState("");
+    const [selected, setSelected] = useState("");
+
+    function handleOk(){
+        setNome(selected);
+    }
+
 
     return(
-            <div className="relative flex flex-col items-center bg-terciario rounded-[30px] lg:rounded-[100px] w-[80%] min-w-[80%] min-h-[800px] lg:h-[2200px] pb-8 mb-8">
+            <div className="relative flex flex-col items-center bg-terciario rounded-[30px] lg:rounded-[100px] w-[80%] min-w-[80%] min-h-[1600px] lg:h-[3000px] pb-8 mb-8">
                 
                 {
                     standState &&
@@ -80,6 +88,44 @@ export default function CadastroBox({}){
                 Type={"password"}
                 value={senhaConfirmada}
                 setValue={setSenhaConfirmada}/>
+            <label className="mt-[15px] lg:mt-[60px] font-lexenddeca color-terciario lg:text-[37px]">Selecione os convênios que você atende</label>
+            <div className="flex flex-row items-center gap-5">
+                <select 
+                    value={selected}
+                    onChange={(e) => setSelected(e.target.value)}
+                    className="w-[90%] h-[110px] lg:h-[170px] rounded-[15px] bg-white lg:rounded-[35px] p-2 lg:p-[55px] lg:text-[40px] outline-none border-none mt-[27px] lg:mt-[20px]"
+                >
+                    <option>Amil</option>
+                    <option>Bradesco Saúde</option>
+                    <option>SulAmérica</option>
+                    <option>Unimed</option>
+                    <option>NotreDame Intermédica</option>
+                    <option>Porto Seguro Saúde</option>
+                    <option>Hapvida</option>
+                    <option>Cassi</option>
+                    <option>Geap</option>
+                    <option>Omint</option>
+                    <option>Care Plus</option>
+                    <option>Allianz Saúde</option>
+                    <option>Golden Cross</option>
+                    <option>Prevent Senior</option>
+                    <option>Ameplan</option>
+                    <option>Assim Saúde</option>
+                    <option>Clinipam</option>
+                    <option>Green Line</option>
+                    <option>MedSenior</option>
+                    <option>Trasmontano</option>
+                    <option>Unimed Seguros</option>
+                    <option>Particular</option>
+                </select>
+                <Button Style={"w-[30%] h-[140px] text-[30px] hover:bg-white transition duration-300 ease-in-out hover:text-black font-lexenddeca rounded-[20px] text-white bg-quarternario"} OnClickFunction={handleOk} Text={"Ok"}
+                    />
+            </div>
+
+            <div className="grid grid-cols-4 gap-2 mt-5">
+                <ConvOption name={name}/>
+            </div>
+
             <div className="flex flex-col mr-5 mt-5 lg:mt-15">
                 <h1 className="text-[12px] lg:text-[35px] font-lexenddeca color-terciario "><a>Termos e condições de uso</a></h1>
                 <div className="flex flex-row mt-4 gap-1">
@@ -88,6 +134,8 @@ export default function CadastroBox({}){
                 </div>
                 
             </div>
+
+
             <div className="w-full flex flex-row items-center gap-3 justify-center">
             <Button 
                 Style={"w-[45%] mt-5 lg:mt-15 bg-alertbox color-secundario min-w-[130px] min-h-[60px] lg:h-[150px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white hover:color-primario transition duration-300 ease-in-out"} 

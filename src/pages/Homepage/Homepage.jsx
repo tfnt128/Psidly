@@ -63,7 +63,7 @@ export default function Homepage(){
             <div className="fixed lg:hidden bottom-0 left-0 w-full ">
                 <Homemenu BgSelectPsi={"bg-quarternario"} />
             </div>
-            <div className="hidden lg:flex lg:fixed bottom-0 left-0 h-full w-[10%] ">
+            <div className="hidden lg:flex lg:fixed bottom-0 left-0 h-full w-[10%]">
                 <Homemenuaside BgSelectPsi={"bg-quarternario"} />
             </div>
         </div>
