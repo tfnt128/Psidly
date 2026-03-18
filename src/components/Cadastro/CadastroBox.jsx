@@ -38,16 +38,18 @@ export default function CadastroBox({}){
         navigator("/login") 
     }
 
-    const [name, setName] = useState("");
-    const [selected, setSelected] = useState("");
-
+    const [convs, setConvs] = useState([]);
+    const [selected, setSelected] = useState("Amil");
     function handleOk(){
-        setNome(selected);
+        if(selected && !convs.includes(selected)){
+            setConvs([...convs, selected]);
+        }
+
     }
 
 
     return(
-            <div className="relative flex flex-col items-center bg-terciario rounded-[30px] lg:rounded-[100px] w-[80%] min-w-[80%] min-h-[1600px] lg:h-[3000px] pb-8 mb-8">
+            <div className="relative flex flex-col items-center bg-terciario rounded-[30px] lg:rounded-[100px] w-[80%] min-w-[80%] min-h-[1600px] lg:min-h-[3000px] pb-8 mb-8">
                 
                 {
                     standState &&
@@ -123,7 +125,14 @@ export default function CadastroBox({}){
             </div>
 
             <div className="grid grid-cols-4 gap-2 mt-5">
-                <ConvOption name={name}/>
+                {convs.map((conv, index) => (
+                    <ConvOption 
+                        key={index} 
+                        name={conv} 
+                        onRemove={() => setConvs(convs.filter((_, i) => i !== index))}
+                    />
+                ))}
+                {/* <ConvOption name={name}/> */}
             </div>
 
             <div className="flex flex-col mr-5 mt-5 lg:mt-15">
@@ -136,7 +145,7 @@ export default function CadastroBox({}){
             </div>
 
 
-            <div className="w-full flex flex-row items-center gap-3 justify-center">
+            <div className="w-full flex flex-row items-center gap-3 justify-center bottom-0">
             <Button 
                 Style={"w-[45%] mt-5 lg:mt-15 bg-alertbox color-secundario min-w-[130px] min-h-[60px] lg:h-[150px] rounded-[15px] lg:rounded-[30px] font-lexenddeca text-[15px] lg:text-[40px] hover:bg-white hover:color-primario transition duration-300 ease-in-out"} 
                 Text={"Voltar"} 
