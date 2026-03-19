@@ -26,17 +26,17 @@ export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, 
     const [standState, setStandState] = useState(false)
 
     function handleAddPatient(){
-        setStandState(true)
-        // if(window.innerWidth >= 1024){
-        //     setSlide("animate-slide-left")
-        // }
-        // else{
-        //     setSlide("animate-slide-up")
-        // }
-        // setScreenBlur(false)
-        // setMessageOk(true)
-        // setTextMessagePad("Paciente adicionado com sucesso.")
-        // setTextBtnMessagePad("Ok")
+        // setStandState(true)
+        if(window.innerWidth >= 1024){
+            setSlide("animate-slide-left")
+        }
+        else{
+            setSlide("animate-slide-up")
+        }
+        setScreenBlur(false)
+        setMessageOk(true)
+        setTextMessagePad("Paciente adicionado com sucesso.")
+        setTextBtnMessagePad("Ok")
     }
 
     return(

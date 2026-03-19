@@ -124,7 +124,7 @@ export default function CadastroBox({}){
                     />
             </div>
 
-            <div className="grid grid-cols-3 gap-2 lg:gap-2 w-[75%] mt-5">
+            <div className="grid grid-cols-2 gap-2 lg:gap-2 w-[90%] mt-5">
                 {convs.map((conv, index) => (
                     <ConvOption 
                         key={index} 
