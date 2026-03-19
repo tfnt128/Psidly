@@ -49,7 +49,7 @@ export default function CadastroBox({}){
 
 
     return(
-            <div className="relative flex flex-col items-center bg-terciario rounded-[30px] lg:rounded-[100px] w-[80%] min-w-[80%] min-h-[1600px] lg:min-h-[3000px] pb-8 mb-8">
+            <div className="relative flex flex-col items-center bg-terciario rounded-[30px] lg:rounded-[100px] w-[80%] min-w-[80%] pb-8 mb-8">
                 
                 {
                     standState &&
@@ -64,12 +64,12 @@ export default function CadastroBox({}){
                 Type={"text"}
                 value={crp}
                 setValue={setCrp}/>
-            <Input Style={"w-[80%] outline-none bg-primario p-[15px] lg:p-[55px] rounded-[15px] lg:rounded-[35px] lg:text-[40px] placeholder:text-[15px] lg:placeholder:text-[45px] placeholder:font-lexenddeca mt-[27px] lg:mt-[60px]"} 
+            <Input Style={"w-[80%] outline-none bg-primario p-[15px] lg:p-[55px] rounded-[15px] lg:rounded-[35px] lg:text-[40px] placeholder:text-[15px] lg:placeholder:text-[45px] placeholder:font-lexenddeca mt-[20px] lg:mt-[60px]"} 
                 PlaceHolder={'Insira seu nome'} 
                 Type={"text"}
                 value={nome}
                 setValue={setNome}/>
-            <Input Style={"w-[80%] outline-none bg-primario p-[15px] lg:p-[55px] rounded-[15px] lg:rounded-[35px] lg:text-[40px] placeholder:text-[15px] lg:placeholder:text-[45px] placeholder:font-lexenddeca mt-[27px] lg:mt-[60px]"} 
+            <Input Style={"w-[80%] outline-none bg-primario p-[15px] lg:p-[55px] rounded-[15px] lg:rounded-[35px] lg:text-[40px] placeholder:text-[15px] lg:placeholder:text-[45px] placeholder:font-lexenddeca mt-[20px] lg:mt-[60px]"} 
                 PlaceHolder={'Insira seu e-mail'} 
                 Type={"email"}
                 value={email}
@@ -80,29 +80,29 @@ export default function CadastroBox({}){
                 Type={"date"}
                 value={dataNasc}
                 setValue={setDataNasc}/>
-            <Input Style={"w-[80%] outline-none bg-primario p-[15px] lg:p-[55px] rounded-[15px] lg:rounded-[35px] lg:text-[40px] placeholder:text-[15px] lg:placeholder:text-[45px] placeholder:font-lexenddeca mt-[27px] lg:mt-[60px]"} 
+            <Input Style={"w-[80%] outline-none bg-primario p-[15px] lg:p-[55px] rounded-[15px] lg:rounded-[35px] lg:text-[40px] placeholder:text-[15px] lg:placeholder:text-[45px] placeholder:font-lexenddeca mt-[20px] lg:mt-[60px]"} 
                 PlaceHolder={'Crie uma senha'} 
                 Type={"password"}
                 value={senha}
                 setValue={setSenha}/>
-            <Input Style={"w-[80%] outline-none bg-primario p-[15px] lg:p-[55px] rounded-[15px] lg:rounded-[35px] lg:text-[40px] placeholder:text-[15px] lg:placeholder:text-[45px] placeholder:font-lexenddeca mt-[27px] lg:mt-[60px]"} 
+            <Input Style={"w-[80%] outline-none bg-primario p-[15px] lg:p-[55px] rounded-[15px] lg:rounded-[35px] lg:text-[40px] placeholder:text-[15px] lg:placeholder:text-[45px] placeholder:font-lexenddeca mt-[20px] lg:mt-[60px]"} 
                 PlaceHolder={'Confirme sua senha'} 
                 Type={"password"}
                 value={senhaConfirmada}
                 setValue={setSenhaConfirmada}/>
-            <label className="mt-[15px] lg:mt-[60px] font-lexenddeca color-terciario lg:text-[37px]">Selecione os convênios que você atende</label>
-            <div className="flex flex-row items-center gap-5">
+            <label className="mt-[15px] lg:mt-[60px] w-[90%] text-center font-lexenddeca color-terciario lg:text-[37px]">Selecione os convênios que você atende</label>
+            <div className="flex flex-row items-center lg:gap-5 gap-2">
                 <select 
                     value={selected}
                     onChange={(e) => setSelected(e.target.value)}
-                    className="w-[90%] h-[110px] lg:h-[170px] rounded-[15px] bg-white lg:rounded-[35px] p-2 lg:p-[55px] lg:text-[40px] outline-none border-none mt-[27px] lg:mt-[20px]"
+                    className="w-[90%] h-[60px] lg:h-[170px] rounded-[15px] bg-white lg:rounded-[35px] p-2 lg:p-[55px] lg:text-[40px] outline-none border-none lg:mt-[27px] mt-[15px] lg:mt-[20px]"
                 >
                     <option>Amil</option>
                     <option>Bradesco Saúde</option>
                     <option>SulAmérica</option>
                     <option>Unimed</option>
-                    <option>NotreDame Intermédica</option>
-                    <option>Porto Seguro Saúde</option>
+                    <option>NotreDame Interm.</option>
+                    <option>Porto Seg. Saúde</option>
                     <option>Hapvida</option>
                     <option>Cassi</option>
                     <option>Geap</option>
@@ -120,11 +120,11 @@ export default function CadastroBox({}){
                     <option>Unimed Seguros</option>
                     <option>Particular</option>
                 </select>
-                <Button Style={"w-[30%] h-[140px] text-[30px] hover:bg-white transition duration-300 ease-in-out hover:text-black font-lexenddeca rounded-[20px] text-white bg-quarternario"} OnClickFunction={handleOk} Text={"Ok"}
+                <Button Style={"w-[30%] h-[60px] lg:h-[140px] text-[15px] lg:text-[30px] hover:bg-white transition duration-300 ease-in-out hover:text-black font-lexenddeca rounded-[15px] mt-6 lg:rounded-[20px] text-white bg-quarternario"} OnClickFunction={handleOk} Text={"Ok"}
                     />
             </div>
 
-            <div className="grid grid-cols-4 gap-2 mt-5">
+            <div className="grid grid-cols-3 gap-2 lg:gap-2 w-[75%] mt-5">
                 {convs.map((conv, index) => (
                     <ConvOption 
                         key={index} 
@@ -135,7 +135,7 @@ export default function CadastroBox({}){
                 {/* <ConvOption name={name}/> */}
             </div>
 
-            <div className="flex flex-col mr-5 mt-5 lg:mt-15">
+            <div className="flex flex-col mr-5 mt-5 lg:mt-15 ">
                 <h1 className="text-[12px] lg:text-[35px] font-lexenddeca color-terciario "><a>Termos e condições de uso</a></h1>
                 <div className="flex flex-row mt-4 gap-1">
                     <input type="checkbox" className="w-4 h-4 lg:w-8 lg:h-8 rounded-[10px]"/>
