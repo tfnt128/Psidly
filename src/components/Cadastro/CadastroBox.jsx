@@ -24,7 +24,7 @@ export default function CadastroBox({}){
     const handleCadastro = async ()=>{
         setStandState(true);
         try {
-            const response = await postCadastro(crp, nome, email, dataNasc, senha, senhaConfirmada);
+            const response = await postCadastro(crp, nome, email, dataNasc, senha, senhaConfirmada, convs);
             if(response == true){
                 goToInicio();
             }

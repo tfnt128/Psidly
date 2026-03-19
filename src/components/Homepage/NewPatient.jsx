@@ -26,24 +26,24 @@ export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, 
     const [standState, setStandState] = useState(false)
 
     function handleAddPatient(){
-        // setStandState(true)
-        if(window.innerWidth >= 1024){
-            setSlide("animate-slide-left")
-        }
-        else{
-            setSlide("animate-slide-up")
-        }
-        setScreenBlur(false)
-        setMessageOk(true)
-        setTextMessagePad("Paciente adicionado com sucesso.")
-        setTextBtnMessagePad("Ok")
+        setStandState(true)
+        // if(window.innerWidth >= 1024){
+        //     setSlide("animate-slide-left")
+        // }
+        // else{
+        //     setSlide("animate-slide-up")
+        // }
+        // setScreenBlur(false)
+        // setMessageOk(true)
+        // setTextMessagePad("Paciente adicionado com sucesso.")
+        // setTextBtnMessagePad("Ok")
     }
 
     return(
-        <div className="relative bg-quarternario h-[750px] lg:h-[2100px] lg:w-[1200px] w-[350px] flex flex-col items-center lg:rounded-[150px] rounded-[30px]">
+        <div className="relative bg-quarternario h-[830px] lg:h-[2300px] lg:w-[1200px] w-[350px] flex flex-col items-center lg:rounded-[150px] rounded-[30px]">
             {
                 standState &&
-                    <div className="absolute h-full w-full inset-0 bg-black/90 rounded-[30px] lg:rounded-[150px] z-10 flex flex-col items-center">
+                    <div className="absolute h-full justify-center w-full inset-0 bg-black/90 rounded-[30px] lg:rounded-[150px] z-10 flex flex-col items-center">
                         <LoadingCircle/>
                     </div>
             }
@@ -94,7 +94,35 @@ export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, 
                 value={dataNasc}
                 setValue={setDataNasc}
                 Style={"w-[40%] h-[50px] lg:h-[160px] lg:rounded-[30px] lg:text-[40px] lg:p-6 p-3 rounded-[10px] bg-white mt-1 border-none outline-none hover:scale-107 transition-transform durantion-200"}/>
+            <h3 className="text-[10px] lg:text-[45px] font-aboreto mt-3 lg:mt-6">Selecione o convênio do paciente</h3>
 
+                <select 
+
+                    className="w-[40%] h-[60px] lg:h-[170px] rounded-[15px] bg-white lg:rounded-[35px] p-2 lg:p-[55px] lg:text-[40px] outline-none border-none lg:mt-[27px] mt-[15px] lg:mt-[20px]"
+                >
+                    <option>Amil</option>
+                    <option>Bradesco Saúde</option>
+                    <option>SulAmérica</option>
+                    <option>Unimed</option>
+                    <option>NotreDame Interm.</option>
+                    <option>Porto Seg. Saúde</option>
+                    <option>Hapvida</option>
+                    <option>Cassi</option>
+                    <option>Geap</option>
+                    <option>Omint</option>
+                    <option>Care Plus</option>
+                    <option>Allianz Saúde</option>
+                    <option>Golden Cross</option>
+                    <option>Prevent Senior</option>
+                    <option>Ameplan</option>
+                    <option>Assim Saúde</option>
+                    <option>Clinipam</option>
+                    <option>Green Line</option>
+                    <option>MedSenior</option>
+                    <option>Trasmontano</option>
+                    <option>Unimed Seguros</option>
+                    <option>Particular</option>
+                </select>
             <Button Style={"w-[80%] h-[50px] rounded-[10px] lg:rounded-[40px] lg:h-[160px] lg:mt-12 lg:text-[40px] bg-terciario text-[10px] font-aboreto color-secundario mt-6 hover:bg-white hover:text-black transition-transform duration-400 ease-in-out"} Text={"Adicionar"}
             OnClickFunction={handleAddPatient}/>
         </div>

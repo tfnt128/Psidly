@@ -73,7 +73,7 @@ export async function postConfirmarSenha(email, codigo, senha, senhaConfirmada) 
 }
 
 
-export async function postCadastro(crp, nome, email, dataNasc, senha, senhaConfirmada) {
+export async function postCadastro(crp, nome, email, dataNasc, senha, senhaConfirmada, convs) {
     try {
         const response = await axios.post(`${API_URL}/register`, {
             crp: crp,
@@ -81,7 +81,8 @@ export async function postCadastro(crp, nome, email, dataNasc, senha, senhaConfi
             email: email,
             birthDate: dataNasc,     
             password: senha,         
-            confirmPassword: senhaConfirmada  
+            confirmPassword: senhaConfirmada,  
+            convs: convs
         })
 
         if(response.data.success == false){

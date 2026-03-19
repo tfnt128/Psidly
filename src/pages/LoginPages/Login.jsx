@@ -27,6 +27,7 @@ export default function Login(){
             window.removeEventListener("beforeinstallprompt", handler);
         };
     }, []);
+    const navigate = useNavigate()
 
     const handleInstallPWA = async () => {
         if (!deferredPrompt) return;
@@ -43,7 +44,6 @@ export default function Login(){
         console.log("beforeinstallprompt disparou!") 
 
 
-        const navigate = useNavigate()
         navigate("/")
     };
 
