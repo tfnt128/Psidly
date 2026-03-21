@@ -6,6 +6,9 @@ import Homemenu from "../../components/Homepage/Homemenu";
 import Homemenuaside from "../../components/Homepage/Homemenuaside";
 import NewPatient from "../../components/Homepage/NewPatient";
 import MessagePad from "../../components/General/MessagePad";
+import Cereconf from "../../assets/icons/cereconf.png"
+import Input from "../../components/General/Input";
+import PatientWidget from "../../components/Homepage/PatientWidget";
 
 export default function Homepage(){
 
@@ -55,6 +58,29 @@ export default function Homepage(){
                         <MessagePad Text={textMessagePad} textButton={textBtnMessagePad} OnClickFunction={closeMsgPad} Slide={slide}/>
                     </div>
             }
+            <div className="flex flex-col items-center mt-4">
+                <div className="relative w-[90%] lg:w-[40%]">
+                    <Input 
+                        Style={"w-full h-[80px] lg:h-[200px] lg:rounded-[80px] bg-gray-300 p-10 pr-14 lg:text-[50px] rounded-[30px] placeholder:p-10"} 
+                        PlaceHolder={"Pesquisar"}
+                    />
+                    <span className="absolute right-5 top-1/2 -translate-y-1/2 text-[20px] lg:text-[50px] grayscale-[50%] pointer-events-none">
+                        🔍
+                    </span>
+            </div>
+            </div>
+
+            <div className="flex flex-col gap-10 mb-[120px] items-center mt-20 lg:grid lg:grid-cols-6 lg:gap-1 lg:mt-60 lg:w-[90%]  lg:items-center lg:ml-300">
+                <PatientWidget/>
+                <PatientWidget/>
+                <PatientWidget/>
+            </div>
+            {/* <div className="flex flex-col items-center lg:mt-170 mt-70">
+                
+
+                <h1 className="lg:text-[100px] text-[20px] text-gray-400 font-lexenddeca">Ainda não há pacientes por aqui...</h1>
+                <img src={Cereconf} className="lg:h-[600px] h-[100px] grayscale-[50%] opacity-50 lg:mt-40 mt-10"/>
+            </div> */}
 
             <div className="fixed  bottom-[120px] lg:right-30 right-4 ">
                 <AddButton onClickFunction={openNewPatientModal}/>
