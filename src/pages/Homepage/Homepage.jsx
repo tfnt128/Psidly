@@ -9,11 +9,19 @@ import MessagePad from "../../components/General/MessagePad";
 import Cereconf from "../../assets/icons/cereconf.png"
 import Input from "../../components/General/Input";
 import PatientWidget from "../../components/Homepage/PatientWidget";
+import PatientDetails from "../../components/Homepage/PatientDetails";
 
 export default function Homepage(){
 
     const [screenBlur, setScreenBlur] = useState(false)
+    const [screenBlurPD, setScreenBlurPD] = useState(false)
     const [animationSpaw, setAnimationSpaw] = useState("")
+
+    function openPatientDetails(){
+        setScreenBlurPD(true)
+        setAnimationSpaw("animate-fade animate-duration-[300ms]")
+    }
+
     function openNewPatientModal(){
         setScreenBlur(true)
         setAnimationSpaw("animate-fade animate-duration-[300ms]")
@@ -52,6 +60,20 @@ export default function Homepage(){
                     </div>
                 </>
             )}
+            {screenBlurPD && (
+                <>
+                    <div
+                        className="fixed inset-0 backdrop-blur-sm z-40"
+                        onClick={() => setScreenBlurPD(false)}
+                    />
+
+                    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center pointer-events-none">
+                        <div className={`pointer-events-auto flex flex-col items-center ${animationSpaw} justify-center`}>
+                            <PatientDetails/>
+                        </div>
+                    </div>
+                </>
+            )}
             {
                 messageOk &&
                     <div className="absolute h-full w-full inset-0 bg-black/80 z-10 flex flex-col items-center">
@@ -71,7 +93,7 @@ export default function Homepage(){
             </div>
 
             <div className="flex flex-col gap-10 mb-[120px] items-center mt-20 lg:grid lg:grid-cols-6 lg:gap-1 lg:mt-60 lg:w-[90%]  lg:items-center lg:ml-300">
-                <PatientWidget/>
+                <PatientWidget OnClickFunction={openPatientDetails}/>
                 <PatientWidget/>
                 <PatientWidget/>
             </div>
