@@ -1,0 +1,142 @@
+@import "tailwindcss-animated";
+
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Aboreto&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lexend+Deca:wght@100..900&display=swap');
+
+html, body {
+
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+}
+
+
+:root{
+    --font-arboreto: 'Aboreto', system-ui;
+    --font-lexenddeca: 'Lexend Deca', sans-serif;
+    --font-inter: 'Inter', sans-serif;
+}
+
+.font-aboreto{
+  font-family: var(--font-arboreto);
+}
+
+.font-lexenddeca{
+  font-family: var(--font-lexenddeca);
+}
+
+.font-inter{
+  font-family: var(--font-inter);
+}
+
+@keyframes slideUp {
+    0% { transform: translateY(100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideDown {
+    0% { transform: translateY(-100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideLeft {
+    0% { transform: translateX(-100%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+
+
+@layer utilities{
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .animate-slide-left{
+    animation: slideLeft 0.3s ease-out
+  }
+
+
+  .animate-slide-down{
+    animation: slideDown 0.3s ease-out
+  }
+
+  .bg-primario{
+    background-color: #fff;
+  }
+
+  .bg-secundario{
+    background-color: #9AC8FF;
+  }
+
+  .bg-terciario{
+    background-color: #13295F;
+  }
+
+  .bg-quarternario{
+    background-color: #7091E4;
+  }
+
+  .bg-plan{
+    background-color: #d9d9d9;
+  }
+
+  .bg-alertbox{
+    background-color: #AA2B2B;
+  }
+
+  .color-primario{
+    color: black;
+  }
+
+  .color-secundario{
+    color:#fff;
+  }
+
+  .color-terciario{
+    color: #9AC8FF;
+  }
+
+  .color-quarternario{
+    color:#13295F;
+  }
+
+  .color-placeholder{
+    color: #a9a9a9;
+  }
+
+}
+
+.bg-loading {
+    background-image: url('./assets/bg-images/bgicarregamento.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@media (min-width: 800px) {
+    .bg-loading {
+        background-image: url('./assets/bg-images/bgicarregamentodesktop.png');
+    }
+}
+
+.bg-sideimglogin {
+    background-image: url('./assets/bg-images/bgisideimglogin.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bg-sideimgcadastro {
+    background-image: url('./assets/bg-images/bgisideimgcadastro.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bg-sideimgesq {
+    background-image: url('./assets/bg-images/bgisideimgesq.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
