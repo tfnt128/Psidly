@@ -24,7 +24,17 @@ export default function PatientDetails(){
         setBgEdit("bg-white")
     }
 
+    const [cancel, setCancel] = useState(false)
     function editDeactive(){
+        setEdit(false)
+        setReadOnly(true)
+        setBgEdit("bg-quarternario")
+        setCancel(true)
+        setTimeout(() => setCancel(false), 0)
+    }
+
+    function editActive(){
+        setCancel(false)
         setEdit(false)
         setReadOnly(true)
         setBgEdit("bg-quarternario")
@@ -77,16 +87,17 @@ export default function PatientDetails(){
                     onChange={handleFoto}
                 />
 
-                <ShowPut ReadOnly={readOnly} Label={"Nome"} Text={"Duda Araujo do Santos"} Bg={bgEdit}/>
-                <ShowPut ReadOnly={readOnly} Label={"CPF"} Text={"47218802869"} Bg={bgEdit}/>
-                <ShowPut ReadOnly={readOnly} Label={"E-mail"} Text={"duda@gmail.com"} Bg={bgEdit}/>
-                <ShowPut ReadOnly={readOnly} Label={"Data de Nascimento"} Text={"10/09/2001"} Bg={bgEdit}/>
-                <ShowPut ReadOnly={readOnly} Label={"Convênio"} Text={"Prevent Senior"} Bg={bgEdit}/>
+                <ShowPut ReadOnly={readOnly} Label={"Nome"} Text={"Duda Araujo do Santos"} Bg={bgEdit} Cancel={cancel}/>
+                <ShowPut ReadOnly={readOnly} Label={"CPF"} Text={"47218802869"} Bg={bgEdit} Cancel={cancel}/>
+                <ShowPut ReadOnly={readOnly} Label={"E-mail"} Text={"duda@gmail.com"} Bg={bgEdit} Cancel={cancel}/>
+                <ShowPut ReadOnly={readOnly} Label={"Data de Nascimento"} Text={"10/09/2001"} Bg={bgEdit} Cancel={cancel}/>
+                <ShowPut ReadOnly={readOnly} Label={"Convênio"} Text={"Prevent Senior"} Bg={bgEdit} Cancel={cancel}/>
 
                 {
                     edit &&
                     <div className="flex flex-row items-center gap-3">
-                        <Button Style={"bg-terciario auto text-white lg:text-[40px] text-[20px] hover:bg-white hover:transition transform duration-400 hover:text-black font-lexenddeca h-[65px] w-[140px] lg:w-[400px] lg:h-[200px] rounded-[10px] lg:rounded-[40px]"} Text={"Concluído"}/>
+                        <Button Style={"bg-terciario auto text-white lg:text-[40px] text-[20px] hover:bg-white hover:transition transform duration-400 hover:text-black font-lexenddeca h-[65px] w-[140px] lg:w-[400px] lg:h-[200px] rounded-[10px] lg:rounded-[40px]"} Text={"Concluído"}
+                        OnClickFunction={editActive}/>
                         <Button Style={"bg-red-800 auto text-white lg:text-[40px] text-[20px] hover:bg-white hover:transition transform duration-400 hover:text-black font-lexenddeca w-[140px] h-[65px] lg:w-[400px] lg:h-[200px] rounded-[10px] lg:rounded-[40px]"} Text={"Cancelar"}
                         OnClickFunction={editDeactive}/>
 
