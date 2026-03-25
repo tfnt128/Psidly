@@ -87,11 +87,11 @@ export default function PatientDetails(){
                     onChange={handleFoto}
                 />
 
-                <ShowPut ReadOnly={readOnly} Label={"Nome"} Text={"Duda Araujo do Santos"} Bg={bgEdit} Cancel={cancel}/>
-                <ShowPut ReadOnly={readOnly} Label={"CPF"} Text={"47218802869"} Bg={bgEdit} Cancel={cancel}/>
-                <ShowPut ReadOnly={readOnly} Label={"E-mail"} Text={"duda@gmail.com"} Bg={bgEdit} Cancel={cancel}/>
-                <ShowPut ReadOnly={readOnly} Label={"Data de Nascimento"} Text={"10/09/2001"} Bg={bgEdit} Cancel={cancel}/>
-                <ShowPut ReadOnly={readOnly} Label={"Convênio"} Text={"Prevent Senior"} Bg={bgEdit} Cancel={cancel}/>
+                <ShowPut ReadOnly={readOnly} Label={"Nome"} Text={"Duda Araujo do Santos"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Label={"CPF"} Text={"47218802869"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Label={"E-mail"} Text={"duda@gmail.com"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Label={"Data de Nascimento"} Text={"10/09/2001"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Label={"Convênio"} Text={"Prevent Senior"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
 
                 {
                     edit &&

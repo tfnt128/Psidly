@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import ProfileImg from "../../assets/icons/simbperfil.png"
 import {getNomeProfile, getEmailProfile} from "../../services/api";
+import ShowPut from "../General/ShowPut";
 
 export default function Profilebox(){
 
@@ -22,9 +23,12 @@ export default function Profilebox(){
             <div className=" flex flex-col items-center">
                 <img src={ProfileImg} className="w-[100px] lg:w-[400px]"/>
             </div>
-            <div className="w-[60%] lg:flex lg:flex-col items-center">
-                <h1 className="font-lexenddeca color-primario lg:text-[90px]">{nome}</h1>
-                <h2 className="font-lexenddeca color-placeholder text-[15px] lg:text-[60px]">{email}</h2>
+            <div className="w-[60%] lg:flex lg:flex-col items-center gap-15">
+                    <ShowPut BorderBg={"border-blue-800"} TextColor={"text-blue-800"} Label={"Nome"} />
+                    <ShowPut BorderBg={"border-blue-800"} TextColor={"text-blue-800"} Label={"CRP"} />
+                    <ShowPut BorderBg={"border-blue-800"} TextColor={"text-blue-800"} Label={"E-mail"} />
+                    <ShowPut BorderBg={"border-blue-800"} TextColor={"text-blue-800"} Label={"Data de Nascimento"} />
+                    <ShowPut BorderBg={"border-blue-800"} TextColor={"text-blue-800"} Label={"Convênios"} />
             </div>
             <div>
 
