@@ -10,6 +10,9 @@ import Cereconf from "../../assets/icons/cereconf.png"
 import Input from "../../components/General/Input";
 import PatientWidget from "../../components/Homepage/PatientWidget";
 import PatientDetails from "../../components/Homepage/PatientDetails";
+import ProfilePhoto from "../../assets/icons/dudaaraujo.jpg"
+import SabCap from "../../assets/icons/sabcap.jpg"
+import Megan from "../../assets/icons/meganfox.jpg"
 
 export default function Homepage(){
 
@@ -93,9 +96,9 @@ export default function Homepage(){
             </div>
 
             <div className="flex flex-col gap-10 mb-[120px] items-center mt-20 lg:grid lg:grid-cols-6 lg:gap-1 lg:mt-60 lg:w-[90%]  lg:items-center lg:ml-300">
-                <PatientWidget OnClickFunction={openPatientDetails}/>
-                <PatientWidget/>
-                <PatientWidget/>
+                <PatientWidget ProfilePhoto={ProfilePhoto} OnClickFunction={openPatientDetails} Nome={"Duda"} Idade={"20"}/>
+                <PatientWidget ProfilePhoto={SabCap} Nome={"Sabrina"} Idade={"28"} />
+                <PatientWidget ProfilePhoto={Megan} Nome={"Megan"} Idade={"40"}/>
             </div>
             {/* <div className="flex flex-col items-center lg:mt-170 mt-70">
                 
