@@ -8,6 +8,8 @@ import Enger from "../../assets/animations/settinganim.json"
 import Book from "../../assets/animations/Book.json"
 import Talk from "../../assets/animations/Talk.json"
 import Bigeye from "../../assets/animations/Bigeye.json"
+import Locker from "../../assets/animations/locker.json"
+import Write from "../../assets/animations/Write.json"
 
 
 export default function Profilepage(){
@@ -29,11 +31,14 @@ export default function Profilepage(){
 
             <div className="flex flex-col items-center gap-5 lg:flex-row lg:gap-30">
                     <Profilebox/>
-                <div className="grid grid-cols-2 mb-[100px] lg:grid-cols-2 lg:w-[2100px] w-[85%] gap-4 content-start lg:mt-[-1100px] lg:gap-60">
+                <div className="grid grid-cols-2 mb-[100px] lg:grid-cols-2 lg:w-[2100px] w-[85%] gap-4 content-start lg:mt-[-750px] lg:gap-60">
                     <Boxoption tituloOpt={"Pac. Ocultos"} onClickWay={goToConfig} AnimationOption={Bigeye} />
                     <Boxoption tituloOpt={"Configurações"} AnimationOption={Enger}/>
-                    <Boxoption tituloOpt={"Sobre o App"} AnimationOption={Book} Style={"lg:mt-[-150px]"}/>
-                    <Boxoption tituloOpt={"Contato"} AnimationOption={Talk} Style={"lg:mt-[-150px]"}/>
+                    <Boxoption tituloOpt={"Sobre o App"} AnimationOption={Book} Style={"lg:mt-[-150px] mt-[3px]"}/>
+                    <Boxoption tituloOpt={"Contato"} AnimationOption={Talk} Style={"lg:mt-[-150px]  mt-[3px]"}/>
+                    <Boxoption tituloOpt={"Privacidade"} AnimationOption={Locker} Style={"lg:mt-[-150px] mt-[3px]"}/>
+                    <Boxoption tituloOpt={"Termos"} AnimationOption={Write} Style={"lg:mt-[-150px] mt-[3px]"}/>
+
                 </div>
             </div>
 

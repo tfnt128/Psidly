@@ -52,7 +52,7 @@ export default function PatientDetails(){
 
 
     return(
-        <div className="relative bg-quarternario h-[650px] lg:h-[2000px] lg:w-[3000px] w-[350px] flex flex-col items-center lg:flex-row lg:rounded-[150px] rounded-[30px]"
+        <div className="relative bg-quarternario min-h-[550px] lg:min-h-[1900px] lg:w-[3000px] w-[350px] flex flex-col items-center lg:mt-[-80px] lg:flex-row lg:rounded-[150px] rounded-[30px]"
             onClick={() => closeOptions()}>
             
             <div className="relative lg:w-[50%] w-[100%] flex flex-col items-center gap-5 mt-5 lg:mt-0 lg:gap-15">
@@ -87,11 +87,11 @@ export default function PatientDetails(){
                     onChange={handleFoto}
                 />
 
-                <ShowPut ReadOnly={readOnly} Label={"Nome"} Text={"Duda Araujo do Santos"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
-                <ShowPut ReadOnly={readOnly} Label={"CPF"} Text={"47218802869"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
-                <ShowPut ReadOnly={readOnly} Label={"E-mail"} Text={"duda@gmail.com"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
-                <ShowPut ReadOnly={readOnly} Label={"Data de Nascimento"} Text={"10/09/2001"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
-                <ShowPut ReadOnly={readOnly} Label={"Convênio"} Text={"Prevent Senior"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={"Nome"} Text={"Duda Araujo do Santos"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={"CPF"} Text={"47218802869"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={"E-mail"} Text={"duda@gmail.com"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={"Data de Nascimento"} Text={"10/09/2001"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={"Convênio"} Text={"Prevent Senior"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
 
                 {
                     edit &&
