@@ -1,9 +1,9 @@
 import Button from "../General/Button"
 
 
-export default function PatientWidget({OnClickFunction, ProfilePhoto, Nome, Idade}){
+export default function PatientWidget({OnClickFunction, ProfilePhoto, Nome, Idade, Style}){
     return(
-        <div className="w-[80%] lg:w-[700px] lg:rounded-[80px] lg:h-[800px] h-[300px] bg-blue-300 rounded-[30px] flex flex-col items-center transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_40px_10px_rgba(59,130,246,0.6)] cursor-pointer"
+        <div className={`w-[80%] lg:w-[700px] lg:rounded-[80px] lg:h-[800px] h-[300px] bg-blue-300 rounded-[30px] flex flex-col items-center transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_40px_10px_rgba(59,130,246,0.6)] cursor-pointer ${Style}`}
         onClick={OnClickFunction}>
             <div className="relative w-full h-[70%]">
                 <img src={ProfilePhoto} className="w-full h-full rounded-t-[30px] lg:rounded-t-[80px] object-cover"/>

@@ -12,6 +12,7 @@ import Graphicspage from './pages/Graphicspage/Graphicspage';
 import Profilepage from './pages/Profilepage/Profilepage';
 import Configuracoes from './pages/Configuracoes/Configuracoes';
 import ExcluirConta from './pages/Configuracoes/ExcluirConta';
+import OcultoPage from './pages/OcultoPage/OcultoPage';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/profilepage" element={<Profilepage/>}/>
           <Route path="/configuracoes" element={<Configuracoes/>}/>
           <Route path="/excluirconta" element={<ExcluirConta/>}/>
+          <Route path="/pacientesocultos" element={<OcultoPage/>}/>
         </Routes>
       </BrowserRouter>
     </>

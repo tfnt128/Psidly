@@ -36,7 +36,6 @@ export default function Profilebox(){
     function editActive(){
         setCancel(false)
         setEdit(false)
-        setReadOnly(true)
         setBgEdit("bg-quarternario")
     }
 
@@ -82,11 +81,11 @@ export default function Profilebox(){
                     onChange={handleFoto}
                 />
                 <div className="w-[100%] flex flex-col items-center gap-5 lg:gap-15">
-                        <ShowPut readOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"Nome"} />
-                        <ShowPut readOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"CRP"} />
-                        <ShowPut readOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"E-mail"} />
-                        <ShowPut readOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"Data de Nascimento"} />
-                        <ShowPut readOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[225px] lg:w-[1400px] lg:h-[700px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"Convênios"} />
+                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"Nome"} />
+                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"CRP"} />
+                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"E-mail"} />
+                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"Data de Nascimento"} />
+                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[225px] lg:w-[1400px] lg:h-[700px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"Convênios"} />
 
                         {
                             edit &&
