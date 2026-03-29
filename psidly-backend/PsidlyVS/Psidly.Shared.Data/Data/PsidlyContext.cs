@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Psidly.Shared.Models.Models;
-using System.Collections.Generic;
 
 namespace Psidly.Shared.Data.Data
 {
@@ -16,6 +16,15 @@ namespace Psidly.Shared.Data.Data
         {
         }
 
-        
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder
+                .Entity<User>()
+                .Property(u => u.BirthDate)
+                .HasColumnType("date");
+        }
     }
 }
