@@ -30,4 +30,8 @@
     <ProjectReference Include="..\Psidly.Shared.Models\Psidly.Shared.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

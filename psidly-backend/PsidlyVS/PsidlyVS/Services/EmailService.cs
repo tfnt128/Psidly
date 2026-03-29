@@ -1,6 +1,6 @@
-﻿using psidly_backend.Interfaces;
-using SendGrid;
-using SendGrid.Helpers.Mail;
+﻿using System.Net;
+using System.Net.Mail;
+using psidly_backend.Interfaces;
 
 namespace psidly_backend.Services
 {
@@ -8,49 +8,57 @@ namespace psidly_backend.Services
     {
         public async Task SendPasswordResetCodeAsync(string toEmail, string resetCode, string userName)
         {
+            var smtpHost = "smtp.gmail.com";
+            var smtpPort = 587;
+            var myEmail = "psidapp@gmail.com";
+
+            var myPassword = Environment.GetEnvironmentVariable("SMTP_PASSWORD");
+
+            if (string.IsNullOrEmpty(myPassword))
+            {
+                Console.WriteLine("SMTP_PASSWORD não configurada");
+                throw new Exception("Senha SMTP não configurada nas variáveis de ambiente");
+            }
+
             try
             {
-                var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
-
-                if (string.IsNullOrEmpty(apiKey))
+                using (var client = new SmtpClient(smtpHost, smtpPort))
                 {
-                    Console.WriteLine("SENDGRID_API_KEY não configurada");
-                    throw new Exception("API Key do SendGrid não configurada");
+                    client.EnableSsl = true;
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    client.UseDefaultCredentials = false;
+
+                    client.Credentials = new NetworkCredential(myEmail, myPassword);
+
+                    var mailMessage = new MailMessage();
+                    mailMessage.From = new MailAddress(myEmail, "Psidly");
+                    mailMessage.To.Add(new MailAddress(toEmail, userName));
+                    mailMessage.Subject = "Código de Recuperação de Senha - Psidly";
+                    mailMessage.IsBodyHtml = true;
+
+                    mailMessage.Body = $@"
+                        <div style='font-family: Arial, sans-serif; padding: 20px; color: #333;'>
+                            <h2>Olá {userName}</h2>
+                            <p>Seu código de recuperação é:</p>
+                            <h1 style='color: #4F46E5; font-size: 32px; letter-spacing: 2px;'>{resetCode}</h1>
+                            <p>Este código expira em 15 minutos.</p>
+                            <hr>
+                            <p style='font-size: 12px; color: #777;'>Se você não solicitou isso, ignore este email.</p>
+                        </div>";
+
+                    await client.SendMailAsync(mailMessage);
+
+                    Console.WriteLine($"Email SMTP enviado com sucesso para {toEmail}!");
                 }
-
-                var client = new SendGridClient(apiKey);
-
-                var from = new EmailAddress("psidly.app@gmail.com", "Psidly");
-                var to = new EmailAddress(toEmail, userName);
-                var subject = "Código de Recuperação de Senha - Psidly";
-
-                var plainTextContent = $"Olá {userName},\n\nSeu código de recuperação é: {resetCode}\n\nEste código expira em 15 minutos.\n\nSe você não solicitou isso, ignore este email.";
-
-                var htmlContent = $@"
-                    <h2>Olá {userName}</h2>
-                    <p>Seu código de recuperação é:</p>
-                    <h1 style='color: #4F46E5; font-size: 32px;'>{resetCode}</h1>
-                    <p>Este código expira em 15 minutos.</p>
-                    <p>Se você não solicitou isso, ignore este email.</p>
-                ";
-
-                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-                var response = await client.SendEmailAsync(msg);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    Console.WriteLine($"Email enviado com sucesso!");
-                }
-                else
-                {
-                    var body = await response.Body.ReadAsStringAsync();
-                    Console.WriteLine($"Erro ao enviar: {response.StatusCode} - {body}");
-                    throw new Exception($"Erro ao enviar email: {response.StatusCode}");
-                }
+            }
+            catch (SmtpException smtpEx)
+            {
+                Console.WriteLine($"Erro SMTP: {smtpEx.Message}");
+                throw;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro ao enviar email: {ex.Message}");
+                Console.WriteLine($"Erro geral ao enviar email: {ex.Message}");
                 throw;
             }
         }

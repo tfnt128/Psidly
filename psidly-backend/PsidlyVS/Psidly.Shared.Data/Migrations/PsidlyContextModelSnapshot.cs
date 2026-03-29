@@ -34,8 +34,8 @@ namespace Psidly.Shared.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("timestamp with time zone")
+                    b.Property<DateOnly?>("BirthDate")
+                        .HasColumnType("date")
                         .HasColumnName("birth_date");
 
                     b.Property<string>("Crp")
@@ -59,7 +59,7 @@ namespace Psidly.Shared.Data.Migrations
                         .HasColumnName("reset_password_code");
 
                     b.Property<DateTime?>("ResetPasswordCodeExpiry")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("reset_password_code_expiry");
 
                     b.HasKey("Id")

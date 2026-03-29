@@ -12,8 +12,8 @@ using Psidly.Shared.Data.Data;
 namespace Psidly.Shared.Data.Migrations
 {
     [DbContext(typeof(PsidlyContext))]
-    [Migration("20260202003827_AddUser")]
-    partial class AddUser
+    [Migration("20260207030557_addUser")]
+    partial class addUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,34 +32,43 @@ namespace Psidly.Shared.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<DateOnly?>("BirthDate")
+                        .HasColumnType("date")
+                        .HasColumnName("birth_date");
 
                     b.Property<string>("Crp")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("crp");
 
                     b.Property<string>("Email")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("email");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("name");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("password_hash");
 
                     b.Property<string>("ResetPasswordCode")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("reset_password_code");
 
                     b.Property<DateTime?>("ResetPasswordCodeExpiry")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("reset_password_code_expiry");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_user");
 
-                    b.ToTable("Users");
+                    b.ToTable("user", (string)null);
                 });
 #pragma warning restore 612, 618
         }

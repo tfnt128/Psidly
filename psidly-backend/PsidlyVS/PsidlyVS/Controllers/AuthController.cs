@@ -209,49 +209,31 @@ namespace psidly_backend.Controllers
             try
             {
                 var user = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Email == verifyDto.Email);
+                    .FirstOrDefaultAsync(u => u.ResetPasswordCode == verifyDto.Code);
 
                 if (user == null)
                 {
                     return Ok(new AuthResponseDto
                     {
                         Success = false,
-                        Message = "Usuário não encontrado"
+                        Message = "Código inválido ou não encontrado."
                     });
                 }
 
-
-                if (user.ResetPasswordCode != verifyDto.Code)
+                // Verifica se expirou
+                if (user.ResetPasswordCodeExpiry == null || user.ResetPasswordCodeExpiry < DateTime.UtcNow)
                 {
                     return Ok(new AuthResponseDto
                     {
                         Success = false,
-                        Message = "Código incorreto"
-                    });
-                }
-
-                if (user.ResetPasswordCodeExpiry == null)
-                {
-                    return Ok(new AuthResponseDto
-                    {
-                        Success = false,
-                        Message = "Código não tem validade"
-                    });
-                }
-
-                if (user.ResetPasswordCodeExpiry < DateTime.UtcNow)
-                {
-                    return Ok(new AuthResponseDto
-                    {
-                        Success = false,
-                        Message = "Código expirado"
+                        Message = "Código expirado."
                     });
                 }
 
                 return Ok(new AuthResponseDto
                 {
                     Success = true,
-                    Message = "Código verificado com sucesso"
+                    Message = "Código verificado com sucesso",
                 });
             }
             catch (Exception ex)

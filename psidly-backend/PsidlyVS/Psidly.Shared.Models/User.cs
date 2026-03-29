@@ -12,7 +12,7 @@ namespace Psidly.Shared.Models.Models
         public string? Crp { get; set; }
         public string? Email { get; set; }
         public string? Name { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateOnly? BirthDate { get; set; } 
         public string? PasswordHash { get; set; }
 
         public string? ResetPasswordCode { get; set; }
