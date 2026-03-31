@@ -1,4 +1,4 @@
-import ProfilePhoto from "../../assets/icons/meganfox.jpg"
+import ProfilePhoto from "../../assets/icons/tyler.jpg"
 import { useState, useRef } from "react";
 import Input from "../General/Input";
 import Button from "../General/Button"

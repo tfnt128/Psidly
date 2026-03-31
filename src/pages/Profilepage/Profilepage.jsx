@@ -24,6 +24,10 @@ export default function Profilepage(){
         navigator("/pacientesocultos")
     }
 
+    function goToEmail(){
+        window.location.href = "mailto:suporte@psidly.com?subject=Contato Psidly"
+    }
+
     return(
         <div className="min-h-screen ">
             
@@ -40,7 +44,7 @@ export default function Profilepage(){
                     <Boxoption tituloOpt={"Pac. Ocultos"} onClickWay={goToOcult} AnimationOption={Bigeye} />
                     <Boxoption tituloOpt={"Configurações"} AnimationOption={Enger}/>
                     <Boxoption tituloOpt={"Sobre o App"} AnimationOption={Book} Style={"lg:mt-[-150px] mt-[3px]"}/>
-                    <Boxoption tituloOpt={"Contato"} AnimationOption={Talk} Style={"lg:mt-[-150px]  mt-[3px]"}/>
+                    <Boxoption tituloOpt={"Contato"} AnimationOption={Talk} Style={"lg:mt-[-150px]  mt-[3px]"} onClickWay={goToEmail}/>
                     <Boxoption tituloOpt={"Privacidade"} AnimationOption={Locker} Style={"lg:mt-[-150px] mt-[3px]"}/>
                     <Boxoption tituloOpt={"Termos"} AnimationOption={Write} Style={"lg:mt-[-150px] mt-[3px]"}/>
                     <Share Style={"lg:w-[2280px] lg:h-[800px] w-[340px] lg:rounded-[50px] rounded-[20px] bg-secundario lg:mt-[-120px] hover:transition hover:transform hover:scale-105 duration-300"}/>

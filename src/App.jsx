@@ -13,6 +13,7 @@ import Profilepage from './pages/Profilepage/Profilepage';
 import Configuracoes from './pages/Configuracoes/Configuracoes';
 import ExcluirConta from './pages/Configuracoes/ExcluirConta';
 import OcultoPage from './pages/OcultoPage/OcultoPage';
+import HomepagePat from './pages/HomepagePat/HomepagePat';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path="/configuracoes" element={<Configuracoes/>}/>
           <Route path="/excluirconta" element={<ExcluirConta/>}/>
           <Route path="/pacientesocultos" element={<OcultoPage/>}/>
+          <Route path="/homepagepatient" element={<HomepagePat/>}/>
         </Routes>
       </BrowserRouter>
     </>

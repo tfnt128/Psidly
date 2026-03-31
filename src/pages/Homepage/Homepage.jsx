@@ -13,6 +13,9 @@ import PatientDetails from "../../components/Homepage/PatientDetails";
 import ProfilePhoto from "../../assets/icons/dudaaraujo.jpg"
 import SabCap from "../../assets/icons/sabcap.jpg"
 import Megan from "../../assets/icons/meganfox.jpg"
+import EmmaW from "../../assets/icons/emma.jpg"
+import EmmaS from "../../assets/icons/emmast.jpg"
+import TerryC from "../../assets/icons/terry.jpg"
 
 export default function Homepage(){
 
@@ -95,10 +98,13 @@ export default function Homepage(){
             </div>
             </div>
 
-            <div className="flex flex-col gap-10 mb-[120px] items-center mt-20 lg:grid lg:grid-cols-6 lg:gap-1 lg:mt-60 lg:w-[90%]  lg:items-center lg:ml-300">
+            <div className="flex flex-col gap-10 mb-[120px] items-center mt-20 lg:grid lg:grid-cols-4 lg:gap-x-0 lg:gap-y-30 lg:mt-60 lg:w-[60%] lg:items-center lg:ml-300">
                 <PatientWidget ProfilePhoto={ProfilePhoto} OnClickFunction={openPatientDetails} Nome={"Duda"} Idade={"20"}/>
                 <PatientWidget ProfilePhoto={SabCap} Nome={"Sabrina"} Idade={"28"} />
                 <PatientWidget ProfilePhoto={Megan} Nome={"Megan"} Idade={"40"}/>
+                <PatientWidget ProfilePhoto={EmmaW} Nome={"Emma"} Idade={"35"}/>
+                <PatientWidget ProfilePhoto={EmmaS} Nome={"Emma Stone"} Idade={"37"}/>
+                <PatientWidget ProfilePhoto={TerryC} Nome={"Terry"} Idade={"50"}/>
             </div>
             {/* <div className="flex flex-col items-center lg:mt-170 mt-70">
                 
