@@ -17,6 +17,9 @@ namespace Psidly.Shared.Models.Models
 
         public string? ResetPasswordCode { get; set; }
         public DateTime? ResetPasswordCodeExpiry { get; set; }
+
+        public virtual ICollection<PsychologistInsurance> Insurances { get; set; } = new List<PsychologistInsurance>();
+        public virtual ICollection<Patient> Patients { get; set; } = new List<Patient>();
     }
 
 }
