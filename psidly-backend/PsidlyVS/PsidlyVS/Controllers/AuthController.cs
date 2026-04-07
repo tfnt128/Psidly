@@ -1,11 +1,16 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
 using Psidly.Shared.Data.Data;
 using Psidly.Shared.Models.Models;
 using psidly_backend.DTOs;
 using psidly_backend.Interfaces;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace psidly_backend.Controllers
 {
@@ -16,12 +21,37 @@ namespace psidly_backend.Controllers
     {
         private readonly PsidlyContext _context;
         private readonly IEmailService _emailService;
+        private readonly IConfiguration _config;
 
-        public AuthController(PsidlyContext context, IEmailService emailService)
+        public AuthController(PsidlyContext context, IEmailService emailService, IConfiguration config)
         {
             _context = context;
             _emailService = emailService;
+            _config = config;
         }
+
+        private string GenerateJwtToken(User user)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+        new Claim(ClaimTypes.Email, user.Email!),
+        new Claim(ClaimTypes.Name, user.Name!)
+    };
+
+            var token = new JwtSecurityToken(
+                issuer: _config["Jwt:Issuer"],
+                audience: _config["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: credentials);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -65,10 +95,13 @@ namespace psidly_backend.Controllers
                     });
                 }
 
+                var token = GenerateJwtToken(user);
+
                 return Ok(new AuthResponseDto
                 {
                     Success = true,
                     Message = "Login realizado com sucesso",
+                    Token = token,
                     User = new UserDto
                     {
                         Id = user.Id,
@@ -132,6 +165,14 @@ namespace psidly_backend.Controllers
                     BirthDate = registerDto.BirthDate,
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword(registerDto.Password)
                 };
+
+                if (registerDto.Insurances != null)
+                {
+                    foreach (var name in registerDto.Insurances)
+                    {
+                        newUser.Insurances.Add(new PsychologistInsurance { Name = name });
+                    }
+                }
 
                 _context.Users.Add(newUser);
                 await _context.SaveChangesAsync();
