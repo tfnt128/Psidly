@@ -1,6 +1,6 @@
 import Button from "../General/Button";
 
-export default function AddButton({ onClickFunction }) {
+export default function AddButton({ onClickFunction, Label, Simbol }) {
   return (
     <div className="group flex items-center justify-end ">
       
@@ -18,7 +18,7 @@ export default function AddButton({ onClickFunction }) {
           cursor-pointer
         "
       >
-        <span className="text-[40px] lg:text-[120px] font-lexenddeca leading-none shrink-0 group-hover:hidden pl-9 lg:pl-27">+</span>
+        <span className="text-[40px] lg:text-[120px] font-lexenddeca leading-none shrink-0 group-hover:hidden pl-9 lg:pl-27">{Simbol}</span>
         <span className="
           text-[20px]
           lg:text-[70px] font-lexenddeca whitespace-nowrap
@@ -28,7 +28,7 @@ export default function AddButton({ onClickFunction }) {
           transition-all duration-300 ease-in-out
           overflow-hidden
         ">
-          Adicionar paciente
+          {Label}
         </span>
       </button>
     </div>

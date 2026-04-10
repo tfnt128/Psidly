@@ -11,18 +11,14 @@ export default function HomemenuPat({BgSelectPsi, BgSelectPerfil}){
         navigator("/homepagepatient")
     }
 
-    // function goToGraphicsPage(){
-    //     navigator("/graphicspage")
-    // }
-
-    // function gotToProfilePage(){
-    //     navigator("/profilepage")
-    // }
+    function gotToProfilePage(){
+        navigator("/profilepagepat")
+    }
 
     return(
         <div className="bg-secundario w-full flex flex-row h-[90px]  mb-0">
             <Button Style={`h-full w-[50.3%]  flex ${BgSelectPsi} justify-center items-center`} Src={Psico} ImgStyle={"w-[45px]"} OnClickFunction={goToHomePage}/>
-            <Button Style={`h-full w-[50.3%] flex justify-center items-center ${BgSelectPerfil} `} Src={simbperfil} ImgStyle={"w-[65px]"} />
+            <Button Style={`h-full w-[50.3%] flex justify-center items-center ${BgSelectPerfil} `} Src={simbperfil} ImgStyle={"w-[65px]"} OnClickFunction={gotToProfilePage}/>
         </div>
     )
 }
