@@ -15,6 +15,7 @@ import ExcluirConta from './pages/Configuracoes/ExcluirConta';
 import OcultoPage from './pages/OcultoPage/OcultoPage';
 import HomepagePat from './pages/HomepagePat/HomepagePat';
 import Profilepagepat from './pages/ProfilePagePat/Profilepagepat';
+import NotFound from './pages/NotFound/NotFound';
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
           <Route path="/pacientesocultos" element={<OcultoPage/>}/>
           <Route path="/homepagepatient" element={<HomepagePat/>}/>
           <Route path="/profilepagepat" element={<Profilepagepat/>}/>
+          <Route path="*" element={<NotFound/>}/>
         </Routes>
       </BrowserRouter>
     </>
