@@ -32,9 +32,12 @@ export default function LoginBox({setOkayNotifInfo, setResponseLogin}){
             setStandState(true);
             const response = await postLogin(email, senha); //endpoint - envio do email e senha
             console.log(response.success)
+            console.log(response.token)
             if (response.success == true){
                 setOkayNotifInfo("valido");
                 setResponseLogin(response.message);
+                console.log(response.token)
+                // localStorage.setItem("token", token)
 
                 goToHomepage();
             }

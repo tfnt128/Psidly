@@ -4,7 +4,7 @@ import ShowPut from "../General/ShowPut"
 export default function ProfilePsi({}){
     
     return(
-        <div className="w-[115%] lg:w-[2100px] h-[320px] lg:h-[1150px] lg:ml-[850px] lg:mt-[3%] mt-[7%] flex flex-col lg:flex-col items-center bg-quarternario rounded-[20px] lg:rounded-[100px]">
+        <div className="w-[125%] lg:w-[2100px] h-[320px] lg:h-[1150px] lg:ml-[850px] lg:mt-[3%] mt-[7%] flex flex-col lg:flex-col items-center bg-quarternario rounded-[20px] lg:rounded-[100px]">
             <h1 className="font-aboreto lg:text-[70px] mt-6 color-quarternario">Meu psicólogo(a)</h1>
 
              <img
