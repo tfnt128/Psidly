@@ -3,6 +3,7 @@ import SideImg from "../../components/Login/SideImg"
 import Title from "../../components/Titles/Title"
 
 export default function Cadastropage(){
+
     return(
         <>
             <div className=" flex lg:hidden">

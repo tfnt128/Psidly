@@ -39,8 +39,7 @@ export default function LoginBox({setOkayNotifInfo, setResponseLogin}){
                 setResponseLogin(response.message);
                 console.log(response.token)
                 localStorage.setItem("token", response.token)
-                localStorage.setItem("roleCrp", response.user.crp)
-                localStorage.setItem("roleCpf", response.user.cpf)
+                isPatOrPsi(response.user.crp)                
 
                 goToHomepage();
             }
@@ -53,6 +52,16 @@ export default function LoginBox({setOkayNotifInfo, setResponseLogin}){
             
         } catch (err) {
             console.log(err)
+        }
+    }
+
+    function isPatOrPsi(roleCrp){
+        if(roleCrp){
+            localStorage.setItem("role", "psi")
+            localStorage.setItem("roleCrp", roleCrp)
+            
+        } else {
+            localStorage.setItem("role", "pat")
         }
     }
 

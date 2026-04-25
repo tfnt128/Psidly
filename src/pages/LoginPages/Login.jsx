@@ -9,6 +9,9 @@ import { useEffect } from "react";
 
 export default function Login(){
     
+    useEffect(() => {
+        localStorage.clear()
+    }, [])
     const [okayNotifInfo, setOkayNotifInfo] = useState("");
     const [responseLogin, setResponseLogin] = useState("");
     const [deferredPrompt, setDeferredPrompt] = useState(null);

@@ -2,9 +2,11 @@ import { Navigate } from "react-router-dom";
 
 export default function ProtectRoutePsi({ children }) {
     const token = localStorage.getItem('token');
-    const crp = localStorage.getItem('roleCrp');
+    const role = localStorage.getItem('role');
     
-    if(!token && !crp) {
+    console.log(role) //debug
+
+    if(!token || role != "psi") {
         return <Navigate to="/login" />;
     }
     

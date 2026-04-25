@@ -6,6 +6,8 @@ import OkayNotf from "../../components/General/OkayNotf";
 
 export default function Esquecisenha(){
     
+
+
     const [responseEmail, setResponseEmail] = useState("");
     const [bgOkay, setBgOkay] = useState("");
 
