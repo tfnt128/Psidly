@@ -16,6 +16,8 @@ import OcultoPage from './pages/OcultoPage/OcultoPage';
 import HomepagePat from './pages/HomepagePat/HomepagePat';
 import Profilepagepat from './pages/ProfilePagePat/Profilepagepat';
 import NotFound from './pages/NotFound/NotFound';
+import ProtectRoutePsi from './components/General/ProtectRoutePsi';
+import ProtectRoutePat from './components/General/ProtectRoutePat';
 
 
 function App() {
@@ -30,14 +32,46 @@ function App() {
           <Route path="/esqueceuasenhacodigo" element={<Esquecisenhacod/>}/>
           <Route path="/esqueceuasenhatempoesgotado" element={<Esqueciasenhatempoesg/>}/>
           <Route path="/esqueceuasenhaconfirmar" element={<Esquecisenhaconfirmar/>}/>
-          <Route path="/homepage" element={<Homepage/>}/>
-          <Route path="/graphicspage" element={<Graphicspage/>}/>
-          <Route path="/profilepage" element={<Profilepage/>}/>
-          <Route path="/configuracoes" element={<Configuracoes/>}/>
-          <Route path="/excluirconta" element={<ExcluirConta/>}/>
-          <Route path="/pacientesocultos" element={<OcultoPage/>}/>
-          <Route path="/homepagepatient" element={<HomepagePat/>}/>
-          <Route path="/profilepagepat" element={<Profilepagepat/>}/>
+          <Route path="/homepage" element={
+            <ProtectRoutePsi>
+              <Homepage/>
+            </ProtectRoutePsi>
+          }/>
+          <Route path="/graphicspage" element={
+            <ProtectRoutePsi>
+              <Graphicspage/>
+            </ProtectRoutePsi>
+          }/>
+          <Route path="/profilepage" element={
+            <ProtectRoutePsi>
+              <Profilepage/>
+            </ProtectRoutePsi>
+          }/>
+          <Route path="/configuracoes" element={
+            <ProtectRoutePsi>
+              <Configuracoes/>
+            </ProtectRoutePsi>
+          }/>
+          <Route path="/excluirconta" element={
+            <ProtectRoutePsi>
+              <ExcluirConta/>
+            </ProtectRoutePsi>
+          }/>
+          <Route path="/pacientesocultos" element={
+            <ProtectRoutePsi>
+              <OcultoPage/>
+            </ProtectRoutePsi>
+          }/>
+          <Route path="/homepagepatient" element={
+            <ProtectRoutePat>
+              <HomepagePat/>
+            </ProtectRoutePat>
+          }/>
+          <Route path="/profilepagepat" element={
+            <ProtectRoutePat>
+              <Profilepage/>
+            </ProtectRoutePat>
+          }/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
       </BrowserRouter>
