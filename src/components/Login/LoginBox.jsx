@@ -47,7 +47,7 @@ export default function LoginBox({setOkayNotifInfo, setResponseLogin}){
                 localStorage.setItem("email", response.user.email)
                 const dataNasc = formatarData(response.user.birthDate)
                 localStorage.setItem("dataNasc", dataNasc)
-                localStorage.setItem("nome", response.user.nome)
+                localStorage.setItem("nome", response.user.name)
                 isPatOrPsi(response.user.crp)                
 
                 goToHomepage();
