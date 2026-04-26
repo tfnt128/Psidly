@@ -22,8 +22,8 @@ const PERIODS = ["7 Dias", "15 Dias", "1 Mês", "6 Meses", "1 Ano"];
 // cada emocao tem sua cor, se nicolas ou pablo escolher outra cor, eu mudo
 const coresPorEmocao = {
   Tristeza:    "#4d8bff", // azul
-  Felicidade:  "#36e900", // amarelo
-  Ansiedade:   "#fffb05", // laranja
+  Felicidade:  "#36e900", // amarelo e dps mudei pra verde
+  Ansiedade:   "#ff05c9", // laranja e mudei pra roxo
   Raiva:       "#ff3b3b", // vermelho
   Estresse:    "#e05c2a", // vermelho amarelado
 };
@@ -104,7 +104,7 @@ export default function EmotionsChart() {
   return (
     <div style={styles.container}>
       <button
-        onClick={() => window.location.href = "/graphicspage"}
+        onClick={() => window.location.href = "/Graphicspage"}
         style={styles.backButton}
       >
         Voltar
