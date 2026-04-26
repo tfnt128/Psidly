@@ -9,6 +9,11 @@ import LoadingCircle from "../Animations/LoadingCircle";
 
 export default function LoginBox({setOkayNotifInfo, setResponseLogin}){
 
+    function formatarData(data) {
+        const [ano, mes, dia] = data.split('-');
+        return `${dia}/${mes}/${ano}`;
+    }
+
     const navigator = useNavigate();
     function goToCadastro(){
         navigator("/cadastro");
@@ -39,6 +44,10 @@ export default function LoginBox({setOkayNotifInfo, setResponseLogin}){
                 setResponseLogin(response.message);
                 console.log(response.token)
                 localStorage.setItem("token", response.token)
+                localStorage.setItem("email", response.user.email)
+                const dataNasc = formatarData(response.user.birthDate)
+                localStorage.setItem("dataNasc", dataNasc)
+                localStorage.setItem("nome", response.user.nome)
                 isPatOrPsi(response.user.crp)                
 
                 goToHomepage();

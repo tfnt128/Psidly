@@ -1,10 +1,9 @@
 import { useEffect, useState, useRef } from "react"
 import ProfilePhoto from "../../assets/icons/simbperfil.png"
-import {getNomeProfile, getEmailProfile} from "../../services/api";
 import Button from "../General/Button";
 import ShowPut from "../General/ShowPut";
 
-export default function Profilebox(){
+export default function Profilebox({nome, email}){
 
     const [options, setOptions] = useState(false)
     function openOptions(){
@@ -81,9 +80,9 @@ export default function Profilebox(){
                     onChange={handleFoto}
                 />
                 <div className="w-[100%] flex flex-col items-center gap-5 lg:gap-15">
-                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"Nome"} />
+                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"Nome"} Text={nome}/>
                         <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"CRP"} />
-                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"E-mail"} />
+                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"E-mail"} Text={email}/>
                         <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"Data de Nascimento"} />
                         <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[225px] lg:w-[1400px] lg:h-[700px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"Convênios"} />
 

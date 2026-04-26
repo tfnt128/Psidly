@@ -11,7 +11,8 @@ import Bigeye from "../../assets/animations/Bigeye.json"
 import Locker from "../../assets/animations/locker.json"
 import Write from "../../assets/animations/Write.json"
 import Share from "../../components/Profilepage/Share";
-
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function Profilepage(){
 
@@ -28,6 +29,13 @@ export default function Profilepage(){
         window.location.href = "mailto:suporte@psidly.com?subject=Contato Psidly"
     }
 
+    const [email, setEmail] = useState()
+    const [nome, setNome] = useState()
+    const varCrp = localStorage.getItem("roleCrp")
+    const [crp, setCrp] = useState(varCrp)
+    console.log(crp)
+
+
     return(
         <div className="min-h-screen ">
             
@@ -39,7 +47,7 @@ export default function Profilepage(){
             </div>
 
             <div className="flex flex-col items-center gap-5 lg:flex-row lg:gap-30">
-                <Profilebox/>
+                <Profilebox email={email} nome={nome}/>
                 <div className="grid grid-cols-2 mb-[100px] lg:grid-cols-2 lg:w-[2100px] w-[85%] gap-4 content-start lg:mt-[230px] lg:gap-60">
                     <Boxoption tituloOpt={"Pac. Ocultos"} onClickWay={goToOcult} AnimationOption={Bigeye} />
                     <Boxoption tituloOpt={"Configurações"} AnimationOption={Enger}/>

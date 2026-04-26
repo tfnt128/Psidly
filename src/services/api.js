@@ -96,23 +96,6 @@ export async function postCadastro(crp, nome, email, dataNasc, senha, senhaConfi
     }
 }
 
-export async function getNomeProfile(email){
-    try {
-        const response = await axios.get(`${API_URL}/profile?email=${email}`);
-        return response.data.nome;
-    } catch (err) {
-        console.log(err);
-    }
-}
-
-export async function getEmailProfile(email){
-    try {
-        const response = await axios.get(`${API_URL}/profile?email=${email}`);
-        return response.data.email;
-    } catch (err) {
-        console.log(err);
-    }
-}
 
 
 export async function postSenhaExcluir(email, senhaExcluir){
