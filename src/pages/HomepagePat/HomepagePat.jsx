@@ -6,6 +6,7 @@ import AddButton from "../../components/Homepage/AddButton";
 import { useState } from "react";
 import AvaliationModal from "../../components/HomepagePat/AvaliationModal";
 import MessagePad from "../../components/General/MessagePad";
+import AvaliationWidget from "../../components/HomepagePat/AvaliationWidget";
 
 
 export default function HomepagePat(){
@@ -25,6 +26,8 @@ export default function HomepagePat(){
         setMessageOk(false)
     }
 
+    const [avaliated, useAvalieated] = useState(true)
+
 
 
     return(
@@ -36,7 +39,7 @@ export default function HomepagePat(){
                             onClick={() => setBlur(false)}
                         />
     
-                        <div className="fixed inset-0 overflow-y-auto z-50 flex flex-col items-center justify-center pointer-events-none">
+                        <div className="fixed inset-0 overflow-y-auto z-100 flex flex-col items-center justify-center pointer-events-none">
                             <div className={`pointer-events-auto my-auto lg:mt-0 mt-70 mb-10 flex flex-col items-center ${animationSpaw} justify-center`}>
                                 <AvaliationModal onClose={() => setBlur(false)} 
                                 setBlur={setBlur}
@@ -50,25 +53,40 @@ export default function HomepagePat(){
                 )}
                 {
                     messageOk &&
-                        <div className="absolute h-full w-full inset-0 bg-black/80 z-10 flex flex-col items-center">
+                        <div className="absolute h-full w-full inset-0 z-103 bg-black/80 z-10 flex flex-col items-center">
                             <MessagePad Text={textMessagePad} textButton={textBtnMessagePad} OnClickFunction={closeMsgPad} Slide={slide}/>
                         </div>
                 }
-                    <div className="fixed lg:hidden bottom-0 left-0 w-full ">
+                    <div className="fixed lg:hidden bottom-0 left-0 z-100 w-full ">
                         <HomemenuPat BgSelectPsi={"bg-quarternario"} />
                     </div>
                     <div className="hidden lg:flex lg:fixed bottom-0 left-0 h-full w-[10%]">
                         <HomemenuasidePat BgSelectPsi={"bg-quarternario"} />
                     </div>
 
-                <div className="flex flex-col items-center lg:mt-170 mt-70">
-                    <h1 className="lg:text-[100px] text-[20px] text-gray-400 font-lexenddeca">Você ainda não fez sua avaliação diária!</h1>
-                    <img src={Cereconf} className="lg:h-[600px] h-[100px] grayscale-[50%] opacity-50 lg:mt-40 mt-10"/>
-                </div> 
+                    {
+                        avaliated &&
+                            <div className="flex flex-col items-center justify-center mt-20">
+                                <AvaliationWidget/>
+                            </div> 
+                    }
 
-                <div className="fixed  bottom-[120px] lg:right-30 right-4 ">
-                    <AddButton Label={"Avaliar Emoções"} Simbol={"+"} onClickFunction={newAvaliation}/>
-                </div>
+                    {
+                        !avaliated &&
+                            <div className="flex flex-col items-center lg:mt-170 mt-70">
+                                <h1 className="lg:text-[100px] text-[20px] text-gray-400 font-lexenddeca">Você ainda não fez sua avaliação diária!</h1>
+                                <img src={Cereconf} className="lg:h-[600px] h-[100px] grayscale-[50%] opacity-50 lg:mt-40 mt-10"/>
+                            </div> 
+                    }
+
+                    {
+                        !avaliated &&
+                            <div className="fixed  bottom-[120px] lg:right-30 right-4 ">
+                                <AddButton Label={"Avaliar Emoções"} Simbol={"+"} onClickFunction={newAvaliation}/>
+                            </div>
+                    }
+
+
         </div>
     )
 }

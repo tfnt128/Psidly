@@ -35,7 +35,7 @@ export default function AvaliationModal({Style, setBlur, messageOk, setMessageOk
 
 
     return(
-        <div className={`relative mt-20 bg-quarternario h-auto py-10 lg:py-20 lg:p-50 lg:w-[2500px] w-[350px] flex flex-col lg:flex-row items-center lg:rounded-[150px] rounded-[30px] ${Style}`}>
+        <div className={`relative mt-40 lg:mt-20 bg-quarternario h-auto mb-15 lg:mb-0 py-10 lg:py-20 lg:p-50 lg:w-[2500px] w-[350px] flex flex-col lg:flex-row items-center lg:rounded-[150px] rounded-[30px] ${Style}`}>
             {
                 standState &&
                     <div className="absolute h-full justify-center w-full inset-0 bg-black/90 rounded-[30px] lg:rounded-[150px] z-10 flex flex-col items-center">
