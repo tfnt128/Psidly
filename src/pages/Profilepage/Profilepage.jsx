@@ -17,6 +17,7 @@ import { useEffect } from "react";
 export default function Profilepage(){
 
     const navigator = useNavigate();
+
     function goToConfig(){
         navigator("/configuracoes");
     }
@@ -27,6 +28,14 @@ export default function Profilepage(){
 
     function goToEmail(){
         window.location.href = "mailto:suporte@psidly.com?subject=Contato Psidly"
+    }
+
+    function goToSobre(){
+        navigator("/sobre")
+    }
+
+    function goToTermos(){
+        navigator("/termos")
     }
 
     return(
@@ -44,10 +53,10 @@ export default function Profilepage(){
                 <div className="grid grid-cols-2 mb-[100px] lg:grid-cols-2 lg:w-[2100px] w-[85%] gap-4 content-start lg:mt-[230px] lg:gap-60">
                     <Boxoption tituloOpt={"Pac. Ocultos"} onClickWay={goToOcult} AnimationOption={Bigeye} />
                     <Boxoption tituloOpt={"Configurações"} AnimationOption={Enger}/>
-                    <Boxoption tituloOpt={"Sobre o App"} AnimationOption={Book} Style={"lg:mt-[-150px] mt-[3px]"}/>
+                    <Boxoption tituloOpt={"Sobre o App"} AnimationOption={Book} Style={"lg:mt-[-150px] mt-[3px]"} onClickWay={goToSobre}/>
                     <Boxoption tituloOpt={"Contato"} AnimationOption={Talk} Style={"lg:mt-[-150px]  mt-[3px]"} onClickWay={goToEmail}/>
                     <Boxoption tituloOpt={"Privacidade"} AnimationOption={Locker} Style={"lg:mt-[-150px] mt-[3px]"}/>
-                    <Boxoption tituloOpt={"Termos"} AnimationOption={Write} Style={"lg:mt-[-150px] mt-[3px]"}/>
+                    <Boxoption tituloOpt={"Termos"} AnimationOption={Write} Style={"lg:mt-[-150px] mt-[3px]"} onClickWay={goToTermos}/>
                     <Share Style={"lg:w-[2280px] lg:h-[800px] w-[340px] lg:rounded-[50px] rounded-[20px] bg-secundario lg:mt-[-120px] hover:transition hover:transform hover:scale-105 duration-300"}/>
                 </div>
                 
