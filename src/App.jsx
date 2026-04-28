@@ -18,6 +18,8 @@ import Profilepagepat from './pages/ProfilePagePat/Profilepagepat';
 import NotFound from './pages/NotFound/NotFound';
 import ProtectRoutePsi from './components/General/ProtectRoutePsi';
 import ProtectRoutePat from './components/General/ProtectRoutePat';
+import Sobre from "./pages/Sobre/Sobre";
+import Termos from "./pages/Termos/Termos";
 
 
 function App() {
@@ -32,6 +34,8 @@ function App() {
           <Route path="/esqueceuasenhacodigo" element={<Esquecisenhacod/>}/>
           <Route path="/esqueceuasenhatempoesgotado" element={<Esqueciasenhatempoesg/>}/>
           <Route path="/esqueceuasenhaconfirmar" element={<Esquecisenhaconfirmar/>}/>
+          <Route path="/sobre" element={<Sobre />} />
+          <Route path="/termos" element={<Termos />} />
           <Route path="/homepage" element={
             <ProtectRoutePsi>
               <Homepage/>
