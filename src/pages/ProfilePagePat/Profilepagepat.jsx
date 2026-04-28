@@ -10,11 +10,14 @@ import Book from "../../assets/animations/Book.json"
 import Talk from "../../assets/animations/Talk.json"
 import Locker from "../../assets/animations/locker.json"
 import Write from "../../assets/animations/Write.json"
+import { useEffect } from "react";
 
 export default function Profilepagepat(){
     function goToEmail(){
         window.location.href = "mailto:suporte@psidly.com?subject=Contato Psidly"
     }
+
+
 
     return(
         <div>

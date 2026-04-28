@@ -11,7 +11,8 @@ import Bigeye from "../../assets/animations/Bigeye.json"
 import Locker from "../../assets/animations/locker.json"
 import Write from "../../assets/animations/Write.json"
 import Share from "../../components/Profilepage/Share";
-
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function Profilepage(){
 
