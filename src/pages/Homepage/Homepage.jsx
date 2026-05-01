@@ -16,8 +16,13 @@ import Megan from "../../assets/icons/meganfox.jpg"
 import EmmaW from "../../assets/icons/emma.jpg"
 import EmmaS from "../../assets/icons/emmast.jpg"
 import TerryC from "../../assets/icons/terry.jpg"
+import { useTranslation } from 'react-i18next';
+
 
 export default function Homepage(){
+
+    const { t } = useTranslation();
+
 
     const [screenBlur, setScreenBlur] = useState(false)
     const [screenBlurPD, setScreenBlurPD] = useState(false)
@@ -92,7 +97,7 @@ export default function Homepage(){
                 <div className="relative w-[90%] lg:w-[40%]">
                     <Input 
                         Style={"w-full h-[80px] lg:h-[200px] lg:rounded-[80px] bg-gray-300 p-10 pr-14 lg:text-[50px] rounded-[30px] placeholder:p-10"} 
-                        PlaceHolder={"Pesquisar"}
+                        PlaceHolder={t('pesquisar')}
                     />
                     <span className="absolute right-5 top-1/2 -translate-y-1/2 text-[20px] lg:text-[50px] grayscale-[50%] pointer-events-none">
                         🔍
@@ -116,7 +121,7 @@ export default function Homepage(){
             </div> */}
 
             <div className="fixed  bottom-[120px] lg:right-30 right-4 ">
-                <AddButton onClickFunction={openNewPatientModal} Label={"Adicionar Paciente"} Simbol={"+"}/>
+                <AddButton onClickFunction={openNewPatientModal} Label={t('adicionarPaciente')} Simbol={"+"}/>
             </div>
 
             <div className="fixed lg:hidden bottom-0 left-0 w-full ">

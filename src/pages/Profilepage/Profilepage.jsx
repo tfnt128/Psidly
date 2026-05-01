@@ -19,7 +19,7 @@ export default function Profilepage(){
     const navigator = useNavigate();
 
     function goToConfig(){
-        navigator("/configuracoes");
+        navigator("/configs");
     }
 
     function goToOcult(){
@@ -52,7 +52,7 @@ export default function Profilepage(){
                 <Profilebox/>
                 <div className="grid grid-cols-2 mb-[100px] lg:grid-cols-2 lg:w-[2100px] w-[85%] gap-4 content-start lg:mt-[230px] lg:gap-60">
                     <Boxoption tituloOpt={"Pac. Ocultos"} onClickWay={goToOcult} AnimationOption={Bigeye} />
-                    <Boxoption tituloOpt={"Configurações"} AnimationOption={Enger}/>
+                    <Boxoption tituloOpt={"Configurações"} AnimationOption={Enger} onClickWay={goToConfig}/>
                     <Boxoption tituloOpt={"Sobre o App"} AnimationOption={Book} Style={"lg:mt-[-150px] mt-[3px]"} onClickWay={goToSobre}/>
                     <Boxoption tituloOpt={"Contato"} AnimationOption={Talk} Style={"lg:mt-[-150px]  mt-[3px]"} onClickWay={goToEmail}/>
                     <Boxoption tituloOpt={"Privacidade"} AnimationOption={Locker} Style={"lg:mt-[-150px] mt-[3px]"}/>

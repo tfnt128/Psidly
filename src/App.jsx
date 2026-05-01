@@ -20,6 +20,7 @@ import ProtectRoutePsi from './components/General/ProtectRoutePsi';
 import ProtectRoutePat from './components/General/ProtectRoutePat';
 import Sobre from "./pages/Sobre/Sobre";
 import Termos from "./pages/Termos/Termos";
+import Languages from './pages/Configuracoes/Languages';
 
 
 function App() {
@@ -65,6 +66,14 @@ function App() {
             <ProtectRoutePsi>
               <OcultoPage/>
             </ProtectRoutePsi>
+          }/>
+          <Route path="/configs" element={
+            <ProtectRoutePsi>
+              <Configuracoes/>
+            </ProtectRoutePsi>
+          }/>
+          <Route path="/languages" element={
+              <Languages/>
           }/>
           {/* <Route path="/homepagepatient" element={
             <ProtectRoutePat>

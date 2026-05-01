@@ -4,12 +4,16 @@ import Input from "../General/Input";
 import Button from "../General/Button"
 import LoadingCircle from "../Animations/LoadingCircle";
 import MessagePad from "../General/MessagePad";
+import { useTranslation } from 'react-i18next';
 
 
 
 export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, setTextBtnMessagePad, setScreenBlur, setSlide}){
     const [foto, setFoto] = useState(null);
     const inputRef = useRef(null);
+
+    const { t } = useTranslation();
+
 
     function handleFoto(e) {
         const file = e.target.files[0];
@@ -48,7 +52,7 @@ export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, 
                     </div>
             }
 
-            <h1 className="font-aboreto text-[30px] lg:text-[80px] lg:mt-10 mt-3">Novo paciente</h1>
+            <h1 className="font-aboreto text-[30px] lg:text-[80px] lg:mt-10 mt-3">{t('novoPaciente')}</h1>
 
             <img
                 src={foto || ProfilePhoto}
@@ -64,37 +68,37 @@ export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, 
                 onChange={handleFoto}
             />
 
-            <Input PlaceHolder={"Insira o nome do paciente"}
+            <Input PlaceHolder={t('insiraNome')}
                 Style={"w-[90%] text-[10px] lg:h-[140px] h-[50px] lg:h-[160px] lg:rounded-[30px] lg:text-[40px] lg:p-6 lg:mt-10 p-3 rounded-[10px] bg-white mt-10 border-none outline-none hover:scale-107 transition-transform durantion-200"}
                 value={nome}
                 setValue={setNome}/>
 
-            <Input PlaceHolder={"Insira o CPF"}
+            <Input PlaceHolder={t('insiraCpf')}
                 Style={"w-[90%] text-[10px] h-[50px] lg:h-[160px] lg:rounded-[30px] lg:text-[40px] lg:p-6 lg:mt-10 p-3 rounded-[10px] bg-white mt-6 border-none outline-none hover:scale-107 transition-transform durantion-200"}
                 value={cpf}
                 setValue={setCpf}/>
-            <Input PlaceHolder={"Insira o e-mail"}
+            <Input PlaceHolder={t('insiraEmail')}
                 Style={"w-[90%] text-[10px] h-[50px] lg:h-[160px] lg:rounded-[30px] lg:text-[40px] lg:p-6 lg:mt-10 p-3 rounded-[10px] bg-white mt-6 border-none outline-none hover:scale-107 transition-transform durantion-200"}
                 Type={"email"}
                 value={email}
                 setValue={setEmail}/>
-            <Input PlaceHolder={"Crie uma senha para o paciente"}
+            <Input PlaceHolder={t('crieSenha')}
                 Style={"w-[90%] text-[10px] h-[50px] lg:h-[160px] lg:rounded-[30px] lg:text-[40px] lg:p-6 lg:mt-10 p-3 rounded-[10px] bg-white mt-6 border-none outline-none hover:scale-107 transition-transform durantion-200"}
                 Type={"password"}
                 value={senha}
                 setValue={setSenha}/>
-            <Input PlaceHolder={"Insira o telefone do paciente"}
+            <Input PlaceHolder={t('insiraTelefone')}
                 Style={"w-[90%] text-[10px] h-[50px] lg:h-[160px] lg:rounded-[30px] lg:text-[40px] lg:p-6 lg:mt-10 p-3 rounded-[10px] bg-white mt-6 border-none outline-none hover:scale-107 transition-transform durantion-200"}
                 Type={"number"}
                 value={telefone}
                 setValue={setTelefone}/>
-            <h3 className="text-[10px] lg:text-[45px] font-aboreto mt-3 lg:mt-6">Insira a data de nascimento</h3>
-            <Input PlaceHolder={"Insira a data de nascimento"}
+            <h3 className="text-[10px] lg:text-[45px] font-aboreto mt-3 lg:mt-6">{t('insiraDataNasc')}</h3>
+            <Input
                 Type={"date"}
                 value={dataNasc}
                 setValue={setDataNasc}
                 Style={"w-[40%] h-[50px] lg:h-[160px] lg:rounded-[30px] lg:text-[40px] lg:p-6 p-3 rounded-[10px] bg-white mt-1 border-none outline-none hover:scale-107 transition-transform durantion-200"}/>
-            <h3 className="text-[10px] lg:text-[45px] font-aboreto mt-3 lg:mt-6">Selecione o convênio do paciente</h3>
+            <h3 className="text-[10px] lg:text-[45px] font-aboreto mt-3 lg:mt-6">{t('selecioneConvenio')}</h3>
 
                 <select 
 
@@ -123,7 +127,7 @@ export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, 
                     <option>Unimed Seguros</option>
                     <option>Particular</option>
                 </select>
-            <Button Style={"w-[80%] h-[50px] rounded-[10px] lg:rounded-[40px] lg:h-[160px] lg:mt-12 lg:text-[40px] bg-terciario text-[10px] font-aboreto color-secundario mt-6 hover:bg-white hover:text-black transition-transform duration-400 ease-in-out"} Text={"Adicionar"}
+            <Button Style={"w-[80%] h-[50px] rounded-[10px] lg:rounded-[40px] lg:h-[160px] lg:mt-12 lg:text-[40px] bg-terciario text-[10px] font-aboreto color-secundario mt-6 hover:bg-white hover:text-black transition-transform duration-400 ease-in-out"} Text={t('adicionar')}
             OnClickFunction={handleAddPatient}/>
         </div>
     )
