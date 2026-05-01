@@ -24,19 +24,19 @@ export default function AvaliationWidget({Style}){
                 <h1 className="font-aboreto text-[17px] color-quarternario lg:w-full w-[80%] lg:text-[57px] lg:mr-15  w-[120%] lg:mt-[-80px] text-center ">Sua avaliação de hoje ({hoje})</h1>
 
                 <h1 className="font-lexenddeca color-quarternario text-[18px] lg:text-[58px] mt-10 lg:mt-30 mb-[-15px] lg:mb-[-65px]">Alegria</h1>
-                <StarAvaliated starQtde={alegria}/>
+                <StarAvaliated Style={"text-[50px] lg:text-[170px]"} starQtde={alegria}/>
 
                 <h1 className="font-lexenddeca color-quarternario text-[18px] lg:text-[58px] mt-5 mb-[-15px] lg:mb-[-65px]">Tristeza</h1>
-                <StarAvaliated starQtde={tristeza}/>
+                <StarAvaliated Style={"text-[50px] lg:text-[170px]"} starQtde={tristeza}/>
 
                 <h1 className="font-lexenddeca color-quarternario text-[18px] lg:text-[58px] mt-5 mb-[-15px] lg:mb-[-65px]">Raiva</h1>
-                <StarAvaliated starQtde={raiva}/>
+                <StarAvaliated Style={"text-[50px] lg:text-[170px]"} starQtde={raiva}/>
 
                 <h1 className="font-lexenddeca color-quarternario text-[18px] lg:text-[58px] mt-5 mb-[-15px] lg:mb-[-65px]">Ansiedade</h1>
-                <StarAvaliated starQtde={ansiedade}/>
+                <StarAvaliated Style={"text-[50px] lg:text-[170px]"} starQtde={ansiedade}/>
 
                 <h1 className="font-lexenddeca color-quarternario text-[18px] lg:text-[58px] mt-5 mb-[-15px] lg:mb-[-65px]">Estresse</h1>
-                <StarAvaliated starQtde={estresse}/>
+                <StarAvaliated Style={"text-[50px] lg:text-[170px]"} starQtde={estresse}/>
             </div>
             <div className="w-[300px] lg:w-[4px] h-[2px] shrink-0 mt-10 lg:ml-30 lg:mt-0 lg:h-[2000px] lg:ml-10 bg-white/40 mx-4 lg:mx-20 rounded-full"/>
 

@@ -73,9 +73,11 @@ export default function Homepage(){
                         onClick={() => setScreenBlurPD(false)}
                     />
 
-                    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center pointer-events-none">
-                        <div className={`pointer-events-auto flex flex-col items-center ${animationSpaw} justify-center`}>
-                            <PatientDetails Style={"min-h-[650px] lg:min-h-[1900px] lg:w-[3000px] w-[350px]"}/>
+                    <div className="fixed inset-0 z-50 overflow-y-auto pointer-events-none">
+                        <div className="flex min-h-full items-center justify-center p-4">
+                            <div className={`pointer-events-auto flex flex-col items-center ${animationSpaw} justify-center w-full`}>
+                                <PatientDetails Style={"min-h-[650px] lg:min-h-[2000px] lg:w-[4000px] w-[350px]"}/>
+                            </div>
                         </div>
                     </div>
                 </>
