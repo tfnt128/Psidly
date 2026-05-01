@@ -20,6 +20,9 @@ import ProtectRoutePsi from './components/General/ProtectRoutePsi';
 import ProtectRoutePat from './components/General/ProtectRoutePat';
 import Sobre from "./pages/Sobre/Sobre";
 import Termos from "./pages/Termos/Termos";
+import SobrePat from "./pages/Sobre/SobrePat";
+import TermosPat from "./pages/Termos/TermosPat";
+
 
 
 function App() {
@@ -36,6 +39,9 @@ function App() {
           <Route path="/esqueceuasenhaconfirmar" element={<Esquecisenhaconfirmar/>}/>
           <Route path="/sobre" element={<Sobre />} />
           <Route path="/termos" element={<Termos />} />
+          <Route path="/sobrePat" element={<SobrePat/>}/>
+          <Route path="/termosPat" element={<TermosPat/>}/>
+
           <Route path="/homepage" element={
             <ProtectRoutePsi>
               <Homepage/>
