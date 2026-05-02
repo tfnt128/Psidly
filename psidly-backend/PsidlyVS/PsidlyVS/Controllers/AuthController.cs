@@ -74,51 +74,63 @@ namespace psidly_backend.Controllers
         {
             try
             {
-                var user = await _context.Users
+                var psychologist = await _context.Users
                     .FirstOrDefaultAsync(u => u.Email == loginDto.Email);
 
-                if (user == null)
+                if (psychologist != null)
                 {
-                    return Ok(new AuthResponseDto
-                    {
-                        Success = false,
-                        Message = "Email ou senha inválidos"
-                    });
-                }
 
-                if (!BCrypt.Net.BCrypt.Verify(loginDto.Password, user.PasswordHash))
-                {
-                    return Ok(new AuthResponseDto
+                    if (BCrypt.Net.BCrypt.Verify(loginDto.Password, psychologist.PasswordHash))
                     {
-                        Success = false,
-                        Message = "Email ou senha inválidos"
-                    });
-                }
-
-                var token = GenerateJwtToken(user);
-
-                return Ok(new AuthResponseDto
-                {
-                    Success = true,
-                    Message = "Login realizado com sucesso",
-                    Token = token,
-                    User = new UserDto
-                    {
-                        Id = user.Id,
-                        Name = user.Name,
-                        Email = user.Email,
-                        Crp = user.Crp,
-                        BirthDate = user.BirthDate
+                        var token = GenerateJwtToken(psychologist);
+                        return Ok(new AuthResponseDto
+                        {
+                            Success = true,
+                            Message = "Login como Psicólogo realizado",
+                            Token = token,
+                            UserType = "Psicólogo",
+                            User = new UserDto 
+                            {
+                                Id = psychologist.Id,
+                                Name = psychologist.Name,
+                                Email = psychologist.Email,
+                                Crp = psychologist.Crp,
+                                BirthDate = psychologist.BirthDate
+                            }
+                        });
                     }
-                });
+                }
+
+
+                var patient = await _context.Patients
+                    .FirstOrDefaultAsync(p => p.Email == loginDto.Email);
+
+                if (patient != null)
+                {
+                    if (loginDto.Password == patient.Cpf)
+                    {
+                        return Ok(new AuthResponseDto
+                        {
+                            Success = true,
+                            Message = "Login como Paciente realizado",
+                            Token = null, 
+                            UserType = "Paciente",
+                            User = new 
+                            {
+                                Id = patient.Id,
+                                Name = patient.Name,
+                                Email = patient.Email,
+                                Cpf = patient.Cpf
+                            }
+                        });
+                    }
+                }
+
+                return Ok(new AuthResponseDto { Success = false, Message = "Credenciais inválidas" });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new AuthResponseDto
-                {
-                    Success = false,
-                    Message = "Erro interno do servidor a tentativa de Login"
-                });
+                return StatusCode(500, new AuthResponseDto { Success = false, Message = "Erro interno no servidor" });
             }
         }
 
