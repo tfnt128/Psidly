@@ -5,8 +5,11 @@ import Button from "../General/Button"
 import LoadingCircle from "../Animations/LoadingCircle";
 import ShowPut from "../General/ShowPut";
 import StarAvaliated from "../HomepagePat/StarsAvaliated";
+import i18n from "../../services/i18n";
+import { useTranslation } from "react-i18next";
 
 export default function PatientDetails({Style}){
+    const { t } = useTranslation();
 
     const [options, setOptions] = useState(false)
     function openOptions(){
@@ -71,9 +74,9 @@ export default function PatientDetails({Style}){
                         <div className="absolute z-10 top-3 animate-slide-down right-4 mr-7 lg:mr-40 lg:mt-[40px] mt-[10px] w-[200px] h-[150px] lg:w-[400px] lg:h-[300px] rounded-[10px] lg:rounded-[25px] bg-white"
                             onClick={(e) => e.stopPropagation()}>
                             <div className="w-full flex flex-col items-center lg:text-[30px] text-[15px] cursor-pointer justify-center h-[33%] hover:bg-blue-200 hover:transition-transform duration-300 rounded-t-[10px] lg:rounded-t-[25px]"
-                                onClick={() => toEdit()}>Editar</div>
-                            <div className="w-full flex flex-col items-center lg:text-[30px] text-[15px] cursor-pointer justify-center h-[33%] hover:bg-blue-200 hover:transition-transform duration-300">Excluir</div>
-                            <div className="w-full flex flex-col items-center lg:text-[30px] text-[15px] cursor-pointer justify-center h-[33%] hover:bg-blue-200 hover:transition-transform duration-300 rounded-b-[10px] lg:rounded-b-[25px]">Desativar</div>
+                                onClick={() => toEdit()}>{t('editar')}</div>
+                            <div className="w-full flex flex-col items-center lg:text-[30px] text-[15px] cursor-pointer justify-center h-[33%] hover:bg-blue-200 hover:transition-transform duration-300">{t('excluir')}</div>
+                            <div className="w-full flex flex-col items-center lg:text-[30px] text-[15px] cursor-pointer justify-center h-[33%] hover:bg-blue-200 hover:transition-transform duration-300 rounded-b-[10px] lg:rounded-b-[25px]">{t('desativar')}</div>
                         </div>
                 }
                 <div className="flex justify-end w-full pr-4 pt-2 lg:mr-60">
@@ -102,11 +105,11 @@ export default function PatientDetails({Style}){
                     onChange={handleFoto}
                 />
 
-                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={"Nome"} Text={"Duda Araujo do Santos"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
-                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={"CPF"} Text={"47218802869"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
-                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={"E-mail"} Text={"duda@gmail.com"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
-                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={"Data de Nascimento"} Text={"10/09/2001"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
-                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={"Convênio"} Text={"Prevent Senior"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('nome')} Text={"Duda Araujo do Santos"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('cpf')} Text={"47218802869"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('email')} Text={"duda@gmail.com"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('dataNascimento')} Text={"10/09/2001"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('convenios')} Text={"Prevent Senior"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
 
                 {
                     edit &&
@@ -123,26 +126,26 @@ export default function PatientDetails({Style}){
 
             <div className="lg:w-[60%] h-full flex flex-col items-center">
                 <div className="flex-col flex items-center">
-                    <h1 className="font-aboreto text-[17px] lg:text-[65px] color-quarternario mt-10 lg:mt-15">Avaliações</h1>
+                    <h1 className="font-aboreto text-[17px] lg:text-[65px] color-quarternario mt-10 lg:mt-15">{t('avaliacaoDoDia')}</h1>
                     <Input Type={"date"} Style={"w-[100%] outline-none bg-primario p-[15px] lg:p-[30px] rounded-[10px] lg:rounded-[25px] lg:text-[40px] m-3 "}/>
                 </div>
                 <div className="flex flex-col lg:flex-row items-center">
                     <div>
                         <div className=" flex flex-col items-center  lg:w-[40%] mt-5">
 
-                            <h1 className="font-lexenddeca color-quarternario text-[18px] lg:text-[50px] lg:mt-1 mb-[-15px] lg:mb-[-65px]">Alegria</h1>
+                            <h1 className="font-lexenddeca color-quarternario text-[18px] lg:text-[50px] lg:mt-1 mb-[-15px] lg:mb-[-65px]">{t('alegria')}</h1>
                             <StarAvaliated Style={"text-[45px] lg:text-[140px] mt-1 lg:mt-8"} starQtde={alegria}/>
             
-                            <h1 className="font-lexenddeca color-quarternario text-[18px] lg:text-[50px] mt-5 mb-[-15px] lg:mb-[-65px]">Tristeza</h1>
+                            <h1 className="font-lexenddeca color-quarternario text-[18px] lg:text-[50px] mt-5 mb-[-15px] lg:mb-[-65px]">{t('tristeza')}</h1>
                             <StarAvaliated Style={"text-[45px] lg:text-[140px] mt-1 lg:mt-8"} starQtde={tristeza}/>
             
-                            <h1 className="font-lexenddeca color-quarternario text-[18px] lg:text-[50px] mt-5 mb-[-15px] lg:mb-[-65px]">Raiva</h1>
+                            <h1 className="font-lexenddeca color-quarternario text-[18px] lg:text-[50px] mt-5 mb-[-15px] lg:mb-[-65px]">{t('raiva')}</h1>
                             <StarAvaliated Style={"text-[45px] lg:text-[140px] mt-1 lg:mt-8"} starQtde={raiva}/>
             
-                            <h1 className="font-lexenddeca color-quarternario text-[18px] lg:text-[50px] mt-5 mb-[-15px] lg:mb-[-65px]">Ansiedade</h1>
+                            <h1 className="font-lexenddeca color-quarternario text-[18px] lg:text-[50px] mt-5 mb-[-15px] lg:mb-[-65px]">{t('ansiedade')}</h1>
                             <StarAvaliated Style={"text-[45px] lg:text-[140px] mt-1 lg:mt-8"} starQtde={ansiedade}/>
             
-                            <h1 className="font-lexenddeca color-quarternario text-[18px] lg:text-[50px] mt-5 mb-[-15px] lg:mb-[-65px]">Estresse</h1>
+                            <h1 className="font-lexenddeca color-quarternario text-[18px] lg:text-[50px] mt-5 mb-[-15px] lg:mb-[-65px]">{t('estresse')}</h1>
                             <StarAvaliated Style={"text-[45px] lg:text-[140px] mt-1 lg:mt-8"} starQtde={estresse}/>
                         </div>
 
@@ -150,13 +153,13 @@ export default function PatientDetails({Style}){
                     <div className=" flex flex-col items-center mt-7 lg:mt-15">
                         <div className="flex flex-col items-center lg:ml-35 lg:mr-[-30px] gap-1 lg:gap-12">
                             <div className="flex flex-col items-center">
-                                <h1 className="font-aboreto color-quarternario text-[14px] lg:text-[50px] mt-10 lg:mb-5 lg:mt-[-20px] mb-[-15px] ">Observações do paciente</h1>
+                                <h1 className="font-aboreto color-quarternario text-[14px] lg:text-[50px] mt-10 lg:mb-5 lg:mt-[-20px] mb-[-15px] ">{t('observacoesPaciente')}</h1>
                                 <textarea className="w-[260px] lg:h-[800px] lg:w-[800px] h-[300px] lg:text-[40px] lg:mt-0 mt-10 lg:p-5 text-[15px] bg-blue-200 rounded-[20px] lg:rounded-[50px] outline-none font-lexenddeca p-3 " maxLength={300}
                                 placeholder={textObs}
                                 readOnly={true}/> 
                             </div>
                             <div className="flex flex-col items-center mt-5 lg:mt-10">
-                                <h1 className="font-aboreto color-quarternario text-[14px] lg:text-[50px] mt-10 lg:mb-5 lg:mt-[-20px] mb-[-15px] ">Minhas observações</h1>
+                                <h1 className="font-aboreto color-quarternario text-[14px] lg:text-[50px] mt-10 lg:mb-5 lg:mt-[-20px] mb-[-15px] ">{t('minhasObservacoes')}</h1>
                                 <textarea className="w-[260px] lg:h-[400px]  lg:w-[800px] h-[300px] lg:mb-10 mb-5 lg:text-[40px] lg:mt-0 mt-10 lg:p-5 text-[15px] bg-blue-200 rounded-[20px] lg:rounded-[50px] outline-none font-lexenddeca p-3 " maxLength={300}
                                 placeholder={comentPsi}
                                 /> 

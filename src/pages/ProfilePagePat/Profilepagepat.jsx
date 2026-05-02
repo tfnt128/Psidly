@@ -11,12 +11,14 @@ import Talk from "../../assets/animations/Talk.json"
 import Locker from "../../assets/animations/locker.json"
 import Write from "../../assets/animations/Write.json"
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Profilepagepat(){
     function goToEmail(){
         window.location.href = "mailto:suporte@psidly.com?subject=Contato Psidly"
     }
 
+    const {t} = useTranslation()
 
 
     return(
@@ -35,10 +37,10 @@ export default function Profilepagepat(){
                                 <ProfilePsi/>
                             </div>
                             <div className="grid grid-cols-2 mb-[100px] lg:grid-cols-2 lg:w-[2100px] w-[85%] gap-4 content-start lg:mt-[0px] lg:gap-60">
-                                <Boxoption tituloOpt={"Sobre o App"} AnimationOption={Book} Style={"lg:mt-[-150px] mt-[3px]"}/>
-                                <Boxoption tituloOpt={"Contato"} AnimationOption={Talk} Style={"lg:mt-[-150px]  mt-[3px]"} onClickWay={goToEmail}/>
-                                <Boxoption tituloOpt={"Privacidade"} AnimationOption={Locker} Style={"lg:mt-[-150px] mt-[3px]"}/>
-                                <Boxoption tituloOpt={"Termos"} AnimationOption={Write} Style={"lg:mt-[-150px] mt-[3px]"}/>
+                                <Boxoption tituloOpt={t('sobreApp')} AnimationOption={Book} Style={"lg:mt-[-150px] mt-[3px]"}/>
+                                <Boxoption tituloOpt={t('contato')} AnimationOption={Talk} Style={"lg:mt-[-150px]  mt-[3px]"} onClickWay={goToEmail}/>
+                                <Boxoption tituloOpt={t('privacidade')} AnimationOption={Locker} Style={"lg:mt-[-150px] mt-[3px]"}/>
+                                <Boxoption tituloOpt={t('termos')} AnimationOption={Write} Style={"lg:mt-[-150px] mt-[3px]"}/>
                                 <Share Style={"lg:w-[2280px] lg:h-[800px] w-[370px] lg:rounded-[50px] rounded-[20px] bg-secundario lg:mt-[-120px] hover:transition hover:transform hover:scale-105 duration-300"}/>
                             </div>
                         </div>

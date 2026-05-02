@@ -13,8 +13,10 @@ import Write from "../../assets/animations/Write.json"
 import Share from "../../components/Profilepage/Share";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Profilepage(){
+    const { t } = useTranslation();
 
     const navigator = useNavigate();
 
@@ -51,12 +53,12 @@ export default function Profilepage(){
             <div className="flex flex-col items-center gap-5 lg:flex-row lg:gap-30">
                 <Profilebox/>
                 <div className="grid grid-cols-2 mb-[100px] lg:grid-cols-2 lg:w-[2100px] w-[85%] gap-4 content-start lg:mt-[230px] lg:gap-60">
-                    <Boxoption tituloOpt={"Pac. Ocultos"} onClickWay={goToOcult} AnimationOption={Bigeye} />
-                    <Boxoption tituloOpt={"Configurações"} AnimationOption={Enger} onClickWay={goToConfig}/>
-                    <Boxoption tituloOpt={"Sobre o App"} AnimationOption={Book} Style={"lg:mt-[-150px] mt-[3px]"} onClickWay={goToSobre}/>
-                    <Boxoption tituloOpt={"Contato"} AnimationOption={Talk} Style={"lg:mt-[-150px]  mt-[3px]"} onClickWay={goToEmail}/>
-                    <Boxoption tituloOpt={"Privacidade"} AnimationOption={Locker} Style={"lg:mt-[-150px] mt-[3px]"}/>
-                    <Boxoption tituloOpt={"Termos"} AnimationOption={Write} Style={"lg:mt-[-150px] mt-[3px]"} onClickWay={goToTermos}/>
+                    <Boxoption tituloOpt={t('pacientesOcultos')} onClickWay={goToOcult} AnimationOption={Bigeye} />
+                    <Boxoption tituloOpt={t('configuracoes')} AnimationOption={Enger} onClickWay={goToConfig}/>
+                    <Boxoption tituloOpt={t('sobreApp')} AnimationOption={Book} Style={"lg:mt-[-150px] mt-[3px]"} onClickWay={goToSobre}/>
+                    <Boxoption tituloOpt={t('contato')} AnimationOption={Talk} Style={"lg:mt-[-150px]  mt-[3px]"} onClickWay={goToEmail}/>
+                    <Boxoption tituloOpt={t('privacidade')} AnimationOption={Locker} Style={"lg:mt-[-150px] mt-[3px]"}/>
+                    <Boxoption tituloOpt={t('termos')} AnimationOption={Write} Style={"lg:mt-[-150px] mt-[3px]"} onClickWay={goToTermos}/>
                     <Share Style={"lg:w-[2280px] lg:h-[800px] w-[340px] lg:rounded-[50px] rounded-[20px] bg-secundario lg:mt-[-120px] hover:transition hover:transform hover:scale-105 duration-300"}/>
                 </div>
                 

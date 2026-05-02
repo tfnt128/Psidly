@@ -5,10 +5,13 @@ import PatientWidget from "../../components/Homepage/PatientWidget";
 import { useState } from "react";
 import PatientDetails from "../../components/Homepage/PatientDetails";
 import OcultPatientDetails from "../../components/OcultoPage/OcultPatientDetails";
+import { useTranslation } from "react-i18next";
 
 export default function OcultoPage(){
     const [screenBlurPD, setScreenBlurPD] = useState(false)
     const [animationSpaw, setAnimationSpaw] = useState("")
+
+    const {t} = useTranslation()
 
     function openPatientDetails(){
         setScreenBlurPD(true)
@@ -39,7 +42,7 @@ export default function OcultoPage(){
                 <Homemenuaside BgSelectPerfil={"bg-quarternario"} />
             </div>
             <div className="flex flex-col items-center mt-10 lg:mt-20">
-                <h1 className="font-aboreto text-[20px] lg:text-[70px] color-quarternario">Pacientes Ocultos</h1>
+                <h1 className="font-aboreto text-[20px] lg:text-[70px] color-quarternario">{t('pacientesOcultos')}</h1>
             </div>
             <div className="flex flex-col gap-10 mb-[120px] items-center mt-20 lg:grid lg:grid-cols-4 lg:gap-x-0 lg:gap-y-30 lg:gap-1 lg:mt-60 lg:w-[60%]  lg:items-center lg:ml-200">
                 <PatientWidget ProfilePhoto={Tyler} Nome={"Tyler"} Idade={"40"} Style={"grayscale-100"} OnClickFunction={openPatientDetails}/>

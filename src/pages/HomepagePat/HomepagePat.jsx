@@ -7,10 +7,10 @@ import { useState } from "react";
 import AvaliationModal from "../../components/HomepagePat/AvaliationModal";
 import MessagePad from "../../components/General/MessagePad";
 import AvaliationWidget from "../../components/HomepagePat/AvaliationWidget";
-
+import { useTranslation } from "react-i18next";
 
 export default function HomepagePat(){
-
+    const {t} = useTranslation()
     const [blur, setBlur] = useState(false)
     const [animationSpaw, setAnimationSpaw] = useState("")
     function newAvaliation(){
@@ -74,7 +74,7 @@ export default function HomepagePat(){
                     {
                         !avaliated &&
                             <div className="flex flex-col items-center lg:mt-170 mt-70">
-                                <h1 className="lg:text-[100px] text-[20px] text-gray-400 font-lexenddeca">Você ainda não fez sua avaliação diária!</h1>
+                                <h1 className="lg:text-[100px] text-[20px] text-gray-400 font-lexenddeca">{t('avaliacaoDiaria')}</h1>
                                 <img src={Cereconf} className="lg:h-[600px] h-[100px] grayscale-[50%] opacity-50 lg:mt-40 mt-10"/>
                             </div> 
                     }
@@ -82,7 +82,7 @@ export default function HomepagePat(){
                     {
                         !avaliated &&
                             <div className="fixed  bottom-[120px] lg:right-30 right-4 ">
-                                <AddButton Label={"Avaliar Emoções"} Simbol={"+"} onClickFunction={newAvaliation}/>
+                                <AddButton Label={t('avaliarEmocoes')} Simbol={"+"} onClickFunction={newAvaliation}/>
                             </div>
                     }
 

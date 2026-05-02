@@ -2,8 +2,12 @@ import { useEffect, useState, useRef } from "react"
 import ProfilePhoto from "../../assets/icons/simbperfil.png"
 import Button from "../General/Button";
 import ShowPut from "../General/ShowPut";
+import { useTranslation } from "react-i18next";
 
 export default function Profilebox(){
+
+    const { t } = useTranslation();
+
 
     const [options, setOptions] = useState(false)
     function openOptions(){
@@ -58,14 +62,14 @@ export default function Profilebox(){
     return(
         <div className="w-[85%] lg:w-[2100px] h-[900px] lg:h-[2650px] lg:ml-[850px] lg:mt-[3%] mt-[7%] flex flex-col lg:flex-col items-center bg-quarternario rounded-[20px] lg:rounded-[100px]"
         onClick={()=>closeOptions()}>
-            <h1 className="lg:text-[100px] mt-5 lg:mt-30 font-aboreto text-blue-900">Meu Perfil</h1>
+            <h1 className="lg:text-[100px] mt-5 lg:mt-30 font-aboreto text-blue-900">{t('meuPerfil')}</h1>
             <div className="w-full h-full  mt-2 lg:mt-30 flex flex-col items-center">
                 {
                     options &&
                         <div className="absolute lg:ml-250 ml-8 mt-[-20px] lg:mt-[-220px] z-10 animate-slide-down w-[100px] ml-[180px] h-[50px] lg:w-[400px] lg:h-[100px] rounded-[10px] lg:rounded-[25px] bg-white"
                             onClick={(e) => e.stopPropagation()}>
                             <div className="w-full flex flex-col items-center lg:text-[30px] text-[15px] cursor-pointer justify-center h-[100%] hover:bg-blue-200 hover:transition-transform duration-300 rounded-[10px] lg:rounded-[25px]"
-                                onClick={() => toEdit()}>Editar</div>
+                                onClick={() => toEdit()}>{t('editar')}</div>
                         </div>
                 }
                 <p className="absolute ml-70 lg:ml-350 lg:text-[70px] text-[20px] mt-[-40px] lg:mt-[-270px] cursor-pointer text-white"
@@ -89,18 +93,18 @@ export default function Profilebox(){
                     onChange={handleFoto}
                 />
                 <div className="w-[100%] flex flex-col items-center gap-5 lg:gap-15">
-                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"Nome"} Text={nome}/>
+                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={t('nome')} Text={nome}/>
                         <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"CRP"} Text={crp}/>
-                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"E-mail"} Text={email}/>
-                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"Data de Nascimento"} Text={dataNasc}/>
-                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[225px] lg:w-[1400px] lg:h-[700px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"Convênios"} />
+                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={t('email')} Text={email}/>
+                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={t('dataNascimento')} Text={dataNasc}/>
+                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[225px] lg:w-[1400px] lg:h-[700px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={t('convenios')} />
 
                         {
                             edit &&
                             <div className="flex flex-row items-center gap-3">
-                                <Button Style={"bg-terciario auto text-white lg:text-[40px] text-[20px] hover:bg-white hover:transition transform duration-400 hover:text-black font-lexenddeca h-[65px] w-[140px] lg:w-[400px] lg:h-[200px] rounded-[10px] lg:rounded-[40px]"} Text={"Concluído"}
+                                <Button Style={"bg-terciario auto text-white lg:text-[40px] text-[20px] hover:bg-white hover:transition transform duration-400 hover:text-black font-lexenddeca h-[65px] w-[140px] lg:w-[400px] lg:h-[200px] rounded-[10px] lg:rounded-[40px]"} Text={t('alterar')}
                                 OnClickFunction={editActive}/>
-                                <Button Style={"bg-red-800 auto text-white lg:text-[40px] text-[20px] hover:bg-white hover:transition transform duration-400 hover:text-black font-lexenddeca w-[140px] h-[65px] lg:w-[400px] lg:h-[200px] rounded-[10px] lg:rounded-[40px]"} Text={"Cancelar"}
+                                <Button Style={"bg-red-800 auto text-white lg:text-[40px] text-[20px] hover:bg-white hover:transition transform duration-400 hover:text-black font-lexenddeca w-[140px] h-[65px] lg:w-[400px] lg:h-[200px] rounded-[10px] lg:rounded-[40px]"} Text={t('cancelar')}
                                 OnClickFunction={editDeactive}/>
         
                             </div>
