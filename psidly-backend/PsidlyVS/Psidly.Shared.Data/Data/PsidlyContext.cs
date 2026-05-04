@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Psidly.Shared.Models.Models;
 
 namespace Psidly.Shared.Data.Data
@@ -9,6 +8,9 @@ namespace Psidly.Shared.Data.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<PsychologistInsurance> PsychologistInsurances { get; set; }
+        public DbSet<Avaliation> Avaliations { get; set; }
+        public DbSet<Emocao> Emocoes { get; set; }
+        public DbSet<AvaliationEmocao> AvaliationEmocoes { get; set; }
 
         public PsidlyContext(DbContextOptions<PsidlyContext> options) : base(options)
         {
@@ -17,7 +19,6 @@ namespace Psidly.Shared.Data.Data
         public PsidlyContext()
         {
         }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,6 +31,12 @@ namespace Psidly.Shared.Data.Data
 
             modelBuilder.Entity<Patient>()
                 .Property(p => p.BirthDate).HasColumnType("date");
+
+            modelBuilder.Entity<Avaliation>()
+                .Property(a => a.Date).HasColumnType("date");
+
+            modelBuilder.Entity<AvaliationEmocao>()
+                .HasKey(ae => new { ae.AvaliationId, ae.EmocaoId });
         }
     }
 }
