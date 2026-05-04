@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Psidly.Shared.Data.Data;
@@ -11,9 +12,11 @@ using Psidly.Shared.Data.Data;
 namespace Psidly.Shared.Data.Migrations
 {
     [DbContext(typeof(PsidlyContext))]
-    partial class PsidlyContextModelSnapshot : ModelSnapshot
+    [Migration("20260503174623_AddAllTables")]
+    partial class AddAllTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
