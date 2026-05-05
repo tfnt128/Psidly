@@ -21,6 +21,7 @@ import ProtectRoutePat from './components/General/ProtectRoutePat';
 import Sobre from "./pages/Sobre/Sobre";
 import Termos from "./pages/Termos/Termos";
 import Languages from './pages/Configuracoes/Languages';
+import ProtectRouteGeral from './components/General/ProtectRouteGeral';
 
 
 function App() {
@@ -35,8 +36,15 @@ function App() {
           <Route path="/esqueceuasenhacodigo" element={<Esquecisenhacod/>}/>
           <Route path="/esqueceuasenhatempoesgotado" element={<Esqueciasenhatempoesg/>}/>
           <Route path="/esqueceuasenhaconfirmar" element={<Esquecisenhaconfirmar/>}/>
-          <Route path="/sobre" element={<Sobre />} />
-          <Route path="/termos" element={<Termos />} />
+          <Route path="/sobre" element={
+            <ProtectRouteGeral>
+              <Sobre />
+            </ProtectRouteGeral>} />
+          <Route path="/termos" element={
+            <ProtectRouteGeral>
+              <Termos/>
+            </ProtectRouteGeral>
+          } />
           <Route path="/homepage" element={
             <ProtectRoutePsi>
               <Homepage/>
@@ -73,13 +81,17 @@ function App() {
             </ProtectRoutePsi>
           }/>
           <Route path="/languages" element={
+            <ProtectRouteGeral>
               <Languages/>
+
+            </ProtectRouteGeral>
           }/>
           {/* <Route path="/homepagepatient" element={
             <ProtectRoutePat>
               <HomepagePat/>
             </ProtectRoutePat>
           }/>
+          
           <Route path="/profilepagepat" element={
             <ProtectRoutePat>
               <Profilepage/>
