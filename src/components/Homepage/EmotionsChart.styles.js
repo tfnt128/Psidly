@@ -1,0 +1,80 @@
+export const styles = {
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "3vh",
+    width: "100%",          
+    paddingLeft: "2vw",     
+    paddingRight: "8vw",    
+    boxSizing: "border-box", 
+    position: "relative",
+    fontFamily: "'Lexend Deca', sans-serif",
+  },
+  backButton: {
+    position: "absolute",
+    top: "-6vh", 
+    right: "-0vw", // move o botao, pra ele não sair da tela
+    fontSize: "1.2vw",
+    padding: "0.8vh 2vw",
+    borderRadius: "999px",
+    border: "0.15vw solid #ff4d4d",
+    background: "rgba(255, 77, 77, 0.1)",
+    color: "#ff4d4d",
+    cursor: "pointer",
+    fontWeight: "600",
+  },
+  emotionTabs: {
+    display: "flex",
+    flexDirection: "row",   // forca os botoes a ficarem na mesma linha
+    flexWrap: "nowrap",     // impede que eles caiam para a linha de baixo
+    gap: "1vw",
+    width: "100%",
+    marginBottom: "1vh",
+  },
+  emotionBtn: {
+    fontSize: "1.6vw",
+    padding: "0.9vh 2.2vw",
+    borderRadius: "999px",
+    borderStyle: "solid",
+    borderWidth: "0.2vw",
+    cursor: "pointer",
+    fontWeight: "500",
+    transition: "0.2s",
+  },
+  chartCard: {
+    width: "100%",            
+    borderRadius: "2vw", 
+    background: "#0f0f1a",
+    border: "1px solid #1a1a2e",
+    overflow: "hidden",
+  },
+  cardHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "2.5vh 3vw 1.2vh",
+  },
+  cardTitle: {
+    fontSize: "1.8vw",
+    fontWeight: "600",
+    color: "#c0c8e8",
+    margin: 0,
+  },
+  periodTabs: {
+    display: "flex",
+    gap: "0.6vw",
+  },
+  periodBtn: {
+    fontSize: "1.2vw",
+    padding: "0.6vh 1.4vw",
+    borderRadius: "0.8vw",
+    borderStyle: "solid",
+    borderWidth: "0.15vw",
+    cursor: "pointer",
+    transition: "0.2s",
+  },
+  chartWrapper: {
+    padding: "0 2vw 3vh",
+    height: "55vh",
+  },
+};
