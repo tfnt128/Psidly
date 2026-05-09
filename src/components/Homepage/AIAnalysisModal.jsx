@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-// ─────────────────────────────────────────────
-// Cole sua chave do Groq aqui:
-// https://console.groq.com/keys
-const GROQ_API_KEY = "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";
+// groq aqui
+const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
 // ─────────────────────────────────────────────
 
 const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
@@ -45,7 +43,7 @@ Escreva uma análise clínica curta (3 a 4 parágrafos) cobrindo:
 3. Tendência atual e o que pode indicar
 4. Sugestão de atenção para o psicólogo
 
-Use linguagem profissional mas acessível. Escreva em texto corrido, sem bullet points. Responda em português.`;
+Use linguagem profissional mas acessível. Escreva em texto corrido, sem bullet points.Vale lembrar também que caso a data de inicio seja maior que a de fim, provavelmentr se passou um ano daquela primeira consulta Responda em português.`;
   };
 
   const analyze = async () => {
@@ -77,7 +75,7 @@ Use linguagem profissional mas acessível. Escreva em texto corrido, sem bullet 
 
   useEffect(() => { analyze(); }, []);
 
-  // desktop usa vw/vh (zoom 25%) | mobile usa px fixos
+  // mesma coisa aqui | mobile usa px fixos
   const fs = isMobile ? {
     overlay:     { position: "fixed", inset: 0, background: "rgba(0,0,0,0.75)", backdropFilter: "blur(4px)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: "16px" },
     modal:       { background: "#0f0f1a", border: "1px solid #1a1a2e", borderRadius: "20px", width: "100%", maxWidth: "480px", maxHeight: "80vh", overflowY: "auto", padding: "20px 18px", fontFamily: "'Lexend Deca', sans-serif", position: "relative" },
@@ -91,7 +89,7 @@ Use linguagem profissional mas acessível. Escreva em texto corrido, sem bullet 
     errorText:   { color: "#ff4d4d", fontSize: "12px", lineHeight: "1.6" },
     retryBtn:    { marginTop: "12px", padding: "7px 16px", borderRadius: "999px", border: "1.5px solid #4d8bff", background: "rgba(77,139,255,0.1)", color: "#4d8bff", fontSize: "11px", fontWeight: "600", cursor: "pointer", fontFamily: "'Lexend Deca', sans-serif" },
   } : {
-    // desktop — vw/vh grandes pra compensar zoom 25%
+    // dei uma arrumadinha pra ficar bom no zoom de 25%
     overlay:     { position: "fixed", inset: 0, background: "rgba(0,0,0,0.75)", backdropFilter: "blur(4px)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: "2vw" },
     modal:       { background: "#0f0f1a", border: "0.1vw solid #1a1a2e", borderRadius: "1.5vw", width: "40vw", maxHeight: "75vh", overflowY: "auto", padding: "2.5vw 2.5vw", fontFamily: "'Lexend Deca', sans-serif", position: "relative" },
     closeBtn:    { position: "absolute", top: "1.2vw", right: "1.2vw", background: "transparent", border: "none", color: "#555577", fontSize: "1.2vw", cursor: "pointer" },

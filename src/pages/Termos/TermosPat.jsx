@@ -29,7 +29,7 @@ export default function TermosPat() {
     ];
 
     return (
-        <div className="min-h-screen">
+        <div className="min-h-screen font-lexenddeca">
             <div className="fixed lg:hidden bottom-0 left-0 w-full z-50">
                 <Homemenu BgSelectPerfil={"bg-quarternario"} />
             </div>
@@ -42,22 +42,21 @@ export default function TermosPat() {
 
                     <button
                         onClick={() => navigator("/profilepagepat")}
-                        className="self-start text-primario font-bold text-lg lg:text-5xl uppercase tracking-widest hover:opacity-70 transition"
+                        className="self-start text-primario font-bold text-lg lg:text-5xl uppercase tracking-widest hover:opacity-70 transition font-arboreto"
                     >
                         ← Voltar
                     </button>
 
-                    <h1 className="text-primario text-center font-bold text-2xl lg:text-7xl uppercase tracking-widest">
+                    <h1 className="text-primario text-center font-bold text-2xl lg:text-7xl uppercase tracking-widest font-arboreto">
                         Termos de Uso
                     </h1>
 
                     {termosPat.map((item, index) => (
-
                         <div key={index} className="flex flex-col gap-3 lg:gap-6">
-                            <h2 className="text-primario font-bold text-lg lg:text-5xl uppercase tracking-wide">
+                            <h2 className="text-primario font-bold text-lg lg:text-5xl uppercase tracking-wide font-arboreto">
                                 {item.titulo}
                             </h2>
-                            <p className="text-primario text-base lg:text-5xl leading-relaxed">
+                            <p className="text-primario text-base lg:text-5xl leading-relaxed font-inter">
                                 {item.texto}
                             </p>
                         </div>
@@ -68,5 +67,4 @@ export default function TermosPat() {
         </div>
     );
 }
-
 

@@ -48,8 +48,10 @@ export default function Profilepagepat(){
                     <div className="grid grid-cols-2 mb-[100px] lg:grid-cols-2 lg:w-[2100px] w-[85%] gap-4 content-start lg:mt-[0px] lg:gap-60">
                         <Boxoption tituloOpt={"Sobre o App"} AnimationOption={Book} Style={"lg:mt-[-150px] mt-[3px]"} onClickWay={goToAbout}/>
                         <Boxoption tituloOpt={"Contato"} AnimationOption={Talk} Style={"lg:mt-[-150px]  mt-[3px]"} onClickWay={goToEmail}/>
-                        <Boxoption tituloOpt={"Privacidade"} AnimationOption={Locker} Style={"lg:mt-[-150px] mt-[3px]"}/>
-                        <Boxoption tituloOpt={"Termos"} AnimationOption={Write} Style={"lg:mt-[-150px] mt-[3px]"} onClickWay={goToTermos}/>
+                        
+                        <div className="col-span-2 flex justify-center">
+                            <Boxoption tituloOpt={"Termos"} AnimationOption={Write} Style={"lg:mt-[-150px] mt-[3px]"} onClickWay={goToTermos}/>
+                        </div>
 
                         <Share Style={"lg:w-[2280px] lg:h-[800px] w-[370px] lg:rounded-[50px] rounded-[20px] bg-secundario lg:mt-[-120px] hover:transition hover:transform hover:scale-105 duration-300"}/>
                     </div>
@@ -57,5 +59,4 @@ export default function Profilepagepat(){
             </div>
             
         </div>
-    )
-}
+    )}

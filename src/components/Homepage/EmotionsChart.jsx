@@ -210,13 +210,13 @@ export default function EmotionsChart({ patientName }) {
         </div>
       </div>
 
-      {/* FAB — botão flutuante no canto inferior direito, fora do gráfico */}
+      {/* botao da ia fica fora do grafico, fiz isso na fé de deus e do claude */}
       <button
         onClick={() => setShowAI(true)}
         title="Analisar com IA"
         style={{
           position:     "fixed",
-          bottom:       isMobile ? "80px" : "2.5vw",   // mobile: acima do menu inferior
+          bottom:       isMobile ? "100px" : "2.5vw",   // mobile: vai ficar acima do menu,tbm dei uma ajustadinha no px pra ele ficar acima da barra
           right:        isMobile ? "16px" : "2vw",
           width:        isMobile ? "48px"  : "3.5vw",
           height:       isMobile ? "48px"  : "3.5vw",
