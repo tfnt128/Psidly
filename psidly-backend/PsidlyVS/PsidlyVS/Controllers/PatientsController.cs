@@ -73,7 +73,19 @@ namespace psidly_backend.Controllers
             var psychologistId = int.Parse(userIdClaim.Value);
 
             var patient = await _context.Patients
-                .FirstOrDefaultAsync(p => p.Id == id && p.PsychologistId == psychologistId);
+                .Where(p => p.Id == id && p.PsychologistId == psychologistId)
+                .Select(p => new {
+                    p.Id,
+                    p.Name,
+                    p.Email,
+                    p.Cpf,
+                    p.BirthDate,
+                    p.PhoneNumber,
+                    p.Insurance,
+                    p.Photo,
+                    Age = DateTime.Today.Year - p.BirthDate.Year
+                })
+                .FirstOrDefaultAsync();
 
             if (patient == null) return NotFound(new { Success = false, Message = "Paciente não encontrado" });
 
