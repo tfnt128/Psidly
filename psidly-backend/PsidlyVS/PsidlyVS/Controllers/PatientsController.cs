@@ -57,7 +57,7 @@ namespace psidly_backend.Controllers
                     p.Name,
                     Age = DateTime.Today.Year - p.BirthDate.Year
                 })
-                .FirstOrDefaultAsync();
+                .ToListAsync();
 
             if (patient == null) return NotFound(new { Success = false, Message = "Paciente não encontrado" });
 
