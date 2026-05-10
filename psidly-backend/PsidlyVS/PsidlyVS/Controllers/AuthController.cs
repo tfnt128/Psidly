@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json.Linq;
 using Psidly.Shared.Data.Data;
 using Psidly.Shared.Models.Models;
 using psidly_backend.DTOs;
@@ -69,6 +69,28 @@ namespace psidly_backend.Controllers
             return Ok(user);
         }
 
+        private string GenerateJwtTokenPatient(Patient patient)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, patient.Id.ToString()),
+                new Claim(ClaimTypes.Email, patient.Email!),
+                new Claim(ClaimTypes.Name, patient.Name!)
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: _config["Jwt:Issuer"],
+                audience: _config["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: credentials);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
         [HttpPost("login")]
         public async Task<ActionResult<AuthResponseDto>> Login(LoginDto loginDto)
         {
@@ -89,7 +111,7 @@ namespace psidly_backend.Controllers
                             Message = "Login como Psicólogo realizado",
                             Token = token,
                             UserType = "Psicólogo",
-                            User = new UserDto 
+                            User = new UserDto
                             {
                                 Id = psychologist.Id,
                                 Name = psychologist.Name,
@@ -109,16 +131,18 @@ namespace psidly_backend.Controllers
                 {
                     if (loginDto.Password == patient.Cpf)
                     {
+                        var token = GenerateJwtTokenPatient(patient);
                         return Ok(new AuthResponseDto
                         {
                             Success = true,
                             Message = "Login como Paciente realizado",
-                            Token = null, 
+                            Token = token,
                             UserType = "Paciente",
-                            User = new 
+                            User = new
                             {
                                 Id = patient.Id,
                                 Name = patient.Name,
+                                BirthDate = patient.BirthDate,
                                 Email = patient.Email,
                                 Cpf = patient.Cpf
                             }
@@ -132,6 +156,33 @@ namespace psidly_backend.Controllers
             {
                 return StatusCode(500, new AuthResponseDto { Success = false, Message = "Erro interno no servidor" });
             }
+        }
+
+
+        [Authorize]
+        [HttpPut("update-user")]
+        public async Task<IActionResult> UpdateUser(UserUpdateDto dto)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+
+            var userId = int.Parse(userIdClaim.Value);
+
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return NotFound(new
+                { Message = "Psicólogo não encontrado" });
+            }
+
+            user.Name = dto.Name;
+            user.Email = dto.Email;
+            user.Crp = dto.Crp;
+            user.BirthDate = dto.BirthDate;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Perfil atualizado com sucesso" });
         }
 
         [HttpPost("register")]
@@ -273,7 +324,6 @@ namespace psidly_backend.Controllers
                     });
                 }
 
-                // Verifica se expirou
                 if (user.ResetPasswordCodeExpiry == null || user.ResetPasswordCodeExpiry < DateTime.UtcNow)
                 {
                     return Ok(new AuthResponseDto
@@ -402,6 +452,78 @@ namespace psidly_backend.Controllers
                 });
             }
         }
+
+        [HttpPatch("ocult/{patientId}")]
+        public async Task<IActionResult> OcultPatient(int patientId)
+        {
+            var patient = await _context.Patients.FindAsync(patientId);
+
+            if (patient == null)
+            {
+                return NotFound(new
+                { Message = "Paciente não encontrado" });
+            }
+
+            patient.IsHidden = true;
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                Message = "Paciente ocultado com sucesso"
+            });
+        }
+
+        [HttpGet("find-ocult/{patientId}")]
+        public async Task<IActionResult> FindOcultPatient(int patientId)
+        {
+            var patient = await _context.Patients.FirstOrDefaultAsync(p => p.Id == patientId && p.IsHidden);
+
+            if (patient == null)
+            {
+                return NotFound(new
+                { Message = "Paciente oculto não encontrado" });
+            }
+
+            return Ok(patient);
+        }
+
+        [HttpPatch("active/{patientId}")]
+        public async Task<IActionResult> ActivePatient(int patientId)
+        {
+            var patient = await _context.Patients.FindAsync(patientId);
+
+            if (patient == null)
+            {
+                return NotFound(new
+                { Message = "Paciente não encontrado" });
+            }
+
+            patient.IsHidden = false;
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            { Mmessage = "Paciente reativado com sucesso" });
+        }
+        [Authorize]
+        [HttpGet("get-convenios")]
+        public async Task<IActionResult> GetConvenios()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            var psychologistId = int.Parse(userIdClaim.Value);
+
+            var user = await _context.Users
+                .Include(u => u.Insurances)
+                .FirstOrDefaultAsync(u => u.Id == psychologistId);
+
+            if (user == null || user.Insurances == null)
+                return Ok(new List<object>());
+
+            var convenios = user.Insurances.Select(i => new { i.Id, i.Name }).ToList();
+
+            return Ok(convenios);
+        }
+
         [HttpGet("profile")]
         public async Task<ActionResult> GetProfile([FromQuery] string email)
         {
