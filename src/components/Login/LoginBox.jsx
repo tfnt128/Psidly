@@ -27,6 +27,10 @@ export default function LoginBox({setOkayNotifInfo, setResponseLogin}){
         navigator("/homepage")
     }
 
+    function goToHomePat(){
+        navigator("/homepagepatient")
+    }
+
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
@@ -35,7 +39,7 @@ export default function LoginBox({setOkayNotifInfo, setResponseLogin}){
         try {
             
             setStandState(true);
-            const response = await postLogin(email, senha); //endpoint - envio do email e senha
+            const response = await postLogin(email, senha); 
             console.log(response.success)
             console.log(response)
             console.log(response.token)
@@ -43,14 +47,19 @@ export default function LoginBox({setOkayNotifInfo, setResponseLogin}){
                 setOkayNotifInfo("valido");
                 setResponseLogin(response.message);
                 console.log(response.token)
+                localStorage.setItem("id", response.user.id)
                 localStorage.setItem("token", response.token)
                 localStorage.setItem("email", response.user.email)
                 const dataNasc = formatarData(response.user.birthDate)
                 localStorage.setItem("dataNasc", dataNasc)
                 localStorage.setItem("nome", response.user.name)
-                isPatOrPsi(response.user.crp)                
+                isPatOrPsi(response.userType)
 
-                goToHomepage();
+                if(response.userType != 'Paciente'){
+                    localStorage.setItem("roleCrp", response.user.crp)
+                }
+
+                
             }
             else{
                 setOkayNotifInfo("invalido");
@@ -64,13 +73,15 @@ export default function LoginBox({setOkayNotifInfo, setResponseLogin}){
         }
     }
 
-    function isPatOrPsi(roleCrp){
-        if(roleCrp){
-            localStorage.setItem("role", "psi")
-            localStorage.setItem("roleCrp", roleCrp)
-            
-        } else {
+    function isPatOrPsi(userType){
+        if(userType == "Paciente"){
             localStorage.setItem("role", "pat")
+            goToHomePat()
+
+        } else {
+
+            localStorage.setItem("role", "psi")
+            goToHomepage();
         }
     }
 

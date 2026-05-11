@@ -1,5 +1,5 @@
 import ProfilePhoto from "../../assets/icons/dudaaraujo.jpg"
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Input from "../General/Input";
 import Button from "../General/Button"
 import LoadingCircle from "../Animations/LoadingCircle";
@@ -7,9 +7,54 @@ import ShowPut from "../General/ShowPut";
 import StarAvaliated from "../HomepagePat/StarsAvaliated";
 import i18n from "../../services/i18n";
 import { useTranslation } from "react-i18next";
+import { findPatById, ocultPat } from "../../services/api";
 
-export default function PatientDetails({Style}){
+export default function PatientDetails({Style, PatientId, setMessageOk, messageOk, Text, textButton, setText, setTextButton, setScreenBlurPD}){
     const { t } = useTranslation();
+
+    const [foto, setFoto] = useState(null);
+
+    const [nome, setNome] = useState()
+    const [email, setEmail] = useState()
+    const [cpf, setCpf] = useState()
+    const [dataNasc, setDataNasc] = useState()
+    const [convenio, setConvenio] = useState()
+    const [patId, setPatId] = useState()
+    useEffect(()=>{
+        async function findPatient() {
+            try {
+                const response = await findPatById(PatientId)
+                console.log(response)
+
+                setPatId(response.id)
+                setFoto(response.photo)
+                setNome(response.name)
+                setEmail(response.email)
+                setCpf(response.cpf)
+                setDataNasc(response.birthDate)
+                setConvenio(response.insurance)
+            } catch (err) {
+                console.log(err)
+            }
+            
+        }
+        findPatient()
+    }, [PatientId])
+
+    async function ocultPatient(){
+        try {
+            const response = await ocultPat(patId)
+            setMessageOk(true)
+            setText("Paciente desativado com sucesso")
+            setTextButton("Ok")
+            setScreenBlurPD(false)
+
+            console.log(response)
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     const [options, setOptions] = useState(false)
     function openOptions(){
@@ -46,7 +91,6 @@ export default function PatientDetails({Style}){
 
     const [readOnly, setReadOnly] = useState(true)
 
-    const [foto, setFoto] = useState(null);
     const inputRef = useRef(null);
     function handleFoto(e) {
         const file = e.target.files[0];
@@ -76,9 +120,10 @@ export default function PatientDetails({Style}){
                             <div className="w-full flex flex-col items-center lg:text-[30px] text-[15px] cursor-pointer justify-center h-[33%] hover:bg-blue-200 hover:transition-transform duration-300 rounded-t-[10px] lg:rounded-t-[25px]"
                                 onClick={() => toEdit()}>{t('editar')}</div>
                             <div className="w-full flex flex-col items-center lg:text-[30px] text-[15px] cursor-pointer justify-center h-[33%] hover:bg-blue-200 hover:transition-transform duration-300">{t('excluir')}</div>
-                            <div className="w-full flex flex-col items-center lg:text-[30px] text-[15px] cursor-pointer justify-center h-[33%] hover:bg-blue-200 hover:transition-transform duration-300 rounded-b-[10px] lg:rounded-b-[25px]">{t('desativar')}</div>
+                            <div onClick={ocultPatient} className="w-full flex flex-col items-center lg:text-[30px] text-[15px] cursor-pointer justify-center h-[33%] hover:bg-blue-200 hover:transition-transform duration-300 rounded-b-[10px] lg:rounded-b-[25px]">{t('Desativar')}</div>
                         </div>
                 }
+                
                 <div className="flex justify-end w-full pr-4 pt-2 lg:mr-60">
                     <div className=" hover:bg-blue-100 rounded-[10px] w-[35px] h-[35px] lg:w-[100px] lg:h-[100px] hover:w-[100px] lg:hover:w-[250px] flex items-center justify-center cursor-pointer transition-all duration-300 overflow-hidden group"
                         onClick={(e) => { e.stopPropagation(); openOptions(); }}>
@@ -90,7 +135,7 @@ export default function PatientDetails({Style}){
                 <div className="relative w-24 h-24 lg:w-68 lg:h-68 mt-[-30px] cursor-pointer group"
                     onClick={() => inputRef.current.click()}>
                     <img
-                        src={foto || ProfilePhoto}
+                        src={foto ? (foto.startsWith('data:') ? foto : `data:image/png;base64,${foto}`) : ProfilePhoto}
                         className="w-full h-full rounded-full object-cover group-hover:brightness-50 transition duration-300"
                     />
                     <span className="absolute inset-0 flex items-center justify-center text-5x1 lg:text-7xl opacity-0 group-hover:opacity-100 transition duration-300">
@@ -105,11 +150,11 @@ export default function PatientDetails({Style}){
                     onChange={handleFoto}
                 />
 
-                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('nome')} Text={"Duda Araujo do Santos"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
-                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('cpf')} Text={"47218802869"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
-                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('email')} Text={"duda@gmail.com"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
-                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('dataNascimento')} Text={"10/09/2001"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
-                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('convenios')} Text={"Prevent Senior"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('nome')} Text={nome} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('cpf')} Text={cpf} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('email')} Text={email} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('dataNascimento')} Text={dataNasc} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('convenios')} Text={convenio} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
 
                 {
                     edit &&

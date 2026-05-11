@@ -1,11 +1,13 @@
-import ProfilePhoto from "../../assets/icons/tyler.jpg"
-import { useState, useRef } from "react";
+import ProfilePhoto from "../../assets/icons/simbperfil.png"
+import { useState, useRef, useEffect } from "react";
 import Input from "../General/Input";
 import Button from "../General/Button"
 import LoadingCircle from "../Animations/LoadingCircle";
 import ShowPut from "../General/ShowPut";
+import { activePat } from "../../services/api";
+import { findPatById } from "../../services/api";
 
-export default function OcultPatientDetails({Style}){
+export default function OcultPatientDetails({Style, PatientId, setMessageOk, messageOk, Text, textButton, setText, setTextButton, setScreenBlurPD}){
 
     const [options, setOptions] = useState(false)
     function openOptions(){
@@ -49,10 +51,51 @@ export default function OcultPatientDetails({Style}){
         if (file) setFoto(URL.createObjectURL(file));
     }
 
+    const [nome, setNome] = useState()
+    const [email, setEmail] = useState()
+    const [cpf, setCpf] = useState()
+    const [dataNasc, setDataNasc] = useState()
+    const [convenio, setConvenio] = useState()
+    const [patId, setPatId] = useState()
+    useEffect(()=>{
+        async function findPatient() {
+            try {
+                const response = await findPatById(PatientId)
+                console.log(response)
+
+                setPatId(response.id)
+                setFoto(response.photo)
+                setNome(response.name)
+                setEmail(response.email)
+                setCpf(response.cpf)
+                setDataNasc(response.birthDate)
+                setConvenio(response.insurance)
+            } catch (err) {
+                console.log(err)
+            }
+            
+        }
+        findPatient()
+    }, [PatientId])
+
+    async function activePatient(){
+        try {
+            const response = await activePat(patId)
+            setMessageOk(true)
+            setText("Paciente ativado com sucesso")
+            setTextButton("Ok")
+            setScreenBlurPD(false)
+
+            console.log(response)
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
 
     return(
-        <div className={`relative bg-quarternario ${Style} flex flex-col items-center lg:mt-[-80px] pt-2 lg:pt-60 lg:rounded-[150px] rounded-[30px]`}
+        <div className={`relative bg-quarternario ${Style} flex flex-col items-center lg:mt-[-80px] p-10 lg:pt-60 lg:rounded-[150px] rounded-[30px]`}
             onClick={() => closeOptions()}>
             
             <div className="relative lg:w-[100%] w-[100%] flex flex-col items-center gap-5 mt-5 lg:mt-0 lg:gap-15">
@@ -61,7 +104,7 @@ export default function OcultPatientDetails({Style}){
                         <div className="absolute z-10 top-3 animate-slide-down right-4 mr-7 lg:mr-40 lg:mt-[-100px] mt-[10px] w-[200px] h-[75px] lg:w-[400px] lg:h-[200px] rounded-[10px] lg:rounded-[25px] bg-white"
                             onClick={(e) => e.stopPropagation()}>
                             <div className="w-full flex flex-col items-center lg:text-[30px] text-[15px] cursor-pointer justify-center h-[50%] hover:bg-blue-200 hover:transition-transform duration-300 rounded-t-[10px] lg:rounded-t-[25px]">Excluir</div>
-                            <div className="w-full flex flex-col items-center lg:text-[30px] text-[15px] cursor-pointer justify-center h-[50%] hover:bg-blue-200 hover:transition-transform duration-300 rounded-b-[10px] lg:rounded-b-[25px]">Ativar</div>
+                            <div onClick={activePatient} className="w-full flex flex-col items-center lg:text-[30px] text-[15px] cursor-pointer justify-center h-[50%] hover:bg-blue-200 hover:transition-transform duration-300 rounded-b-[10px] lg:rounded-b-[25px]">Ativar</div>
                         </div>
                 }
                 <div className="flex justify-end w-full pr-4 pt-2 lg:mt-[-90px] lg:mr-60">
@@ -72,18 +115,18 @@ export default function OcultPatientDetails({Style}){
                     </div>
                 </div>
                 {/* <img src={ProfilePhoto} className="w-24 lg:w-88 lg:h-88 h-24 rounded-full object-cover cursor-pointer lg:mt-2 lg:mb-30"/> */}
-                <div className="relative w-24 h-24 lg:w-68 lg:h-68 mt-4 cursor-pointer group grayscale-100">
+                <div className="relative w-24 h-24 lg:w-68 lg:h-68 cursor-pointer group grayscale-100">
                     <img
-                        src={foto || ProfilePhoto}
+                        src={foto ? (foto.startsWith('data:') ? foto : `data:image/png;base64,${foto}`) : ProfilePhoto}
                         className="w-full h-full rounded-full object-cover group-hover:brightness-50 transition duration-300"
                     />
                 </div>
 
-                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={"Nome"} Text={"Duda Araujo do Santos"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
-                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={"CPF"} Text={"47218802869"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
-                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={"E-mail"} Text={"duda@gmail.com"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
-                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={"Data de Nascimento"} Text={"10/09/2001"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
-                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={"Convênio"} Text={"Prevent Senior"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[100%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={"Nome"} Text={"Duda Araujo do Santos"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[100%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={"CPF"} Text={"47218802869"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[100%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={"E-mail"} Text={"duda@gmail.com"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[100%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={"Data de Nascimento"} Text={"10/09/2001"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[100%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={"Convênio"} Text={"Prevent Senior"} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
             </div>
             <div className="w-[50%] flex flex-col items-center">
 

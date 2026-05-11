@@ -29,7 +29,7 @@ export default function Languages(){
                 <div className="flex flex-col  ">
                     <h1 className="font-aboreto mt-10 ml-10 lg:ml-[15%] lg:mt-30 lg:text-[80px]">{t('configuracoes')}</h1>
                     <div className=" w-[85%] lg:w-[67%] h-[760px]  lg:h-[1804px] lg:ml-[850px] mt-[7%] lg:mt-[7%] ml-[8%] grid grid-cols-1 items-start justify-items-center
-                    lg:grid-cols-3 lg:grid-rows-3">
+                    lg:grid-cols-3 lg:grid-rows-3 mb-[100px]">
                         <Boxoption tituloOpt={'Portugues'} onClickWay={() => trocarIdioma('pt')} />
                         <Boxoption tituloOpt={'English'} onClickWay={() => trocarIdioma('en')} />
                         <Boxoption tituloOpt={'Español'} onClickWay={() => trocarIdioma('es')}/>

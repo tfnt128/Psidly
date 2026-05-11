@@ -5,11 +5,13 @@ import Button from "../General/Button"
 import LoadingCircle from "../Animations/LoadingCircle";
 import MessagePad from "../General/MessagePad";
 import { useTranslation } from 'react-i18next';
+import { createPatient } from "../../services/api";
 
 
 
 export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, setTextBtnMessagePad, setScreenBlur, setSlide}){
     const [foto, setFoto] = useState(null);
+    const [fotoBase64, setFotoBase64] = useState(null);
     const inputRef = useRef(null);
 
     const { t } = useTranslation();
@@ -17,7 +19,14 @@ export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, 
 
     function handleFoto(e) {
         const file = e.target.files[0];
-        if (file) setFoto(URL.createObjectURL(file));
+        if (file) {
+            setFoto(URL.createObjectURL(file)); 
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setFotoBase64(reader.result.split(',')[1]) 
+            }
+            reader.readAsDataURL(file);
+        }
     }
 
     const [nome, setNome] = useState()
@@ -26,21 +35,42 @@ export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, 
     const [telefone, setTelefone] = useState()
     const [email, setEmail] = useState()
     const [senha, setSenha] = useState()
+    const [convenio, setConvenio] = useState()
 
     const [standState, setStandState] = useState(false)
 
-    function handleAddPatient(){
-        // setStandState(true)
-        if(window.innerWidth >= 1024){
-            setSlide("animate-slide-left")
+    async function handleAddPatient(){
+        if(!fotoBase64 && foto){
+            return;
         }
-        else{
-            setSlide("animate-slide-up")
+        setStandState(true)
+        const response = await createPatient(nome, cpf, email, senha, telefone, dataNasc, convenio, fotoBase64)
+        if (response.success){
+            if(window.innerWidth >= 1024){
+                setSlide("animate-slide-left")
+            }
+            else{
+                setSlide("animate-slide-up")
+            }
+            setStandState(false)
+            setScreenBlur(false)
+            setMessageOk(true)
+            setTextMessagePad("Paciente adicionado com sucesso.")
+            setTextBtnMessagePad("Ok")
+        }else{
+            if(window.innerWidth >= 1024){
+                setSlide("animate-slide-left")
+            }
+            else{
+                setSlide("animate-slide-up")
+            }
+            setStandState(false)
+            setScreenBlur(false)
+            setMessageOk(true)
+            setTextMessagePad("Erro ao criar paciente. Tente novamente.")
+            setTextBtnMessagePad("Ok")
         }
-        setScreenBlur(false)
-        setMessageOk(true)
-        setTextMessagePad("Paciente adicionado com sucesso.")
-        setTextBtnMessagePad("Ok")
+
     }
 
     return(
@@ -101,7 +131,8 @@ export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, 
             <h3 className="text-[10px] lg:text-[45px] font-aboreto mt-3 lg:mt-6">{t('selecioneConvenio')}</h3>
 
                 <select 
-
+                    value={convenio}
+                    onChange={(e) => setConvenio(e.target.value)}
                     className="w-[40%] h-[60px] lg:h-[170px] rounded-[15px] bg-white lg:rounded-[35px] p-2 lg:p-[55px] lg:text-[40px] outline-none border-none lg:mt-[27px] mt-[15px] lg:mt-[20px]"
                 >
                     <option>Amil</option>

@@ -77,7 +77,7 @@ export default function Profilebox(){
                 <div className="relative w-34 h-34 lg:w-98 lg:h-98 mt-0 cursor-pointer group lg:mt-[-100px] lg:"
                     onClick={() => inputRef.current.click()}>
                     <img
-                        src={foto || ProfilePhoto}
+                        src={foto ? (foto.startsWith('data:') ? foto : `data:image/png;base64,${foto}`) : ProfilePhoto}
                         className="w-full h-full rounded-full object-cover group-hover:brightness-50 transition duration-300"
                     />
                     <span className="absolute inset-0 flex items-center justify-center text-5x1 lg:text-7xl opacity-0 group-hover:opacity-100 transition duration-300">

@@ -1,11 +1,12 @@
 import Homemenu from "../../components/Homepage/Homemenu";
 import Homemenuaside from "../../components/Homepage/Homemenuaside";
-import Tyler from "../../assets/icons/tyler.jpg"
 import PatientWidget from "../../components/Homepage/PatientWidget";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PatientDetails from "../../components/Homepage/PatientDetails";
 import OcultPatientDetails from "../../components/OcultoPage/OcultPatientDetails";
 import { useTranslation } from "react-i18next";
+import { listOcultPat } from "../../services/api";
+import MessagePad from "../../components/General/MessagePad";
 
 export default function OcultoPage(){
     const [screenBlurPD, setScreenBlurPD] = useState(false)
@@ -13,10 +14,39 @@ export default function OcultoPage(){
 
     const {t} = useTranslation()
 
-    function openPatientDetails(){
+    function openPatientDetails(id){
         setScreenBlurPD(true)
         setAnimationSpaw("animate-fade animate-duration-[300ms]")
+        setPatientId(id)
     }
+
+    
+    const [messageOk, setMessageOk] = useState(false)
+    const [textMessagePad, setTextMessagePad] = useState()
+    const [textBtnMessagePad, setTextBtnMessagePad] = useState()
+
+    const[slide, setSlide] = useState()
+
+    const[patientName, setPatientName] = useState()
+
+    function closeMsgPad(){
+        setMessageOk(false)
+        location.reload();
+    }
+
+    const [patientId, setPatientId] = useState()
+
+    const [ocultPatients, setOcultPatients] = useState([])
+    useEffect(()=>{
+        async function listOcultPatients(){
+            const response = await listOcultPat()
+            console.log(response)
+            setOcultPatients(response)
+
+        }
+
+        listOcultPatients()
+    }, [])
 
 
     return(
@@ -30,11 +60,24 @@ export default function OcultoPage(){
 
                     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center pointer-events-none">
                         <div className={`pointer-events-auto flex flex-col items-center ${animationSpaw} justify-center`}>
-                            <OcultPatientDetails Style={"min-h-[550px] lg:min-h-[1900px] lg:w-[1500px] w-[300px]"}/>
+                            <OcultPatientDetails
+                                Style={"..."}
+                                PatientId={patientId}
+                                setMessageOk={setMessageOk}
+                                setText={setTextMessagePad}
+                                setTextButton={setTextBtnMessagePad}
+                                setScreenBlurPD={setScreenBlurPD}
+                            />
                         </div>
                     </div>
                 </>
             )}
+            {
+                messageOk &&
+                    <div className="absolute h-full w-full inset-0 bg-black/80 z-100 flex flex-col items-center">
+                        <MessagePad Text={textMessagePad} textButton={textBtnMessagePad} OnClickFunction={closeMsgPad} Slide={slide}/>
+                    </div>
+            }
             <div className="fixed lg:hidden bottom-0 left-0 w-full z-50">
                 <Homemenu BgSelectPerfil={"bg-quarternario"} />
             </div>
@@ -45,7 +88,14 @@ export default function OcultoPage(){
                 <h1 className="font-aboreto text-[20px] lg:text-[70px] color-quarternario">{t('pacientesOcultos')}</h1>
             </div>
             <div className="flex flex-col gap-10 mb-[120px] items-center mt-20 lg:grid lg:grid-cols-4 lg:gap-x-0 lg:gap-y-30 lg:gap-1 lg:mt-60 lg:w-[60%]  lg:items-center lg:ml-200">
-                <PatientWidget ProfilePhoto={Tyler} Nome={"Tyler"} Idade={"40"} Style={"grayscale-100"} OnClickFunction={openPatientDetails}/>
+                {
+                    ocultPatients.map(ocultPatient=>(
+                        <div key={ocultPatient.id} className="w-full flex flex-col items-center">
+                            <PatientWidget Nome={ocultPatient.name} Idade={ocultPatient.age} ProfilePhoto={ocultPatient.photo} Style={"grayscale-100"}
+                            OnClickFunction={() => openPatientDetails(ocultPatient.id)}/>
+                        </div>
+                    ))
+                }
             </div>
         </div>
     )

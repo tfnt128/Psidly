@@ -1,11 +1,11 @@
-export default function Input({PlaceHolder, Style, Type, value, setValue}){
+export default function Input({PlaceHolder, Style, Type, value, setValue, onEnter}){
     return(
-        <>
-            <input className={`${Style} transition transform hover:scale-110`} 
+        <input className={`${Style} transition transform hover:scale-110`} 
             placeholder={PlaceHolder} 
             type={Type}
             value={value}
-            onChange = {(e)=>{setValue(e.target.value)}}/>
-        </>
+            onChange={(e) => setValue(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && onEnter?.()}
+        />
     )
 }

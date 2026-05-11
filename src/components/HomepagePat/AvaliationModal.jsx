@@ -3,6 +3,7 @@ import StarAvaliation from "./StarsAvaliation"
 import Button from "../General/Button";
 import LoadingCircle from "../Animations/LoadingCircle";
 import { useTranslation } from "react-i18next";
+import { createAvaliation } from "../../services/api";
 
 export default function AvaliationModal({Style, setBlur, messageOk, setMessageOk, setTextMessagePad, setTextBtnMessagePad, setSlide}){
     const {t} = useTranslation()
@@ -13,25 +14,36 @@ export default function AvaliationModal({Style, setBlur, messageOk, setMessageOk
     const [raiva, setRaiva] = useState(0)
     const [ansiedade, setAnsiedade] = useState(0)
     const [estresse, setEstresse] = useState(0)
+    const [obs, setObs] = useState()
 
     function cancel(){
         setBlur(false)
     }
 
     const [standState, setStandState] = useState(false)
-    function handleAvaliation(){
-        if(window.innerWidth >= 1024){
-            setSlide("animate-slide-left")
-        }
-        else{
-            setSlide("animate-slide-up")
-        }
-        // setStandState(true)
-        setBlur(false)
-        setMessageOk(true)
-        setTextMessagePad("Avaliação enviada com sucesso.")
-        setTextBtnMessagePad("Ok")
+    async function handleAvaliation(){
+
+        try {
+            const hora = new Date().toLocaleTimeString()
+            const id = localStorage.getItem("id")
+            const response = await createAvaliation(id, alegria, tristeza, raiva, estresse, ansiedade, obs, hoje, hora) 
+            console.log(response)
+            if(window.innerWidth >= 1024){
+                setSlide("animate-slide-left")
+            }
+            else{
+                setSlide("animate-slide-up")
+            }
+            // setStandState(true)
+            setBlur(false)
+            setMessageOk(true)
+            setTextMessagePad("Avaliação enviada com sucesso.")
+            setTextBtnMessagePad("Ok")
         
+        } catch (err) {
+            console.log(err)
+        }
+
     }
 
 
@@ -67,7 +79,9 @@ export default function AvaliationModal({Style, setBlur, messageOk, setMessageOk
             <div className="flex flex-col items-center lg:ml-35 lg:mr-[-30px]">
                 <h1 className="font-aboreto color-quarternario text-[18px] lg:text-[58px] mt-10 lg:mb-10 lg:mt-[-20px] mb-[-15px] ">{t('observacoes')}</h1>
                 <textarea className="w-[300px] lg:h-[1400px] lg:mt-10 lg:w-[900px] h-[300px] lg:text-[40px] lg:p-5 text-[15px] bg-white rounded-[20px] lg:rounded-[50px] mt-10 outline-none font-lexenddeca p-3 " maxLength={300}
-                placeholder={t('minhasObservacoes')}/> 
+                    placeholder={t('minhasObservacoes')}
+                    value={obs}
+                    onChange={(e) => setObs(e.target.value)}/> 
                 <div className="flex flex-row gap-4 mt-10 ">
                     <Button Style={"w-[140px] lg:w-[370px] h-[50px] lg:h-[160px] bg-terciario text-[12px] lg:text-[40px] font-aboreto color-secundario lg:mt-5 rounded-[10px] lg:rounded-[30px] hover:bg-white hover:text-black  hover:transition-all duration-400 ease-in-out"} Text={t('enviar')} OnClickFunction={handleAvaliation}/>
                     <Button Style={"w-[140px] lg:w-[370px] lg:h-[160px] h-[50px] bg-alertbox text-[12px] lg:text-[40px] font-aboreto color-secundario lg:mt-5 rounded-[10px] lg:rounded-[30px] hover:bg-white hover:text-black  hover:transition-all duration-400 ease-in-out"} Text={t('cancelar')} OnClickFunction={cancel}/>

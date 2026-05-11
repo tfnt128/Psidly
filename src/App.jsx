@@ -86,7 +86,7 @@ function App() {
 
             </ProtectRouteGeral>
           }/>
-          {/* <Route path="/homepagepatient" element={
+          <Route path="/homepagepatient" element={
             <ProtectRoutePat>
               <HomepagePat/>
             </ProtectRoutePat>
@@ -94,12 +94,10 @@ function App() {
           
           <Route path="/profilepagepat" element={
             <ProtectRoutePat>
-              <Profilepage/>
+              <Profilepagepat/>
             </ProtectRoutePat>
-          }/> */}
-          <Route path="/homepagepatient" element={<HomepagePat/>}/>
+          }/>
 
-          <Route path="/profilepagepat" element={<Profilepagepat/>}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
       </BrowserRouter>
