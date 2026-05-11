@@ -7,6 +7,7 @@ using Psidly.Shared.Data.Data;
 using Psidly.Shared.Models.Models;
 using psidly_backend.DTOs;
 using psidly_backend.Interfaces;
+using psidly_backend.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -22,12 +23,14 @@ namespace psidly_backend.Controllers
         private readonly PsidlyContext _context;
         private readonly IEmailService _emailService;
         private readonly IConfiguration _config;
+        private readonly InfosimplesService _infosimplesService; 
 
-        public AuthController(PsidlyContext context, IEmailService emailService, IConfiguration config)
+        public AuthController(PsidlyContext context, IEmailService emailService, IConfiguration config, InfosimplesService infosimplesService)
         {
             _context = context;
             _emailService = emailService;
             _config = config;
+            _infosimplesService = infosimplesService;
         }
 
         private string GenerateJwtToken(User user)
@@ -522,6 +525,17 @@ namespace psidly_backend.Controllers
             var convenios = user.Insurances.Select(i => new { i.Id, i.Name }).ToList();
 
             return Ok(convenios);
+        }
+        [Authorize]
+        [HttpGet("validar-psicologo/{crp}")]
+        public async Task<IActionResult> ValidarNome(string crp)
+        {
+            var resultado = await _infosimplesService.ConsultarPsicologoPorCrp(crp);
+
+            if (string.IsNullOrEmpty(resultado))
+                return BadRequest("Erro ao consultar o Nome do profissional. Tente novamente mais tarde.");
+
+            return Ok(resultado);
         }
 
         [HttpGet("profile")]

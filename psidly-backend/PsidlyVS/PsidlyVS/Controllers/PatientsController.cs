@@ -205,7 +205,7 @@ namespace psidly_backend.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(new
-            { Mmessage = "Paciente reativado com sucesso" });
+            { Message = "Paciente reativado com sucesso" });
         }
 
         [HttpGet("list-ocult")]
@@ -247,7 +247,7 @@ namespace psidly_backend.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(new
-            { Mmessage = "Paciente deletado com sucesso" });
+            { Message = "Paciente deletado com sucesso" });
         }
 
         [HttpPut("{patientId}")]
