@@ -454,59 +454,8 @@ namespace psidly_backend.Controllers
                     Message = "Erro interno do servidor ao deletar conta"
                 });
             }
-        }
-
-        [HttpPatch("ocult/{patientId}")]
-        public async Task<IActionResult> OcultPatient(int patientId)
-        {
-            var patient = await _context.Patients.FindAsync(patientId);
-
-            if (patient == null)
-            {
-                return NotFound(new
-                { Message = "Paciente não encontrado" });
-            }
-
-            patient.IsHidden = true;
-            await _context.SaveChangesAsync();
-
-            return Ok(new
-            {
-                Message = "Paciente ocultado com sucesso"
-            });
-        }
-
-        [HttpGet("find-ocult/{patientId}")]
-        public async Task<IActionResult> FindOcultPatient(int patientId)
-        {
-            var patient = await _context.Patients.FirstOrDefaultAsync(p => p.Id == patientId && p.IsHidden);
-
-            if (patient == null)
-            {
-                return NotFound(new
-                { Message = "Paciente oculto não encontrado" });
-            }
-
-            return Ok(patient);
-        }
-
-        [HttpPatch("active/{patientId}")]
-        public async Task<IActionResult> ActivePatient(int patientId)
-        {
-            var patient = await _context.Patients.FindAsync(patientId);
-
-            if (patient == null)
-            {
-                return NotFound(new
-                { Message = "Paciente não encontrado" });
-            }
-
-            patient.IsHidden = false;
-            await _context.SaveChangesAsync();
-
-            return Ok(new
-            { Mmessage = "Paciente reativado com sucesso" });
-        }
+        }    
+        
         [Authorize]
         [HttpGet("get-convenios")]
         public async Task<IActionResult> GetConvenios()

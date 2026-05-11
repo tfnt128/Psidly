@@ -155,6 +155,7 @@ namespace psidly_backend.Controllers
             return Ok(new { Photo = patient.Photo });
         }
 
+        [Authorize]
         [HttpPatch("ocult/{patientId}")]
         public async Task<IActionResult> OcultPatient(int patientId)
         {
@@ -175,6 +176,7 @@ namespace psidly_backend.Controllers
             });
         }
 
+        [Authorize]
         [HttpGet("find-ocult/{patientId}")]
         public async Task<IActionResult> FindOcultPatient(int patientId)
         {
@@ -189,7 +191,7 @@ namespace psidly_backend.Controllers
             return Ok(patient);
         }
 
-
+        [Authorize]
         [HttpPatch("active/{patientId}")]
         public async Task<IActionResult> ActivePatient(int patientId)
         {
