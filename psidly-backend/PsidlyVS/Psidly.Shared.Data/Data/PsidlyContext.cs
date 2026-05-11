@@ -37,6 +37,14 @@ namespace Psidly.Shared.Data.Data
 
             modelBuilder.Entity<AvaliationEmocao>()
                 .HasKey(ae => new { ae.AvaliationId, ae.EmocaoId });
+
+            modelBuilder.Entity<Emocao>().HasData(
+    new Emocao { Id = 1, Name = "alegria" },
+    new Emocao { Id = 2, Name = "tristeza" },
+    new Emocao { Id = 3, Name = "raiva" },
+    new Emocao { Id = 4, Name = "estresse" },
+    new Emocao { Id = 5, Name = "ansiedade" }
+);
         }
     }
 }
