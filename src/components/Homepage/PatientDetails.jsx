@@ -7,11 +7,11 @@ import ShowPut from "../General/ShowPut";
 import StarAvaliated from "../HomepagePat/StarsAvaliated";
 import i18n from "../../services/i18n";
 import { useTranslation } from "react-i18next";
-import { findPatById, ocultPat } from "../../services/api";
+import { findPatById, ocultPat, findAvaliation, editPatient, deletePatient } from "../../services/api";
 
 export default function PatientDetails({Style, PatientId, setMessageOk, messageOk, Text, textButton, setText, setTextButton, setScreenBlurPD}){
     const { t } = useTranslation();
-
+    
     const [foto, setFoto] = useState(null);
 
     const [nome, setNome] = useState()
@@ -20,10 +20,23 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
     const [dataNasc, setDataNasc] = useState()
     const [convenio, setConvenio] = useState()
     const [patId, setPatId] = useState()
+
+    const [alegria, setAlegria] = useState()
+    const [tristeza, setTristeza] = useState()
+    const [raiva, setRaiva] = useState()
+    const [ansiedade, setAnsiedade] = useState()
+    const [estresse, setEstresse] = useState()
+
+    const [textObs, setTextObs] = useState()
+    const [comentPsi, setComentPsi] = useState()
+
+    const [standState, setStandState] = useState()
     useEffect(()=>{
         async function findPatient() {
             try {
+                setStandState(true)
                 const response = await findPatById(PatientId)
+                setStandState(false)
                 console.log(response)
 
                 setPatId(response.id)
@@ -40,6 +53,67 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
         }
         findPatient()
     }, [PatientId])
+
+    const hoje = new Date().toLocaleDateString('pt-BR');
+    const [data, setData] = useState(hoje)
+
+    
+    useEffect(()=>{
+        async function getAvaliation(){
+            try {
+                setStandState(true)
+                const response = await findAvaliation(hoje)
+                setStandState(false)
+                console.log(response)
+                
+                setAlegria(response.emocoes[0].estrelas)
+                setTristeza(response.emocoes[1].estrelas)
+                setRaiva(response.emocoes[2].estrelas)
+                setAnsiedade(response.emocoes[3].estrelas)
+                setEstresse(response.emocoes[4].estrelas)
+                setTextObs(response.obsPaciente)
+
+                if(response.obsPsicologo == null){
+                    setComentPsi("Ainda não há observações de seu psicólogo.")
+                }
+                else{
+                    setComentPsi(response.obsPscicologo)
+                }
+                
+            } catch(err) {
+
+                console.log(err)
+            }
+        }
+        getAvaliation()
+    }, [])
+
+    async function getAvaliationByDate(){
+            try {
+                setStandState(true)
+                const response = await findAvaliation(data)
+                setStandState(false)
+                console.log(response)
+                
+                setAlegria(response.emocoes[0].estrelas)
+                setTristeza(response.emocoes[1].estrelas)
+                setRaiva(response.emocoes[2].estrelas)
+                setAnsiedade(response.emocoes[3].estrelas)
+                setEstresse(response.emocoes[4].estrelas)
+                setTextObs(response.obsPaciente)
+
+                if(response.obsPsicologo == null){
+                    setComentPsi("Ainda não há observações de seu psicólogo.")
+                }
+                else{
+                    setComentPsi(response.obsPscicologo)
+                }
+                
+            } catch(err) {
+
+                console.log(err)
+            }
+        }
 
     async function ocultPatient(){
         try {
@@ -82,11 +156,40 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
         setTimeout(() => setCancel(false), 0)
     }
 
-    function editActive(){
-        setCancel(false)
-        setEdit(false)
-        setReadOnly(true)
-        setBgEdit("bg-quarternario")
+    async function editActive(){
+        try {
+            setStandState(true)
+            const response = await editPatient(patId, nome, cpf, email, dataNasc, convenio, foto)
+            setStandState(false)
+            setCancel(false)
+            setEdit(false)
+            setReadOnly(true)
+            setBgEdit("bg-quarternario")
+            console.log(response)
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
+    async function deleteActive(){
+        try {
+            setStandState(true)
+            const response = await deletePatient(patId)
+            setStandState(false)
+            setScreenBlurPD(false)
+            setMessageOk(true)
+            setText("Paciente deletado com sucesso.")
+            setTextButton("Ok")
+            console.log(response)
+        } catch (err) {
+            console.log(err)
+            setScreenBlurPD(false)
+            setMessageOk(true)
+            setText("Erro ao editar o paciente.")
+            setTextButton("Ok")
+        }
+
     }
 
     const [readOnly, setReadOnly] = useState(true)
@@ -97,20 +200,20 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
         if (file) setFoto(URL.createObjectURL(file));
     }
 
-    const [alegria, setAlegria] = useState(2)
-    const [tristeza, setTristeza] = useState(3)
-    const [raiva, setRaiva] = useState(5)
-    const [ansiedade, setAnsiedade] = useState(4)
-    const [estresse, setEstresse] = useState(1)
 
-    const [textObs, setTextObs] = useState("teste")
-    const [comentPsi, setComentPsi] = useState("teste")
 
 
 
     return(
         <div className={`relative overflow-x-hidden bg-quarternario ${Style} flex flex-col items-center lg:mt-[-80px] lg:flex-row lg:rounded-[150px] rounded-[30px]`}
             onClick={() => closeOptions()}>
+            {
+                standState &&
+                    <div className="absolute inset-0 bg-black/90 rounded-[30px] lg:rounded-[80px] z-10 flex flex-col items-center">
+                        <LoadingCircle/>
+                    </div>
+            }
+
             
             <div className="relative lg:w-[40%] w-[100%] flex flex-col items-center gap-5 mt-5 lg:mt-0 lg:gap-15">
                 {
@@ -119,7 +222,7 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
                             onClick={(e) => e.stopPropagation()}>
                             <div className="w-full flex flex-col items-center lg:text-[30px] text-[15px] cursor-pointer justify-center h-[33%] hover:bg-blue-200 hover:transition-transform duration-300 rounded-t-[10px] lg:rounded-t-[25px]"
                                 onClick={() => toEdit()}>{t('editar')}</div>
-                            <div className="w-full flex flex-col items-center lg:text-[30px] text-[15px] cursor-pointer justify-center h-[33%] hover:bg-blue-200 hover:transition-transform duration-300">{t('excluir')}</div>
+                            <div onClick={deleteActive} className="w-full flex flex-col items-center lg:text-[30px] text-[15px] cursor-pointer justify-center h-[33%] hover:bg-blue-200 hover:transition-transform duration-300">{t('excluir')}</div>
                             <div onClick={ocultPatient} className="w-full flex flex-col items-center lg:text-[30px] text-[15px] cursor-pointer justify-center h-[33%] hover:bg-blue-200 hover:transition-transform duration-300 rounded-b-[10px] lg:rounded-b-[25px]">{t('Desativar')}</div>
                         </div>
                 }
@@ -135,7 +238,13 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
                 <div className="relative w-24 h-24 lg:w-68 lg:h-68 mt-[-30px] cursor-pointer group"
                     onClick={() => inputRef.current.click()}>
                     <img
-                        src={foto ? (foto.startsWith('data:') ? foto : `data:image/png;base64,${foto}`) : ProfilePhoto}
+                        src={
+                            foto
+                                ? (foto.startsWith('data:')
+                                    ? foto
+                                    : `data:image/jpeg;base64,${foto}`)
+                                : ProfilePhoto
+                            }
                         className="w-full h-full rounded-full object-cover group-hover:brightness-50 transition duration-300"
                     />
                     <span className="absolute inset-0 flex items-center justify-center text-5x1 lg:text-7xl opacity-0 group-hover:opacity-100 transition duration-300">
@@ -150,11 +259,11 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
                     onChange={handleFoto}
                 />
 
-                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('nome')} Text={nome} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
-                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('cpf')} Text={cpf} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
-                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('email')} Text={email} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
-                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('dataNascimento')} Text={dataNasc} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
-                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('convenios')} Text={convenio} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('nome')} Text={nome} setValue={setNome} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('cpf')} Text={cpf} Bg={bgEdit} setValue={setCpf} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('email')} Text={email} Bg={bgEdit} setValue={setEmail} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('dataNascimento')} Text={dataNasc} setValue={setDataNasc} Bg={bgEdit} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
+                <ShowPut ReadOnly={readOnly} Style={"w-[85%] h-[55px] lg:w-[1100px] lg:h-[150px]"} Label={t('convenios')} Text={convenio} Bg={bgEdit} setValue={setConvenio} Cancel={cancel} BorderBg={"border-blue-300"} TextColor={"text-blue-300"}/>
 
                 {
                     edit &&
@@ -172,7 +281,13 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
             <div className="lg:w-[60%] h-full flex flex-col items-center">
                 <div className="flex-col flex items-center">
                     <h1 className="font-aboreto text-[17px] lg:text-[65px] color-quarternario mt-10 lg:mt-15">{t('avaliacaoDoDia')}</h1>
-                    <Input Type={"date"} Style={"w-[100%] outline-none bg-primario p-[15px] lg:p-[30px] rounded-[10px] lg:rounded-[25px] lg:text-[40px] m-3 "}/>
+                    <Input 
+                        Type={"text"}
+                        value={data}
+                        PlaceHolder={"dd/mm/aaaa"}
+                        setValue={setData} 
+                        onEnter={getAvaliationByDate}
+                        Style={"w-[100%] outline-none bg-primario p-[15px] lg:p-[30px] rounded-[10px] lg:rounded-[25px] lg:text-[40px] m-3 "}/>
                 </div>
                 <div className="flex flex-col lg:flex-row items-center">
                     <div>

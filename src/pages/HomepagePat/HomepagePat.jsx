@@ -26,7 +26,7 @@ export default function HomepagePat(){
         setMessageOk(false)
     }
 
-    const [avaliated, useAvalieated] = useState(false)
+    const [avaliated, useAvalieated] = useState(true)
 
 
 

@@ -59,6 +59,8 @@ export default function LoginBox({setOkayNotifInfo, setResponseLogin}){
                     localStorage.setItem("roleCrp", response.user.crp)
                 }
 
+
+
                 
             }
             else{
@@ -76,6 +78,7 @@ export default function LoginBox({setOkayNotifInfo, setResponseLogin}){
     function isPatOrPsi(userType){
         if(userType == "Paciente"){
             localStorage.setItem("role", "pat")
+            localStorage.setItem()
             goToHomePat()
 
         } else {

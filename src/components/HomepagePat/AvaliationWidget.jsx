@@ -1,22 +1,51 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import StarAvaliation from "./StarsAvaliation"
 import Button from "../General/Button";
 import LoadingCircle from "../Animations/LoadingCircle";
 import StarAvaliated from "./StarsAvaliated";
+import { findAvaliation } from "../../services/api";
+
+
 
 export default function AvaliationWidget({Style}){
-
     const hoje = new Date().toLocaleDateString('pt-BR');
 
-    const [alegria, setAlegria] = useState(2)
-    const [tristeza, setTristeza] = useState(3)
-    const [raiva, setRaiva] = useState(5)
-    const [ansiedade, setAnsiedade] = useState(4)
-    const [estresse, setEstresse] = useState(1)
+    const [alegria, setAlegria] = useState(0)
+    const [tristeza, setTristeza] = useState(0)
+    const [raiva, setRaiva] = useState(0)
+    const [ansiedade, setAnsiedade] = useState(0)
+    const [estresse, setEstresse] = useState(0)
+    const [textObs, setTextObs] = useState("")
+    const [comentPsi, setComentPsi] = useState("")
 
-    const [textObs, setTextObs] = useState("Você não fez observações")
-    const [comentPsi, setComentPsi] = useState("Sem comentários por enquanto.")
+    useEffect(()=>{
+        async function getAvaliation(){
+            try {
+                const response = await findAvaliation(hoje)
+                console.log(response)
+                
+                setAlegria(response.emocoes[0].estrelas)
+                setTristeza(response.emocoes[1].estrelas)
+                setRaiva(response.emocoes[2].estrelas)
+                setAnsiedade(response.emocoes[3].estrelas)
+                setEstresse(response.emocoes[4].estrelas)
+                setTextObs(response.obsPaciente)
 
+                if(response.obsPsicologo == null){
+                    setComentPsi("Ainda não há observações de seu psicólogo.")
+                }
+                else{
+                    setComentPsi(response.obsPscicologo)
+                }
+                
+            } catch(err) {
+
+                console.log(err)
+            }
+        }
+        getAvaliation()
+    }, [])
+    
     return(
         <div className={`relative lg:mt-20 bg-quarternario h-auto py-10 lg:py-20 lg:p-50 lg:w-[2500px] w-[350px] mt-[-30px] flex flex-col mb-30 lg:flex-row items-center lg:rounded-[150px] rounded-[30px] ${Style}`}>
 

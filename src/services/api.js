@@ -93,23 +93,59 @@ export async function postCadastro(crp, nome, email, dataNasc, senha, senhaConfi
     }
 }
 
-export async function createPatient(nome, cpf, email, senha, telefone, dataNasc, convenio, foto) {
+export async function createPatient(nome, cpf, email, senha, telefone, dataNasc, convenio, fotoFile) {
     try {
         const idPsi = localStorage.getItem("id")
         const token = localStorage.getItem("token")
-        const response = await axios.post(`${API_URL}/patients/create-patient`, {
+
+        const formData = new FormData()
+
+        formData.append("name", nome)
+        formData.append("email", email)
+        formData.append("cpf", cpf)
+        formData.append("birthDate", dataNasc)
+        formData.append("insurance", convenio)
+        formData.append("phoneNumber", telefone)
+        formData.append("password", senha)
+        formData.append("PsychologistId", idPsi)
+
+        if (fotoFile) {
+            formData.append("photo", fotoFile)
+        }
+
+        const response = await axios.post(
+            `${API_URL}/patients/create-patient`,
+            formData,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "multipart/form-data"
+                }
+            }
+        )
+
+        return response.data
+    } catch (err) {
+        console.log(err)
+        throw err
+    }
+}
+
+export async function editPatient(id, nome, cpf, email, dataNasc, convenio, foto) {
+    try {
+        const idPsi = localStorage.getItem("id")
+        const token = localStorage.getItem("token")
+        const response = await axios.put(`${API_URL}/patients/${id}`, {
             name: nome,
             email: email,
             cpf: cpf,
             birthDate: dataNasc,
             insurance: convenio,
-            phoneNumber: telefone,
-            password: senha,
-            PsychologistId: idPsi,
             photo: foto
-        }, {
+        },
+        {
             headers: {
-                Authorization: `Bearer ${token}` 
+                Authorization: `Bearer ${token}`
             }
         })
         
@@ -119,6 +155,23 @@ export async function createPatient(nome, cpf, email, senha, telefone, dataNasc,
         console.log(err)
         throw err
     }
+}
+
+export async function deletePatient(id){
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await axios.delete(`${API_URL}/patients/delete/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 }
 
 export async function listPatient(idPsi){
@@ -248,6 +301,15 @@ export async function createAvaliation(id, alegria, tristeza, raiva, estresse, a
     }
 }
 
+export async function findAvaliation(date){
+    try {
+        const response = await axios.get(`${API_URL}/avaliation/find?date=${date}`,)
+        console.log(response.data)
+        return response.data
+    } catch (err) {
+        console.log(err)
+    }
+}
 
 export async function postSenhaExcluir(email, senhaExcluir){
     try {
