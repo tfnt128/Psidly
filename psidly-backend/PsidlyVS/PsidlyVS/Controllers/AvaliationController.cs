@@ -1,5 +1,4 @@
-﻿namespace psidly_backend.Controllers
-{
+﻿
     using global::psidly_backend.DTOs;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -9,9 +8,9 @@
 
     namespace psidly_backend.Controllers
     {
-        [Authorize]
+        
         [ApiController]
-        [Route("api/[controller]")]
+        [Route("api/avaliation")]
         public class AvaliationController : ControllerBase
         {
             private readonly PsidlyContext _context;
@@ -21,34 +20,43 @@
                 _context = context;
             }
 
+            [AllowAnonymous]
             [HttpGet("find")]
-            public async Task<IActionResult> FindAvaliation([FromQuery] DateOnly date)
+            public async Task<IActionResult> FindAvaliation([FromQuery] string date)
             {
-                var avaliation = await _context.Avaliations
-                    .Include(a => a.AvaliationEmocoes)
-                        .ThenInclude(ae => ae.Emocao)
-                    .FirstOrDefaultAsync(a => a.Date == date);
 
-                if (avaliation == null)
+
+            if (!DateOnly.TryParseExact(date, "dd/MM/yyyy", out var parsedDate))
+            {
+                return BadRequest(new { Message = "Formato de data inválido. Use DD/MM/YYYY" });
+            }
+
+            var avaliation = await _context.Avaliations
+                .Include(a => a.AvaliationEmocoes)
+                    .ThenInclude(ae => ae.Emocao)
+                .FirstOrDefaultAsync(a => a.Date == parsedDate);
+
+            if (avaliation == null)
                 {
                     return NotFound(new
                     { Message = "Avaliação não encontrada" });
                 }
 
-                var result = new
+            var result = new
+            {
+                avaliation.Id,
+                avaliation.ObsPaciente,
+                avaliation.ObsPsicologo,
+                Emocoes = avaliation.AvaliationEmocoes.Select(ae => new
                 {
-                    avaliation.Id,
-                    avaliation.ObsPaciente,
-                    avaliation.ObsPsicologo,
-                    Emocoes = avaliation.AvaliationEmocoes.Select(ae => new
-                    {
-                        Nome = ae.Emocao.Name,
-                        Estrelas = ae.NivelEmocao
-                    })
-                };
+                    Nome = ae.Emocao != null ? ae.Emocao.Name : "Desconhecido",
+                    Estrelas = ae.NivelEmocao
+                }).ToList()
+            };
 
-                return Ok(result);
+            return Ok(result);
             }
+            [Authorize]
             [HttpPost("create-avaliation")]
             public async Task<IActionResult> CreateAvaliation([FromBody] AvaliationCreateDto dto)
             {
@@ -99,4 +107,4 @@
             }
         }
     }
-}
+
