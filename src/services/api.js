@@ -93,10 +93,18 @@ export async function postCadastro(crp, nome, email, dataNasc, senha, senhaConfi
     }
 }
 
-export async function editPsi() {
+export async function editPsi(name, email, crp, birthDate) {
     try {
         const token = localStorage.getItem("token")
+        console.log(name)
         const response = await axios.put(`${API_URL}/auth/update-user`,{
+
+                name: name,
+                email: email,
+                crp: crp,
+                birthDate: birthDate
+            
+        },{
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -110,38 +118,43 @@ export async function editPsi() {
     
 }
 
-export async function createPatient(nome, cpf, email, senha, telefone, dataNasc, convenio, fotoFile) {
+export async function createPatient(
+    nome,
+    cpf,
+    email,
+    senha,
+    telefone,
+    dataNasc,
+    convenio,
+    fotoBase64
+) {
     try {
         const idPsi = localStorage.getItem("id")
         const token = localStorage.getItem("token")
 
-        const formData = new FormData()
-
-        formData.append("name", nome)
-        formData.append("email", email)
-        formData.append("cpf", cpf)
-        formData.append("birthDate", dataNasc)
-        formData.append("insurance", convenio)
-        formData.append("phoneNumber", telefone)
-        formData.append("password", senha)
-        formData.append("PsychologistId", idPsi)
-
-        if (fotoFile) {
-            formData.append("photo", fotoFile)
-        }
-
         const response = await axios.post(
             `${API_URL}/patients/create-patient`,
-            formData,
+            {
+                name: nome,
+                email: email,
+                cpf: cpf,
+                birthDate: dataNasc,
+                insurance: convenio,
+                phoneNumber: telefone,
+                password: senha,
+                PsychologistId: idPsi,
+                photo: fotoBase64
+            },
             {
                 headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "multipart/form-data"
+                    Authorization: `Bearer ${token}`
+
                 }
             }
         )
 
         return response.data
+
     } catch (err) {
         console.log(err)
         throw err

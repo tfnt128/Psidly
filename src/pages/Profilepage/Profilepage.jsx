@@ -47,11 +47,17 @@ export default function Profilepage(){
         navigator("/termos")
     }
 
+    
+    function closeMsgPad(){
+        setMessageOk(false)
+        location.reload();
+    }
+
     return(
         <div className="min-h-screen ">
             {
                 messageOk &&
-                    <div className="absolute h-full w-full inset-0 bg-black/80 z-10 flex flex-col items-center">
+                    <div className="absolute h-full w-full inset-0 bg-black/80 z-100 flex flex-col items-center">
                         <MessagePad Text={textMessagePad} textButton={textBtnMessagePad} OnClickFunction={closeMsgPad} Slide={slide}/>
                     </div>
             }

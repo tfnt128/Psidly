@@ -6,8 +6,15 @@ import { useTranslation } from "react-i18next";
 import LoadingCircle from "../Animations/LoadingCircle";
 import { editPsi } from "../../services/api";
 
-export default function Profilebox(messageOk, setMessageOk, setTextBtnOk, setTextMessagePad){
-
+export default function Profilebox({messageOk, setMessageOk, setTextBtnOk, setTextMessagePad}){
+    const varEmail = localStorage.getItem("email")
+    const [email, setEmail] = useState(varEmail)
+    const varNome = localStorage.getItem("nome")
+    const [nome, setNome] = useState(varNome)
+    const varCrp = localStorage.getItem("roleCrp")
+    const [crp, setCrp] = useState(varCrp)
+    const varDataNasc = localStorage.getItem("dataNasc")
+    const [dataNasc, setDataNasc] = useState(varDataNasc)
     const { t } = useTranslation();
 
     const [standState, setStandState] = useState()
@@ -42,7 +49,7 @@ export default function Profilebox(messageOk, setMessageOk, setTextBtnOk, setTex
     async function editActive(){
         try {
             setStandState(true)
-            const response = await editPsi()
+            const response = await editPsi(nome, email, crp, dataNasc)
             setStandState(false)
 
             setCancel(false)
@@ -72,18 +79,11 @@ export default function Profilebox(messageOk, setMessageOk, setTextBtnOk, setTex
         if (file) setFoto(URL.createObjectURL(file));
     }
 
-    const varEmail = localStorage.getItem("email")
-    const [email, setEmail] = useState(varEmail)
-    const varNome = localStorage.getItem("nome")
-    const [nome, setNome] = useState(varNome)
-    const varCrp = localStorage.getItem("roleCrp")
-    const [crp, setCrp] = useState(varCrp)
-    const varDataNasc = localStorage.getItem("dataNasc")
-    const [dataNasc, setDataNasc] = useState(varDataNasc)
+
 
 
     return(
-        <div className="w-[85%] lg:w-[2100px] h-[900px] lg:h-[2650px] lg:ml-[850px] lg:mt-[3%] mt-[7%] flex flex-col lg:flex-col items-center bg-quarternario rounded-[20px] lg:rounded-[100px]"
+        <div className="w-[85%] lg:w-[1700px] h-[660px] lg:h-[2650px] lg:ml-[850px] lg:mt-[3%] mt-[7%] flex flex-col lg:flex-col items-center bg-quarternario rounded-[20px] lg:rounded-[100px]"
         onClick={()=>closeOptions()}>
             <h1 className="lg:text-[100px] mt-5 lg:mt-30 font-aboreto text-blue-900">{t('meuPerfil')}</h1>
             <div className="w-full h-full  mt-2 lg:mt-30 flex flex-col items-center">
@@ -104,24 +104,7 @@ export default function Profilebox(messageOk, setMessageOk, setTextBtnOk, setTex
     
                 <p className="absolute ml-70 lg:ml-350 lg:text-[70px] text-[20px] mt-[-40px] lg:mt-[-270px] cursor-pointer text-white"
                     onClick={(e) => { e.stopPropagation(); openOptions(); }}>⋮</p>
-                <div className="relative w-34 h-34 lg:w-98 lg:h-98 mt-0 cursor-pointer group lg:mt-[-100px] lg:"
-                    onClick={() => inputRef.current.click()}>
-                    <img
-                        src={foto ? (foto.startsWith('data:') ? foto : `data:image/png;base64,${foto}`) : ProfilePhoto}
-                        className="w-full h-full rounded-full object-cover group-hover:brightness-50 transition duration-300"
-                    />
-                    <span className="absolute inset-0 flex items-center justify-center text-5x1 lg:text-7xl opacity-0 group-hover:opacity-100 transition duration-300">
-                        ✏️
-                    </span>
 
-                </div>
-                <input
-                    ref={inputRef}
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={handleFoto}
-                />
                 <div className="w-[100%] flex flex-col items-center gap-5 lg:gap-15">
                         <ShowPut setValue={setNome}  ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={t('nome')} Text={nome}/>
                         <ShowPut setValue={setCrp} ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"CRP"} Text={crp}/>

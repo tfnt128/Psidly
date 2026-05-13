@@ -1,5 +1,5 @@
 import Button from "../General/Button"
-
+import SimbPerfil from "../../assets/icons/simbperfil.png"
 
 export default function PatientWidget({OnClickFunction, ProfilePhoto, Nome, Idade, Style}){
     return(
@@ -7,7 +7,7 @@ export default function PatientWidget({OnClickFunction, ProfilePhoto, Nome, Idad
         onClick={OnClickFunction}>
             <div className="relative w-full h-[70%]">
                 <img 
-                    src={ProfilePhoto ? `data:image/jpeg;base64,${ProfilePhoto}` : null} 
+                    src={ProfilePhoto ? ProfilePhoto : SimbPerfil} 
                     className="w-full h-full rounded-t-[30px] lg:rounded-t-[80px] object-cover"
                 />
                 <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-blue-300 to-transparent"/>

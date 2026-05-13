@@ -10,7 +10,7 @@ import Book from "../../assets/animations/Book.json"
 import Talk from "../../assets/animations/Talk.json"
 import Locker from "../../assets/animations/locker.json"
 import Write from "../../assets/animations/Write.json"
-import { useEffect } from "react";
+
 import { useTranslation } from "react-i18next";
 
 

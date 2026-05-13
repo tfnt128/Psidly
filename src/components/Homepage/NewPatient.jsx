@@ -23,7 +23,7 @@ export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, 
             setFoto(URL.createObjectURL(file)); 
             const reader = new FileReader();
             reader.onloadend = () => {
-                setFotoBase64(reader.result.split(',')[1]) 
+                setFotoBase64(reader.result) 
             }
             reader.readAsDataURL(file);
         }
