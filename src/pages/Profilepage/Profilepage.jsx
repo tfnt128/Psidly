@@ -13,12 +13,19 @@ import Write from "../../assets/animations/Write.json"
 import Share from "../../components/Profilepage/Share";
 import { useState } from "react";
 import { useEffect } from "react";
+import MessagePad from "../../components/General/MessagePad";
 import { useTranslation } from "react-i18next";
 
 export default function Profilepage(){
     const { t } = useTranslation();
 
     const navigator = useNavigate();
+
+    const [messageOk, setMessageOk] = useState(false)
+    const [textMessagePad, setTextMessagePad] = useState()
+    const [textBtnMessagePad, setTextBtnMessagePad] = useState()
+
+    const[slide, setSlide] = useState()
 
     function goToConfig(){
         navigator("/configs");
@@ -42,6 +49,12 @@ export default function Profilepage(){
 
     return(
         <div className="min-h-screen ">
+            {
+                messageOk &&
+                    <div className="absolute h-full w-full inset-0 bg-black/80 z-10 flex flex-col items-center">
+                        <MessagePad Text={textMessagePad} textButton={textBtnMessagePad} OnClickFunction={closeMsgPad} Slide={slide}/>
+                    </div>
+            }
             
             <div className="fixed lg:hidden bottom-0 left-0 w-full z-50">
                 <Homemenu BgSelectPerfil={"bg-quarternario"} />
@@ -51,7 +64,11 @@ export default function Profilepage(){
             </div>
 
             <div className="flex flex-col items-center gap-5 lg:flex-row lg:gap-30">
-                <Profilebox/>
+                <Profilebox 
+                messageOk={messageOk} 
+                setMessageOk={setMessageOk} 
+                setTextMessagePad={setTextMessagePad}
+                setTextBtnOk={setTextBtnMessagePad}/>
                 <div className="grid grid-cols-2 mb-[100px] lg:grid-cols-2 lg:w-[2100px] w-[85%] gap-4 content-start lg:mt-[230px] lg:gap-60">
                     <Boxoption tituloOpt={t('pacientesOcultos')} onClickWay={goToOcult} AnimationOption={Bigeye} />
                     <Boxoption tituloOpt={t('configuracoes')} AnimationOption={Enger} onClickWay={goToConfig}/>

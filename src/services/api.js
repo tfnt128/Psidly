@@ -93,6 +93,23 @@ export async function postCadastro(crp, nome, email, dataNasc, senha, senhaConfi
     }
 }
 
+export async function editPsi() {
+    try {
+        const token = localStorage.getItem("token")
+        const response = await axios.put(`${API_URL}/auth/update-user`,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+
+        console.log(response.data)
+        return response.data
+    } catch (err) {
+        console.log(err)
+    }
+    
+}
+
 export async function createPatient(nome, cpf, email, senha, telefone, dataNasc, convenio, fotoFile) {
     try {
         const idPsi = localStorage.getItem("id")

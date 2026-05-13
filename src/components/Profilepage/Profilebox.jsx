@@ -3,11 +3,14 @@ import ProfilePhoto from "../../assets/icons/simbperfil.png"
 import Button from "../General/Button";
 import ShowPut from "../General/ShowPut";
 import { useTranslation } from "react-i18next";
+import LoadingCircle from "../Animations/LoadingCircle";
+import { editPsi } from "../../services/api";
 
-export default function Profilebox(){
+export default function Profilebox(messageOk, setMessageOk, setTextBtnOk, setTextMessagePad){
 
     const { t } = useTranslation();
 
+    const [standState, setStandState] = useState()
 
     const [options, setOptions] = useState(false)
     function openOptions(){
@@ -36,10 +39,30 @@ export default function Profilebox(){
         setTimeout(() => setCancel(false), 0)
     }
 
-    function editActive(){
-        setCancel(false)
-        setEdit(false)
-        setBgEdit("bg-quarternario")
+    async function editActive(){
+        try {
+            setStandState(true)
+            const response = await editPsi()
+            setStandState(false)
+
+            setCancel(false)
+            setEdit(false)
+            setBgEdit("bg-quarternario")
+            if(response){
+                setMessageOk(true)
+                setTextBtnOk("Ok")
+                setTextMessagePad("Perfil alterado com sucesso")
+            }else{
+                setMessageOk(true)
+                setTextBtnOk("Ok")
+                setTextMessagePad("Erro ao alterar o perfil")
+            }   
+            
+        } catch (err) {
+            console.log(err)
+        }
+
+
     }
 
     const [foto, setFoto] = useState(null);
@@ -56,7 +79,7 @@ export default function Profilebox(){
     const varCrp = localStorage.getItem("roleCrp")
     const [crp, setCrp] = useState(varCrp)
     const varDataNasc = localStorage.getItem("dataNasc")
-    const [dataNasc, getDataNasc] = useState(varDataNasc)
+    const [dataNasc, setDataNasc] = useState(varDataNasc)
 
 
     return(
@@ -72,6 +95,13 @@ export default function Profilebox(){
                                 onClick={() => toEdit()}>{t('editar')}</div>
                         </div>
                 }
+                {
+                    standState &&
+                        <div className="absolute h-full justify-center w-full inset-0 bg-black/90 rounded-[30px] lg:rounded-[150px] z-10 flex flex-col items-center">
+                            <LoadingCircle/>
+                        </div>
+                }
+    
                 <p className="absolute ml-70 lg:ml-350 lg:text-[70px] text-[20px] mt-[-40px] lg:mt-[-270px] cursor-pointer text-white"
                     onClick={(e) => { e.stopPropagation(); openOptions(); }}>⋮</p>
                 <div className="relative w-34 h-34 lg:w-98 lg:h-98 mt-0 cursor-pointer group lg:mt-[-100px] lg:"
@@ -93,11 +123,11 @@ export default function Profilebox(){
                     onChange={handleFoto}
                 />
                 <div className="w-[100%] flex flex-col items-center gap-5 lg:gap-15">
-                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={t('nome')} Text={nome}/>
-                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"CRP"} Text={crp}/>
-                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={t('email')} Text={email}/>
-                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={t('dataNascimento')} Text={dataNasc}/>
-                        <ShowPut ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[225px] lg:w-[1400px] lg:h-[700px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={t('convenios')} />
+                        <ShowPut setValue={setNome}  ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={t('nome')} Text={nome}/>
+                        <ShowPut setValue={setCrp} ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"CRP"} Text={crp}/>
+                        <ShowPut setValue={setEmail} ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={t('email')} Text={email}/>
+                        <ShowPut setValue={setDataNasc} ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={t('dataNascimento')} Text={dataNasc}/>
+                        <ShowPut  ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[225px] lg:w-[1400px] lg:h-[700px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={t('convenios')} />
 
                         {
                             edit &&
