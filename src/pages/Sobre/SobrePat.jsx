@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Homemenu from "../../components/Homepage/Homemenu";
 import Homemenuaside from "../../components/Homepage/Homemenuaside";
 
-export default function Sobre() {
+export default function SobrePat() {
     const navigator = useNavigate();
 
     return (
@@ -18,7 +18,7 @@ export default function Sobre() {
                 <div className="w-full max-w-[3000px] bg-secundario rounded-[20px] lg:rounded-[60px] p-6 lg:p-24 flex flex-col gap-8 lg:gap-16">
                     
                     <button
-                        onClick={() => navigator("/profilepage")}
+                        onClick={() => navigator("/profilepagepat")}
                         className="self-start text-primario font-bold text-lg lg:text-5xl uppercase tracking-widest hover:opacity-70 transition font-arboreto"
                     >
                         ← Voltar

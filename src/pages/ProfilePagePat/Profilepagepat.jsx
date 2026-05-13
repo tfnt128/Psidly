@@ -1,7 +1,7 @@
-import Homemenu from "../../components/Homepage/Homemenu";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import HomemenuPat from "../../components/HomepagePat/HomemenuPat";
 import HomemenuasidePat from "../../components/HomepagePat/HomemenuasidePat";
-import { useNavigate } from "react-router-dom";
 import ProfilePat from "../../components/ProfilePagePat/ProfilePat";
 import ProfilePsi from "../../components/ProfilePagePat/ProfilePsi";
 import Share from "../../components/Profilepage/Share";
@@ -13,13 +13,25 @@ import Write from "../../assets/animations/Write.json"
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
-export default function Profilepagepat(){
-    function goToEmail(){
-        window.location.href = "mailto:suporte@psidly.com?subject=Contato Psidly"
-    }
 
+
+export default function Profilepagepat(){
     const {t} = useTranslation()
 
+    const navigator = useNavigate();
+
+    function goToEmail(){
+        window.location.href = "mailto:suporte@psidly.com?subject=Contato Psidly";
+    }
+
+
+    function goToAbout(){
+        navigator("/sobrePat");
+    }
+
+    function goToTermos(){
+        navigator("/termosPat");
+    }
 
     return(
         <div>
@@ -43,8 +55,10 @@ export default function Profilepagepat(){
                                 <Boxoption tituloOpt={t('termos')} AnimationOption={Write} Style={"lg:mt-[-150px] mt-[3px]"}/>
                                 <Share Style={"lg:w-[2280px] lg:h-[800px] w-[370px] lg:rounded-[50px] rounded-[20px] bg-secundario lg:mt-[-120px] hover:transition hover:transform hover:scale-105 duration-300"}/>
                             </div>
+
                         </div>
-            </div>
-        </div>
-    )
-}
+
+                        <Share Style={"lg:w-[2280px] lg:h-[800px] w-[370px] lg:rounded-[50px] rounded-[20px] bg-secundario lg:mt-[-120px] hover:transition hover:transform hover:scale-105 duration-300"}/>
+                    </div>
+                </div>
+    )}

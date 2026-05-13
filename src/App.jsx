@@ -23,6 +23,10 @@ import Termos from "./pages/Termos/Termos";
 import Languages from './pages/Configuracoes/Languages';
 import ProtectRouteGeral from './components/General/ProtectRouteGeral';
 
+import SobrePat from "./pages/Sobre/SobrePat";
+import TermosPat from "./pages/Termos/TermosPat";
+
+
 
 function App() {
   return (
@@ -45,6 +49,10 @@ function App() {
               <Termos/>
             </ProtectRouteGeral>
           } />
+
+          <Route path="/sobrePat" element={<SobrePat/>}/>
+          <Route path="/termosPat" element={<TermosPat/>}/>
+
           <Route path="/homepage" element={
             <ProtectRoutePsi>
               <Homepage/>

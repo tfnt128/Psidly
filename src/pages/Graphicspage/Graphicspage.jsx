@@ -34,11 +34,11 @@ export default function Graphicspage() {
                     </div>
 
                     {/* bloco de texto pra pagina principal */}
-                    <div className="flex flex-col items-start mt-10 lg:mt-20 lg:ml-300 w-fit max-w-[800px]">
-                        <h1 className="text-[30px] lg:text-[100px] font-lexenddeca font-bold text-gray-700 leading-tight">
+                    <div className="flex flex-col items-center lg:items-start mt-10 lg:mt-20 lg:ml-300 w-full lg:w-fit max-w-[800px] px-4 lg:px-0">
+                        <h1 className="text-[30px] lg:text-[100px] font-lexenddeca font-bold text-gray-700 leading-tight text-center lg:text-left">
                             Selecione um Paciente
                         </h1>
-                        <p className="text-[16px] lg:text-[40px] font-lexenddeca text-gray-400 opacity-80">
+                        <p className="text-[16px] lg:text-[40px] font-lexenddeca text-gray-400 opacity-80 text-center lg:text-left">
                             Escolha um paciente para visualizar o acompanhamento emocional
                         </p>
                     </div>
@@ -57,12 +57,13 @@ export default function Graphicspage() {
                 /* ─── Os Grafico ─── */
                 <div className="flex flex-col mt-10 p-4 mb-[120px] lg:mb-20 lg:ml-300 lg:pr-10">
 
-                    {/* não mexer no px ali embaixo, que é ele que garante o titulo alinhado com a borda */}
-                <div className="flex justify-start items-center w-full mb-8 ml-[-700px]"> 
-                    <h1 className="lg:text-[100px] text-[30px] text-gray-400 font-lexenddeca">
-                        Gráficos de {selectedPatient}
-                    </h1>
-                </div>
+                    {/* eu pedi pra nao mexer no px, e eu mesmo mexi pqp */}
+                <div className="flex justify-center items-center w-full mb-8"> 
+    <h1 className="lg:text-[100px] text-[30px] text-gray-400 font-lexenddeca text-center">
+        Gráficos de {selectedPatient}
+    </h1>
+</div>
+
 
                     {/* EmotionsChart ocupa toda a largura restante */}
                     <EmotionsChart patientName={selectedPatient} />
@@ -78,3 +79,13 @@ export default function Graphicspage() {
         </div>
     )
 }
+
+
+
+
+
+
+
+
+
+
