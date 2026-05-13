@@ -56,6 +56,11 @@ export default function Profilebox({messageOk, setMessageOk, setTextBtnOk, setTe
             setEdit(false)
             setBgEdit("bg-quarternario")
             if(response){
+                localStorage.setItem("email", email)
+                localStorage.setItem("nome", nome)
+                localStorage.setItem("roleCrp", crp)
+                localStorage.setItem("dataNasc", dataNasc)
+
                 setMessageOk(true)
                 setTextBtnOk("Ok")
                 setTextMessagePad("Perfil alterado com sucesso")

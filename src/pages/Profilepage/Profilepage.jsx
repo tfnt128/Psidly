@@ -69,23 +69,25 @@ export default function Profilepage(){
                 <Homemenuaside BgSelectPerfil={"bg-quarternario"} />
             </div>
 
-            <div className="flex flex-col items-center gap-5 lg:flex-row lg:gap-30">
+            <div className="flex flex-col items-center gap-5 lg:flex-row lg:gap-30 mb-30">
                 <Profilebox 
                 messageOk={messageOk} 
                 setMessageOk={setMessageOk} 
                 setTextMessagePad={setTextMessagePad}
                 setTextBtnOk={setTextBtnMessagePad}/>
-                <div className="grid grid-cols-2 mb-[100px] lg:grid-cols-2 lg:w-[2100px] w-[85%] gap-4 content-start lg:mt-[230px] lg:gap-60">
-                    <Boxoption tituloOpt={t('pacientesOcultos')} onClickWay={goToOcult} AnimationOption={Bigeye} />
-                    <Boxoption tituloOpt={t('configuracoes')} AnimationOption={Enger} onClickWay={goToConfig}/>
-                    <Boxoption tituloOpt={t('sobreApp')} AnimationOption={Book} Style={"lg:mt-[-150px] mt-[3px]"} onClickWay={goToSobre}/>
-                    <Boxoption tituloOpt={t('contato')} AnimationOption={Talk} Style={"lg:mt-[-150px]  mt-[3px]"} onClickWay={goToEmail}/>
-                    <Boxoption tituloOpt={t('privacidade')} AnimationOption={Locker} Style={"lg:mt-[-150px] mt-[3px]"}/>
-                    <Boxoption tituloOpt={t('termos')} AnimationOption={Write} Style={"lg:mt-[-150px] mt-[3px]"} onClickWay={goToTermos}/>
+                <div className="flex flex-col items-center lg:gap-200">
+                    <div className="grid grid-cols-2 mb-[8px] lg:grid-cols-2 lg:w-[2100px] w-[85%] gap-4 content-start lg:mt-[230px] lg:gap-60">
+                        <Boxoption tituloOpt={t('pacientesOcultos')} onClickWay={goToOcult} AnimationOption={Bigeye} />
+                        <Boxoption tituloOpt={t('configuracoes')} AnimationOption={Enger} onClickWay={goToConfig}/>
+                        <Boxoption tituloOpt={t('sobreApp')} AnimationOption={Book} Style={"lg:mt-[-150px] mt-[3px]"} onClickWay={goToSobre}/>
+                        <Boxoption tituloOpt={t('contato')} AnimationOption={Talk} Style={"lg:mt-[-150px]  mt-[3px]"} onClickWay={goToEmail}/>
+                        <Boxoption tituloOpt={t('termos')} AnimationOption={Write} Style={"lg:mt-[-150px] mt-[3px]"} onClickWay={goToTermos}/>
 
 
-                    <Share Style={"lg:w-[2280px] lg:h-[800px] w-[340px] lg:rounded-[50px] rounded-[20px] bg-secundario lg:mt-[-120px] hover:transition hover:transform hover:scale-105 duration-300"}/>
+                    </div>
+                    <Share Style={"lg:w-[2280px] lg:mt-0 mt-2 lg:ml-30 lg:h-[800px] h-[200px] w-[340px] lg:rounded-[50px] rounded-[20px] bg-secundario lg:mt-[-720px] hover:transition hover:transform hover:scale-105 duration-300"}/>
                 </div>
+
             </div>
         </div>
     )
