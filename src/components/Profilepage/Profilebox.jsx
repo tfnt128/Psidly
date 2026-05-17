@@ -14,7 +14,8 @@ export default function Profilebox({messageOk, setMessageOk, setTextBtnOk, setTe
     const varCrp = localStorage.getItem("roleCrp")
     const [crp, setCrp] = useState(varCrp)
     const varDataNasc = localStorage.getItem("dataNasc")
-    const [dataNasc, setDataNasc] = useState(varDataNasc)
+    const [dataNasc, setDataNasc] = useState(varDataNasc)    
+    const [insurances, setInsurances] = useState(JSON.parse(localStorage.getItem("insurances")))
     const { t } = useTranslation();
 
     const [standState, setStandState] = useState()
@@ -115,7 +116,7 @@ export default function Profilebox({messageOk, setMessageOk, setTextBtnOk, setTe
                         <ShowPut setValue={setCrp} ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={"CRP"} Text={crp}/>
                         <ShowPut setValue={setEmail} ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={t('email')} Text={email}/>
                         <ShowPut setValue={setDataNasc} ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[180px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={t('dataNascimento')} Text={dataNasc}/>
-                        <ShowPut  ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[225px] lg:w-[1400px] lg:h-[700px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={t('convenios')} />
+                        <ShowPut setValue={setInsurances} ReadOnly={readOnly} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[225px] lg:w-[1400px] lg:h-[1000px] hover:transform hover:scale-110 hover:duration-300"} Bg={bgEdit} Cancel={cancel} Label={t('convenios')} Text={insurances ? insurances.join('\n ') : ""} />
 
                         {
                             edit &&

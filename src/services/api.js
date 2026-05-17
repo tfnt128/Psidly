@@ -79,14 +79,12 @@ export async function postCadastro(crp, nome, email, dataNasc, senha, senhaConfi
             birthDate: dataNasc,     
             password: senha,         
             confirmPassword: senhaConfirmada,  
-            convs: convs
+            insurances: convs
         })
 
-        if(response.data.success == false){
-            alert(response.data.message);  //debug
-        }
+
         
-        return response.data.success;
+        return response.data;
     } catch (err) {
         console.log(err);  //debug
         throw err;  
@@ -307,6 +305,22 @@ export async function findPatById(id) {
     }
 }
 
+export async function findPsi(patId) {
+    const token = localStorage.getItem("token")
+
+    try {
+        const response = await axios.get(`${API_URL}/patients/get-psicologo/${patId}`, {
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        })
+
+        return response.data
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 export async function createAvaliation(id, alegria, tristeza, raiva, estresse, ansiedade, obsPat, date, hour) {
     try {
         const token = localStorage.getItem("token")
@@ -331,13 +345,31 @@ export async function createAvaliation(id, alegria, tristeza, raiva, estresse, a
     }
 }
 
-export async function findAvaliation(date){
+export async function findAvaliation(date, patId){
     try {
-        const response = await axios.get(`${API_URL}/avaliation/find?date=${date}`,)
+        const response = await axios.get(`${API_URL}/avaliation/find?date=${date}&patientId=${patId}`)
         console.log(response.data)
         return response.data
     } catch (err) {
         console.log(err)
+    }
+}
+
+export async function commentPsicologo(idAvaliation, obsPsi){
+    const token = localStorage.getItem("token")
+    try {
+
+        const response = await axios.patch(`${API_URL}/avaliation/comment/${idAvaliation}`, {
+            obsPsicologo: obsPsi
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }) 
+
+        return response.data
+    } catch (err) {
+        
     }
 }
 

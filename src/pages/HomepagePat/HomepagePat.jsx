@@ -3,11 +3,12 @@ import HomemenuPat from "../../components/HomepagePat/HomemenuPat";
 import HomemenuasidePat from "../../components/HomepagePat/HomemenuasidePat";
 import Cereconf from "../../assets/icons/cereconf.png"
 import AddButton from "../../components/Homepage/AddButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AvaliationModal from "../../components/HomepagePat/AvaliationModal";
 import MessagePad from "../../components/General/MessagePad";
 import AvaliationWidget from "../../components/HomepagePat/AvaliationWidget";
 import { useTranslation } from "react-i18next";
+import { findAvaliation } from "../../services/api";
 
 export default function HomepagePat(){
     const {t} = useTranslation()
@@ -24,9 +25,28 @@ export default function HomepagePat(){
     const [messageOk, setMessageOk] = useState(false)
     function closeMsgPad(){
         setMessageOk(false)
+        window.location.reload()
     }
 
-    const [avaliated, useAvalieated] = useState(true)
+    const [textObs, setTextObs] = useState()
+    const [comentPsi, setComentPsi] = useState()
+
+    const hoje = new Date().toLocaleDateString('pt-BR');
+    const [patId, setPatId] = useState(localStorage.getItem("id"))
+    const [avaliated, setAvaliated] = useState(false)
+
+    useEffect(()=>{
+        async function findOwnAvaliation(){ 
+            const response = await findAvaliation(hoje, patId)
+
+            if(response.success == true){
+                setAvaliated(true)
+            }
+        }
+
+        findOwnAvaliation()
+    }, [])
+
 
 
 
@@ -67,7 +87,7 @@ export default function HomepagePat(){
                     {
                         avaliated &&
                             <div className="flex flex-col items-center justify-center mt-20">
-                                <AvaliationWidget/>
+                                <AvaliationWidget idPat={patId}/>
                             </div> 
                     }
 

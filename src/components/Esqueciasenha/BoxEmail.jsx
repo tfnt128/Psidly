@@ -57,7 +57,7 @@ export default function BoxEmail({Style, setBgOkay, setResponseEmail}){
                     </div>
             }
 
-            <h1 className="font-lexenddeca color-terciario text-[25px] lg:text-[70px] mt-4 lg:mt-15">Esqueceu sua senha?</h1>
+            <h1 className="font-lexenddeca color-terciario text-[25px] lg:text-[70px] mt-4 lg:mt-15">Redefinir sua senha?</h1>
             <p className="font-lexenddeca color-terciario text-[12px] lg:text-[40px] text-center w-[270px] lg:w-[670px] lg:mt-18 mt-8">Um e-mail de confirmação será enviado ao seu e-mail antes da redefinição de senha. Para isso, insira seu e-mail abaixo.</p>
 
             <Input Style={"w-[80%] outline-none bg-primario p-[15px]  lg:p-[55px] rounded-[15px] lg:rounded-[35px] lg:text-[40px] placeholder:text-[15px] lg:placeholder:text-[50px] placeholder:font-lexenddeca mt-20 lg:mt-[250px]"} 

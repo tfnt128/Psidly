@@ -39,6 +39,7 @@ export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, 
 
     const [standState, setStandState] = useState(false)
 
+    const [insurances, setInsurances] = useState(JSON.parse(localStorage.getItem("insurances")))
     async function handleAddPatient(){
         if(!fotoBase64 && foto){
             return;
@@ -135,7 +136,14 @@ export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, 
                     onChange={(e) => setConvenio(e.target.value)}
                     className="w-[40%] h-[60px] lg:h-[170px] rounded-[15px] bg-white lg:rounded-[35px] p-2 lg:p-[55px] lg:text-[40px] outline-none border-none lg:mt-[27px] mt-[15px] lg:mt-[20px]"
                 >
-                    <option>Amil</option>
+                    {
+                        insurances.map((insurance, index) =>(
+                            <option key={index}>
+                                {insurance}
+                            </option>
+                        ))
+                    }
+                    {/* <option>Amil</option>
                     <option>Bradesco Saúde</option>
                     <option>SulAmérica</option>
                     <option>Unimed</option>
@@ -156,7 +164,7 @@ export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, 
                     <option>MedSenior</option>
                     <option>Trasmontano</option>
                     <option>Unimed Seguros</option>
-                    <option>Particular</option>
+                    <option>Particular</option> */}
                 </select>
             <Button Style={"w-[80%] h-[50px] rounded-[10px] lg:rounded-[40px] lg:h-[160px] lg:mt-12 lg:text-[40px] bg-terciario text-[10px] font-aboreto color-secundario mt-6 hover:bg-white hover:text-black transition-transform duration-400 ease-in-out"} Text={t('adicionar')}
             OnClickFunction={handleAddPatient}/>

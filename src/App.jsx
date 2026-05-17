@@ -68,15 +68,11 @@ function App() {
               <Profilepage/>
             </ProtectRoutePsi>
           }/>
-          <Route path="/configuracoes" element={
-            <ProtectRoutePsi>
-              <Configuracoes/>
-            </ProtectRoutePsi>
-          }/>
+
           <Route path="/excluirconta" element={
-            <ProtectRoutePsi>
+            <ProtectRouteGeral>
               <ExcluirConta/>
-            </ProtectRoutePsi>
+            </ProtectRouteGeral>
           }/>
           <Route path="/pacientesocultos" element={
             <ProtectRoutePsi>
@@ -84,10 +80,11 @@ function App() {
             </ProtectRoutePsi>
           }/>
           <Route path="/configs" element={
-            <ProtectRoutePsi>
+            <ProtectRouteGeral>
               <Configuracoes/>
-            </ProtectRoutePsi>
+            </ProtectRouteGeral>
           }/>
+
           <Route path="/languages" element={
             <ProtectRouteGeral>
               <Languages/>

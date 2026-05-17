@@ -50,7 +50,7 @@ i18n.use(initReactI18next).init({
             logout: "Logout",
             confirmarExclusao: "Caso tenha certeza disso, confirme sua decisão no botão abaixo e digite sua senha para garantirmos sua segurança.",
             minhasObservacoes: "Minhas observações",
-            observacoesPaciente: "Observações do paciente", 
+            observacoesPaciente: "Observações do paciente",
             pacientesOcultos: "Pacientes ocultos",
             configuracoes: "Configurações",
             portugues: "Português",
@@ -60,8 +60,9 @@ i18n.use(initReactI18next).init({
             mandarim: "Mandarim",
             ingles: "Inglês",
             espanhol: "Espanhol",
-
-
+            redefinirSenha: "Redefinir senha",
+            semObsPsi: "Ainda não há observações de seu psicólogo.",
+            obsPsicologo: "Observações do psicólogo",
         }},
         en: { translation: {
             avaliacaoDiaria: "You haven't done your daily assessment yet!",
@@ -119,6 +120,9 @@ i18n.use(initReactI18next).init({
             pacientesOcultos: "Hidden patients",
             configuracoes: "Settings",
             confirmarExclusao: "If you are sure about this, confirm your decision by clicking the button below and enter your password to ensure your security.",
+            redefinirSenha: "Reset password",
+            semObsPsi: "There are no notes from your psychologist yet.",
+            obsPsicologo: "Psychologist's notes",
         }},
         es: { translation: {
             avaliacaoDiaria: "¡Aún no has hecho tu evaluación diaria!",
@@ -176,6 +180,9 @@ i18n.use(initReactI18next).init({
             pacientesOcultos: "Pacientes ocultos",
             configuracoes: "Configuración",
             confirmarExclusao: "Si estás seguro de esto, confirma tu decisión en el botón de abajo e ingresa tu contraseña para garantizar tu seguridad.",
+            redefinirSenha: "Restablecer contraseña",
+            semObsPsi: "Aún no hay notas de su psicólogo.",
+            obsPsicologo: "Notas del psicólogo",
         }},
         zh: { translation: {
             avaliacaoDiaria: "您还没有完成今日评估！",
@@ -232,7 +239,10 @@ i18n.use(initReactI18next).init({
             logout: "退出登录",
             confirmarExclusao: "如果您确定要这样做，请点击下方按钮确认您的决定，并输入密码以确保安全。",
             pacientesOcultos: "隐藏的患者",
-            configuracoes: "设置",  
+            configuracoes: "设置",
+            redefinirSenha: "重置密码",
+            semObsPsi: "您的心理医生还没有留下任何备注。",
+            obsPsicologo: "心理医生的备注",
         }},
         ar: { translation: {
             avaliacaoDiaria: "لم تقم بتقييمك اليومي بعد!",
@@ -252,7 +262,7 @@ i18n.use(initReactI18next).init({
             ingles: "الإنجليزية",
             espanhol: "الإسبانية",
             minhasObservacoes: "ملاحظاتي",
-            observacoesPaciente: "ملاحظات المريض",  
+            observacoesPaciente: "ملاحظات المريض",
             raiva: "غضب",
             estresse: "توتر",
             ansiedade: "قلق",
@@ -290,6 +300,9 @@ i18n.use(initReactI18next).init({
             pacientesOcultos: "المرضى المخفيون",
             configuracoes: "الإعدادات",
             confirmarExclusao: "إذا كنت متأكداً من ذلك، أكد قرارك بالنقر على الزر أدناه وأدخل كلمة المرور لضمان أمانك.",
+            redefinirSenha: "إعادة تعيين كلمة المرور",
+            semObsPsi: "لا توجد ملاحظات من طبيبك النفسي بعد.",
+            obsPsicologo: "ملاحظات الطبيب النفسي",
         }},
         ru: { translation: {
             avaliacaoDiaria: "Вы ещё не прошли ежедневную оценку!",
@@ -347,6 +360,9 @@ i18n.use(initReactI18next).init({
             pacientesOcultos: "Скрытые пациенты",
             configuracoes: "Настройки",
             confirmarExclusao: "Если вы уверены в этом, подтвердите своё решение, нажав кнопку ниже, и введите пароль для обеспечения безопасности.",
+            redefinirSenha: "Сбросить пароль",
+            semObsPsi: "Ещё нет заметок от вашего психолога.",
+            obsPsicologo: "Заметки психолога",
         }},
         fr: { translation: {
             avaliacaoDiaria: "Vous n'avez pas encore fait votre évaluation quotidienne !",
@@ -404,6 +420,9 @@ i18n.use(initReactI18next).init({
             exclusaoConta: "Suppression du compte",
             logout: "Déconnexion",
             confirmarExclusao: "Si vous en êtes sûr, confirmez votre décision en cliquant sur le bouton ci-dessous et entrez votre mot de passe pour garantir votre sécurité.",
+            redefinirSenha: "Réinitialiser le mot de passe",
+            semObsPsi: "Il n'y a pas encore de notes de votre psychologue.",
+            obsPsicologo: "Notes du psychologue",
         }},
     }
 });

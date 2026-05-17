@@ -25,10 +25,17 @@ export default function CadastroBox({}){
         setStandState(true);
         try {
             const response = await postCadastro(crp, nome, email, dataNasc, senha, senhaConfirmada, convs);
-            if(response == true){
+            if(response.status == true){
                 goToInicio();
             }
+            if(response.success == false){
+                alert(response.message)
+                setStandState(false)  
+            }
+
         } catch (err) {
+            alert("Credenciais inválidas! Tente novamente.")
+            setStandState(false)
             console.log(err);
         }
     }
@@ -60,10 +67,11 @@ export default function CadastroBox({}){
             <h1 className="font-lexenddeca color-terciario text-[20px] lg:text-[50px] mt-4">Cadastro</h1>
             <h2 className="font-lexenddeca color-terciario text-[12px] lg:text-[37px] w-[250px] lg:w-[600px] text-center m-4 lg:m-8">Informe abaixo o que se pede para realizar seu registro na plataforma</h2>
             <Input Style={"w-[80%] outline-none bg-primario p-[15px] lg:p-[55px] rounded-[15px] lg:rounded-[35px] lg:text-[40px] placeholder:text-[15px] lg:placeholder:text-[45px] placeholder:font-lexenddeca mt-[10px]"} 
-                PlaceHolder={'Insira seu CRP'} 
+                PlaceHolder={'Insira seu CRP (somente os números depois da /)'} 
                 Type={"text"}
                 value={crp}
-                setValue={setCrp}/>
+                setValue={setCrp}
+                maxLength={6}/>
             <Input Style={"w-[80%] outline-none bg-primario p-[15px] lg:p-[55px] rounded-[15px] lg:rounded-[35px] lg:text-[40px] placeholder:text-[15px] lg:placeholder:text-[45px] placeholder:font-lexenddeca mt-[20px] lg:mt-[60px]"} 
                 PlaceHolder={'Insira seu nome'} 
                 Type={"text"}

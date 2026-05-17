@@ -5,6 +5,8 @@ import Homemenuaside from "../../components/Homepage/Homemenuaside";
 import Boxoption from "../../components/Profilepage/Boxoption";
 import Profilebox from "../../components/Profilepage/Profilebox";
 import { useTranslation } from "react-i18next";
+import HomemenuasidePat from "../../components/HomepagePat/HomemenuasidePat";
+import HomemenuPat from "../../components/HomepagePat/HomemenuPat";
 
 export default function Configuracoes(){
 
@@ -24,14 +26,23 @@ export default function Configuracoes(){
         navigator("/login")
     }
 
+    function goToEsqueciSenha(){
+        navigator("/esqueceuasenha")
+    }
+    const role = localStorage.getItem('role')
+
     return(
             <div className="min-h-screen flex flex-col">
     
                 <div className="fixed lg:hidden bottom-0 left-0 w-full ">
-                    <Homemenu BgSelectPerfil={"bg-quarternario"} />
+                    {
+                        role == 'pat' ? <HomemenuPat BgSelectPerfil={"bg-quarternario"} /> : <Homemenu BgSelectPerfil={"bg-quarternario"} />
+                    }
                 </div>
                 <div className="hidden lg:flex lg:fixed bottom-0 left-0 h-full w-[10%] ">
-                    <Homemenuaside BgSelectPerfil={"bg-quarternario"} />
+                    {
+                        role == 'pat' ? <HomemenuasidePat BgSelectPerfil={"bg-quarternario"} /> : <Homemenuaside BgSelectPerfil={"bg-quarternario"} />
+                    }                
                 </div>
 
                 <div className="flex flex-col  ">
@@ -41,6 +52,11 @@ export default function Configuracoes(){
                         <Boxoption tituloOpt={t('exclusaoConta')} onClickWay={goToExcluir} />
                         <Boxoption tituloOpt={t('idiomas')} onClickWay={goToLang}/>
                         <Boxoption tituloOpt={t('Logout')} onClickWay={logout}/>
+                        {
+                            role == 'pat' &&
+                                <Boxoption tituloOpt={t('redefinirSenha')} Style={"lg:mt-90"} onClickWay={goToEsqueciSenha}/>
+
+                        }
                     </div>
                 </div>
             </div>

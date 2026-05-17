@@ -7,7 +7,7 @@ import ShowPut from "../General/ShowPut";
 import StarAvaliated from "../HomepagePat/StarsAvaliated";
 import i18n from "../../services/i18n";
 import { useTranslation } from "react-i18next";
-import { findPatById, ocultPat, findAvaliation, editPatient, deletePatient } from "../../services/api";
+import { findPatById, ocultPat, findAvaliation, editPatient, deletePatient,  commentPsicologo } from "../../services/api";
 
 export default function PatientDetails({Style, PatientId, setMessageOk, messageOk, Text, textButton, setText, setTextButton, setScreenBlurPD}){
     const { t } = useTranslation();
@@ -29,6 +29,7 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
 
     const [textObs, setTextObs] = useState()
     const [comentPsi, setComentPsi] = useState()
+    const [avaliationId, setAvaliationId] = useState()
 
     const [standState, setStandState] = useState()
     useEffect(()=>{
@@ -59,25 +60,27 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
 
     
     useEffect(()=>{
+        if(!patId) return
         async function getAvaliation(){
             try {
                 setStandState(true)
-                const response = await findAvaliation(hoje)
+                const response = await findAvaliation(hoje, patId)
                 setStandState(false)
-                console.log(response)
+                console.log(response.data)
                 
-                setAlegria(response.emocoes[0].estrelas)
-                setTristeza(response.emocoes[1].estrelas)
-                setRaiva(response.emocoes[2].estrelas)
-                setAnsiedade(response.emocoes[3].estrelas)
-                setEstresse(response.emocoes[4].estrelas)
-                setTextObs(response.obsPaciente)
+                setAlegria(response.data.emocoes[0].estrelas)
+                setTristeza(response.data.emocoes[1].estrelas)
+                setRaiva(response.data.emocoes[2].estrelas)
+                setAnsiedade(response.data.emocoes[3].estrelas)
+                setEstresse(response.data.emocoes[4].estrelas)
+                setTextObs(response.data.obsPaciente)
+                setAvaliationId(response.data.id)
 
-                if(response.obsPsicologo == null){
+                if(response.data.obsPsicologo == null){
                     setComentPsi("Ainda não há observações de seu psicólogo.")
                 }
                 else{
-                    setComentPsi(response.obsPscicologo)
+                    setComentPsi(response.data.obsPsicologo)
                 }
                 
             } catch(err) {
@@ -86,7 +89,7 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
             }
         }
         getAvaliation()
-    }, [])
+    }, [patId])
 
     async function getAvaliationByDate(){
             try {
@@ -95,6 +98,7 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
                 setStandState(false)
                 console.log(response)
                 
+
                 setAlegria(response.emocoes[0].estrelas)
                 setTristeza(response.emocoes[1].estrelas)
                 setRaiva(response.emocoes[2].estrelas)
@@ -172,6 +176,17 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
 
     }
 
+    async function handleEnviarComentario(){
+        try {
+
+            const response = await commentPsicologo(avaliationId, comentPsi)
+            console.log(response)
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     async function deleteActive(){
         try {
             setStandState(true)
@@ -235,7 +250,7 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
                     </div>
                 </div>
                 {/* <img src={ProfilePhoto} className="w-24 lg:w-88 lg:h-88 h-24 rounded-full object-cover cursor-pointer lg:mt-2 lg:mb-30"/> */}
-                <div className="relative w-24 h-24 lg:w-68 lg:h-68 mt-[-30px] cursor-pointer group"
+                <div className="relative w-24 h-24 lg:w-78 lg:h-78 mt-[-30px] cursor-pointer group"
                     onClick={() => inputRef.current.click()}>
                     <img
                         src={
@@ -320,9 +335,16 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
                             </div>
                             <div className="flex flex-col items-center mt-5 lg:mt-10">
                                 <h1 className="font-aboreto color-quarternario text-[14px] lg:text-[50px] mt-10 lg:mb-5 lg:mt-[-20px] mb-[-15px] ">{t('minhasObservacoes')}</h1>
-                                <textarea className="w-[260px] lg:h-[400px]  lg:w-[800px] h-[300px] lg:mb-10 mb-5 lg:text-[40px] lg:mt-0 mt-10 lg:p-5 text-[15px] bg-blue-200 rounded-[20px] lg:rounded-[50px] outline-none font-lexenddeca p-3 " maxLength={300}
-                                placeholder={comentPsi}
+                                <textarea onChange={(e) => setComentPsi(e.target.value)} value={comentPsi} className="w-[260px] lg:h-[400px]  lg:w-[800px] h-[300px] lg:mb-10 mb-5 lg:text-[40px] lg:mt-0 mt-10 lg:p-5 text-[15px] bg-blue-200 rounded-[20px] lg:rounded-[50px] outline-none font-lexenddeca p-3 " maxLength={300}
+                                    onKeyDown={(e) => {
+                                        if(e.key === 'Enter' && !e.shiftKey) {
+                                            e.preventDefault()
+                                            handleEnviarComentario()
+                                        }
+                                    }}
+                                    placeholder={comentPsi}
                                 /> 
+
 
                             </div>
                         </div>
