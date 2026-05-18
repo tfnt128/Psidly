@@ -40,11 +40,11 @@ const diasPorPeriodo = {
 
 // converte o nome da emocao do front pro campo que vem do back
 const camposPorEmocao = {
-  Tristeza:   "tristeza",
-  Felicidade: "alegria",
-  Ansiedade:  "ansiedade",
-  Raiva:      "raiva",
-  Estresse:   "estresse",
+  Tristeza:   "Tristeza",
+  Felicidade: "Alegria",
+  Ansiedade:  "Ansiedade",
+  Raiva:      "Raiva",
+  Estresse:   "Estresse",
 };
 
 function formatarData(date) {
