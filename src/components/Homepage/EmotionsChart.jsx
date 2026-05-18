@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
+import { listAvaliations } from "../../services/api";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -28,11 +29,40 @@ const coresPorEmocao = {
   Estresse:   "#e05c2a",
 };
 
-export default function EmotionsChart({ patientName }) {
+// quantos dias cada periodo representa
+const diasPorPeriodo = {
+  "7 Dias":  7,
+  "15 Dias": 15,
+  "1 Mês":   30,
+  "6 Meses": 180,
+  "1 Ano":   365,
+};
+
+// converte o nome da emocao do front pro campo que vem do back
+const camposPorEmocao = {
+  Tristeza:   "tristeza",
+  Felicidade: "alegria",
+  Ansiedade:  "ansiedade",
+  Raiva:      "raiva",
+  Estresse:   "estresse",
+};
+
+function formatarData(date) {
+  const d = String(date.getDate()).padStart(2, "0");
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const a = date.getFullYear();
+  return `${d}/${m}/${a}`;
+}
+
+export default function EmotionsChart({ patientId, patientName }) {
   const [selectedEmotion,   setSelectedEmotion]   = useState("Tristeza");
   const [selectedPeriodIdx, setSelectedPeriodIdx] = useState(2);
   const [isMobile,          setIsMobile]          = useState(false);
   const [showAI,            setShowAI]            = useState(false);
+
+  // agora sao estados normais, preenchidos pelo fetch do back
+  const [currentLabels, setCurrentLabels] = useState([]);
+  const [currentData,   setCurrentData]   = useState([]);
 
   useEffect(() => {
     const check = () => setIsMobile(window.screen.width < 768);
@@ -45,8 +75,30 @@ export default function EmotionsChart({ patientName }) {
   const corAtual       = coresPorEmocao[selectedEmotion];
   const s              = getMobileStyles(isMobile);
 
-  const currentLabels = useMemo(() => generateLabels(selectedPeriod, isMobile), [selectedPeriod, isMobile]);
-  const currentData   = useMemo(() => generateData(selectedPeriod, isMobile),   [selectedPeriod, isMobile]);
+  // busca os dados do back sempre que mudar paciente, emocao ou periodo
+  useEffect(() => {
+    if (!patientId) return;
+
+    async function buscar() {
+      const hoje   = new Date();
+      const inicio = new Date();
+      inicio.setDate(hoje.getDate() - diasPorPeriodo[selectedPeriod]);
+
+      const json = await listAvaliations(
+        patientId,
+        formatarData(inicio),
+        formatarData(hoje)
+      );
+
+      if (!json?.success) return;
+
+      const campo = camposPorEmocao[selectedEmotion];
+      setCurrentData(json.data.map((av) => av[campo]));
+      setCurrentLabels(json.data.map((av) => av.date.slice(0, 5))); // ex: "17/05"
+    }
+
+    buscar();
+  }, [patientId, selectedEmotion, selectedPeriod]);
 
   const chartData = useMemo(() => ({
     labels: currentLabels,
@@ -68,7 +120,7 @@ export default function EmotionsChart({ patientName }) {
       pointBackgroundColor: corAtual,
       tension: 0.1,
     }],
-  }), [selectedEmotion, selectedPeriod, corAtual, isMobile, currentLabels, currentData]);
+  }), [selectedEmotion, corAtual, isMobile, currentLabels, currentData]);
 
   const chartOptions = isMobile
     ? {
@@ -159,7 +211,7 @@ export default function EmotionsChart({ patientName }) {
           Voltar
         </button>
 
-        {/* botões de emoção — scroll horizontal no mobile */}
+        {/* botoes de emocao — scroll horizontal no mobile */}
         <div style={s.emotionTabs}>
           {EMOTIONS.map((emotion) => {
             const cor = coresPorEmocao[emotion];
@@ -181,7 +233,7 @@ export default function EmotionsChart({ patientName }) {
           })}
         </div>
 
-        {/* card do gráfico — EXATAMENTE igual ao original, sem alteração */}
+        {/* card do grafico */}
         <div style={s.chartCard}>
           <div style={s.cardHeader}>
             <h2 style={s.cardTitle}>{selectedEmotion} ao longo do tempo</h2>
@@ -205,7 +257,14 @@ export default function EmotionsChart({ patientName }) {
           </div>
 
           <div style={s.chartWrapper}>
-            <Line data={chartData} options={chartOptions} />
+            {currentData.length === 0 ? (
+              // mostra uma mensagem enquanto nao tem dados ainda
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", color: "#555577", fontFamily: "'Lexend Deca', sans-serif", fontSize: isMobile ? "12px" : "1.2vw" }}>
+                Nenhuma avaliação encontrada nesse período
+              </div>
+            ) : (
+              <Line data={chartData} options={chartOptions} />
+            )}
           </div>
         </div>
       </div>
@@ -215,33 +274,33 @@ export default function EmotionsChart({ patientName }) {
         onClick={() => setShowAI(true)}
         title="Analisar com IA"
         style={{
-          position:     "fixed",
-          bottom:       isMobile ? "100px" : "2.5vw",   // mobile: vai ficar acima do menu,tbm dei uma ajustadinha no px pra ele ficar acima da barra
-          right:        isMobile ? "16px" : "2vw",
-          width:        isMobile ? "48px"  : "3.5vw",
-          height:       isMobile ? "48px"  : "3.5vw",
-          minWidth:     isMobile ? "48px"  : "48px",
-          minHeight:    isMobile ? "48px"  : "48px",
-          borderRadius: "50%",
-          border:       `2px solid ${corAtual}`,
-          background:   `linear-gradient(135deg, ${corAtual}33, ${corAtual}11)`,
+          position:       "fixed",
+          bottom:         isMobile ? "100px" : "2.5vw",
+          right:          isMobile ? "16px"  : "2vw",
+          width:          isMobile ? "48px"  : "3.5vw",
+          height:         isMobile ? "48px"  : "3.5vw",
+          minWidth:       "48px",
+          minHeight:      "48px",
+          borderRadius:   "50%",
+          border:         `2px solid ${corAtual}`,
+          background:     `linear-gradient(135deg, ${corAtual}33, ${corAtual}11)`,
           backdropFilter: "blur(8px)",
-          color:        corAtual,
-          fontSize:     isMobile ? "18px" : "1.4vw",
-          cursor:       "pointer",
-          display:      "flex",
-          alignItems:   "center",
+          color:          corAtual,
+          fontSize:       isMobile ? "18px" : "1.4vw",
+          cursor:         "pointer",
+          display:        "flex",
+          alignItems:     "center",
           justifyContent: "center",
-          boxShadow:    `0 0 20px ${corAtual}44`,
-          transition:   "0.2s",
-          zIndex:       100,
-          fontFamily:   "'Lexend Deca', sans-serif",
+          boxShadow:      `0 0 20px ${corAtual}44`,
+          transition:     "0.2s",
+          zIndex:         100,
+          fontFamily:     "'Lexend Deca', sans-serif",
         }}
       >
         ✦
       </button>
 
-      {/* modal de análise */}
+      {/* modal de analise da ia */}
       {showAI && (
         <AIAnalysisModal
           onClose={() => setShowAI(false)}
@@ -256,24 +315,3 @@ export default function EmotionsChart({ patientName }) {
     </>
   );
 }
-
-const generateData = (period, isMobile) => {
-  const all    = { "7 Dias": 7, "15 Dias": 15, "1 Mês": 31, "6 Meses": 26, "1 Ano": 52 }[period] || 31;
-  const points = isMobile ? Math.min(all, 8) : all;
-  return Array.from({ length: points }, () => Math.floor(Math.random() * 10) + 1);
-};
-
-const generateLabels = (period, isMobile) => {
-  const today  = new Date();
-  const all    = { "7 Dias": 7, "15 Dias": 15, "1 Mês": 31, "6 Meses": 26, "1 Ano": 52 }[period] || 31;
-  const points = isMobile ? Math.min(all, 8) : all;
-  const step   = Math.ceil(all / points);
-  return Array.from({ length: points }, (_, i) => {
-    const date   = new Date(today);
-    const offset = (points - 1 - i) * step;
-    period.includes("Meses") || period.includes("Ano")
-      ? date.setDate(date.getDate() - offset * 7)
-      : date.setDate(date.getDate() - offset);
-    return `${String(date.getDate()).padStart(2, "0")}/${String(date.getMonth() + 1).padStart(2, "0")}`;
-  });
-};

@@ -395,3 +395,20 @@ export async function postSenhaExcluir(email, senhaExcluir){
         throw err;
     }
 }
+
+export async function listAvaliations(patientId, startDate, endDate) {
+    try {
+        const response = await axios.get(`${API_URL}/avaliation/list`, {
+            params: {
+                patientId,
+                startDate,
+                endDate
+            }
+        })
+        console.log(response.data)
+        return response.data
+    } catch (err) {
+        console.log(err)
+        throw err
+    }
+}
