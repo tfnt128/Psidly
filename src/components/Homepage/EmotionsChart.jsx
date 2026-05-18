@@ -40,11 +40,11 @@ const diasPorPeriodo = {
 
 // converte o nome da emocao do front pro campo que vem do back
 const camposPorEmocao = {
-  Tristeza:   "Tristeza",
-  Felicidade: "Alegria",
-  Ansiedade:  "Ansiedade",
-  Raiva:      "Raiva",
-  Estresse:   "Estresse",
+  Tristeza:   "tristeza",
+  Felicidade: "alegria",
+  Ansiedade:  "ansiedade",
+  Raiva:      "raiva",
+  Estresse:   "estresse",
 };
 
 function formatarData(date) {
@@ -60,7 +60,6 @@ export default function EmotionsChart({ patientId, patientName }) {
   const [isMobile,          setIsMobile]          = useState(false);
   const [showAI,            setShowAI]            = useState(false);
 
-  // agora sao estados normais, preenchidos pelo fetch do back
   const [currentLabels, setCurrentLabels] = useState([]);
   const [currentData,   setCurrentData]   = useState([]);
 
@@ -92,9 +91,16 @@ export default function EmotionsChart({ patientId, patientName }) {
 
       if (!json?.success) return;
 
+      // ordena por data antes de plotar, pq o back pode vir fora de ordem
+      const ordenado = [...json.data].sort((a, b) => {
+        const [dA, mA, aA] = a.date.split("/");
+        const [dB, mB, aB] = b.date.split("/");
+        return new Date(`${aA}-${mA}-${dA}`) - new Date(`${aB}-${mB}-${dB}`);
+      });
+
       const campo = camposPorEmocao[selectedEmotion];
-      setCurrentData(json.data.map((av) => av[campo]));
-      setCurrentLabels(json.data.map((av) => av.date.slice(0, 5))); // ex: "17/05"
+      setCurrentData(ordenado.map((av) => av[campo]));
+      setCurrentLabels(ordenado.map((av) => av.date.slice(0, 5)));
     }
 
     buscar();
@@ -116,8 +122,10 @@ export default function EmotionsChart({ patientId, patientName }) {
         return gradient;
       },
       borderWidth:          isMobile ? 2 : 3,
-      pointRadius:          isMobile ? 3 : 5,
+      pointRadius:          isMobile ? 5 : 7,       // maior pra aparecer mesmo com 1 ponto
+      pointHoverRadius:     isMobile ? 7 : 9,
       pointBackgroundColor: corAtual,
+      spanGaps: true,
       tension: 0.1,
     }],
   }), [selectedEmotion, corAtual, isMobile, currentLabels, currentData]);
@@ -127,6 +135,9 @@ export default function EmotionsChart({ patientId, patientName }) {
         responsive: true,
         maintainAspectRatio: false,
         layout: { padding: { top: 12, left: 0, right: 8, bottom: 8 } },
+        elements: {
+          point: { radius: 5 }   // garante o ponto mesmo sem linha
+        },
         plugins: {
           legend: { display: false },
           tooltip: {
@@ -169,6 +180,9 @@ export default function EmotionsChart({ patientId, patientName }) {
         responsive: true,
         maintainAspectRatio: false,
         layout: { padding: { top: 60, left: 30, right: 40, bottom: 30 } },
+        elements: {
+          point: { radius: 7 }   // garante o ponto mesmo sem linha
+        },
         plugins: {
           legend: { display: false },
           tooltip: {
@@ -211,7 +225,7 @@ export default function EmotionsChart({ patientId, patientName }) {
           Voltar
         </button>
 
-        {/* botoes de emocao — scroll horizontal no mobile */}
+        {/* botoes de emocao scroll horizontal no mobile */}
         <div style={s.emotionTabs}>
           {EMOTIONS.map((emotion) => {
             const cor = coresPorEmocao[emotion];
@@ -258,7 +272,6 @@ export default function EmotionsChart({ patientId, patientName }) {
 
           <div style={s.chartWrapper}>
             {currentData.length === 0 ? (
-              // mostra uma mensagem enquanto nao tem dados ainda
               <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", color: "#555577", fontFamily: "'Lexend Deca', sans-serif", fontSize: isMobile ? "12px" : "1.2vw" }}>
                 Nenhuma avaliação encontrada nesse período
               </div>
