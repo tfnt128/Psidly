@@ -31,6 +31,12 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
     const [comentPsi, setComentPsi] = useState()
     const [avaliationId, setAvaliationId] = useState()
 
+    const [insurances, setInsurances] = useState(JSON.parse(localStorage.getItem("insurances")))
+    function formatarData(data) {
+        const [ano, mes, dia] = data.split('-');
+        return `${dia}/${mes}/${ano}`;
+    }
+
     const [standState, setStandState] = useState()
     useEffect(()=>{
         async function findPatient() {
@@ -45,7 +51,7 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
                 setNome(response.name)
                 setEmail(response.email)
                 setCpf(response.cpf)
-                setDataNasc(response.birthDate)
+                setDataNasc(formatarData(response.birthDate))
                 setConvenio(response.insurance)
             } catch (err) {
                 console.log(err)
@@ -92,32 +98,34 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
     }, [patId])
 
     async function getAvaliationByDate(){
-            try {
-                setStandState(true)
-                const response = await findAvaliation(data)
-                setStandState(false)
-                console.log(response)
-                
+        try {
+            setStandState(true)
+            const response = await findAvaliation(data, patId)
+            setStandState(false)
 
-                setAlegria(response.emocoes[0].estrelas)
-                setTristeza(response.emocoes[1].estrelas)
-                setRaiva(response.emocoes[2].estrelas)
-                setAnsiedade(response.emocoes[3].estrelas)
-                setEstresse(response.emocoes[4].estrelas)
-                setTextObs(response.obsPaciente)
+            setAlegria(response.data.emocoes[0].estrelas)
+            setTristeza(response.data.emocoes[1].estrelas)
+            setRaiva(response.data.emocoes[2].estrelas)
+            setAnsiedade(response.data.emocoes[3].estrelas)
+            setEstresse(response.data.emocoes[4].estrelas)
+            setTextObs(response.data.obsPaciente)
 
-                if(response.obsPsicologo == null){
-                    setComentPsi("Ainda não há observações de seu psicólogo.")
-                }
-                else{
-                    setComentPsi(response.obsPscicologo)
-                }
-                
-            } catch(err) {
-
-                console.log(err)
+            if(response.data.obsPsicologo == null){
+                setComentPsi("Ainda não há observações de seu psicólogo.")
+            } else {
+                setComentPsi(response.data.obsPsicologo)
             }
+        } catch(err) {
+            setAlegria(0)
+            setTristeza(0)
+            setRaiva(0)
+            setAnsiedade(0)
+            setEstresse(0)
+            setTextObs(" ")
+            setComentPsi(" ")
+            console.log(err)
         }
+    }
 
     async function ocultPatient(){
         try {
@@ -163,6 +171,11 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
     async function editActive(){
         try {
             setStandState(true)
+            if (!insurances.includes(convenio)){
+                alert("Não é possível encontrar o convênio inserido.")
+                setStandState(false)
+                return;
+            }
             const response = await editPatient(patId, nome, cpf, email, dataNasc, convenio, foto)
             setStandState(false)
             setCancel(false)
@@ -179,8 +192,14 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
     async function handleEnviarComentario(){
         try {
 
-            const response = await commentPsicologo(avaliationId, comentPsi)
-            console.log(response)
+            if(data == hoje){
+                const response = await commentPsicologo(avaliationId, comentPsi)
+                console.log(response)
+            }
+            else{
+                alert("Você não pode comentar em uma avaliação de outro dia a não ser a de hoje.")
+                closeOptions()
+            }
 
         } catch (err) {
             console.log(err)
@@ -335,7 +354,7 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
                             </div>
                             <div className="flex flex-col items-center mt-5 lg:mt-10">
                                 <h1 className="font-aboreto color-quarternario text-[14px] lg:text-[50px] mt-10 lg:mb-5 lg:mt-[-20px] mb-[-15px] ">{t('minhasObservacoes')}</h1>
-                                <textarea onChange={(e) => setComentPsi(e.target.value)} value={comentPsi} className="w-[260px] lg:h-[400px]  lg:w-[800px] h-[300px] lg:mb-10 mb-5 lg:text-[40px] lg:mt-0 mt-10 lg:p-5 text-[15px] bg-blue-200 rounded-[20px] lg:rounded-[50px] outline-none font-lexenddeca p-3 " maxLength={300}
+                                <textarea onChange={(e) => setComentPsi(e.target.value)} value={comentPsi} className="w-[260px] text-gray-500 lg:h-[400px]  lg:w-[800px] h-[300px] lg:mb-10 mb-5 lg:text-[40px] lg:mt-0 mt-10 lg:p-5 text-[15px] bg-blue-200 rounded-[20px] lg:rounded-[50px] outline-none font-lexenddeca p-3 " maxLength={300}
                                     onKeyDown={(e) => {
                                         if(e.key === 'Enter' && !e.shiftKey) {
                                             e.preventDefault()
