@@ -10,6 +10,7 @@ import AvaliationWidget from "../../components/HomepagePat/AvaliationWidget";
 import { useTranslation } from "react-i18next";
 import { findAvaliation } from "../../services/api";
 
+
 export default function HomepagePat(){
     const {t} = useTranslation()
     const [blur, setBlur] = useState(false)

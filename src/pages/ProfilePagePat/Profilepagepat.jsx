@@ -54,16 +54,15 @@ export default function Profilepagepat(){
                                 <ProfilePat/>
                                 <ProfilePsi/>
                             </div>
-                            <div className="grid grid-cols-2 mb-[100px] lg:grid-cols-2 lg:w-[2100px] w-[85%] gap-4 content-start lg:mt-[340px] lg:gap-60">
-                                <Boxoption tituloOpt={t('sobreApp')} AnimationOption={Book} Style={"lg:mt-[-150px] mt-[3px]"}/>
-                                <Boxoption tituloOpt={t('contato')} AnimationOption={Talk} Style={"lg:mt-[-150px]  mt-[3px]"} onClickWay={goToEmail}/>
-                                <Boxoption tituloOpt={t('configuracoes')} AnimationOption={Enger} onClickWay={goToConfig} Style={"lg:mt-[-150px] mt-[3px]"}/>
-                                <Boxoption tituloOpt={t('termos')} AnimationOption={Write} Style={"lg:mt-[-150px] mt-[3px]"}/>
-                                <Share Style={"lg:w-[2280px] lg:h-[800px] w-[370px] lg:rounded-[50px] rounded-[20px] bg-secundario lg:mt-[-120px] hover:transition hover:transform hover:scale-105 duration-300"}/>
-                            </div>
-
+                         <div className="grid grid-cols-2 mb-[100px] lg:grid-cols-2 lg:w-[2100px] w-[85%] gap-4 content-start lg:mt-[340px] lg:gap-60">
+                             <Boxoption tituloOpt={t('sobreApp')} AnimationOption={Book} Style={"lg:mt-[-150px] mt-[3px]"} onClickWay={goToAbout}/>
+                             <Boxoption tituloOpt={t('contato')} AnimationOption={Talk} Style={"lg:mt-[-150px]  mt-[3px]"} onClickWay={goToEmail}/>
+                             <Boxoption tituloOpt={t('configuracoes')} AnimationOption={Enger} onClickWay={goToConfig} Style={"lg:mt-[-150px] mt-[3px]"}/>
+                             <Boxoption tituloOpt={t('termos')} AnimationOption={Write} Style={"lg:mt-[-150px] mt-[3px]"} onClickWay={goToTermos}/>
+                             <Share Style={"lg:w-[2280px] lg:h-[800px] w-[370px] lg:rounded-[50px] rounded-[20px] bg-secundario lg:mt-[-120px] hover:transition hover:transform hover:scale-105 duration-300"}/>
                         </div>
+                     </div>
 
-                    </div>
-                </div>
+            </div>
+        </div>
     )}

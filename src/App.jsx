@@ -41,17 +41,24 @@ function App() {
           <Route path="/esqueceuasenhatempoesgotado" element={<Esqueciasenhatempoesg/>}/>
           <Route path="/esqueceuasenhaconfirmar" element={<Esquecisenhaconfirmar/>}/>
           <Route path="/sobre" element={
-            <ProtectRouteGeral>
+            <ProtectRoutePsi>
               <Sobre />
-            </ProtectRouteGeral>} />
+            </ProtectRoutePsi>} />
           <Route path="/termos" element={
-            <ProtectRouteGeral>
+            <ProtectRoutePsi>
               <Termos/>
-            </ProtectRouteGeral>
+            </ProtectRoutePsi>
+          } />
+          <Route path="/sobrePat" element={
+            <ProtectRoutePat>
+              <SobrePat />
+            </ProtectRoutePat>} />
+          <Route path="/termosPat" element={
+            <ProtectRoutePat>
+              <TermosPat/>
+            </ProtectRoutePat>
           } />
 
-          <Route path="/sobrePat" element={<SobrePat/>}/>
-          <Route path="/termosPat" element={<TermosPat/>}/>
 
           <Route path="/homepage" element={
             <ProtectRoutePsi>
