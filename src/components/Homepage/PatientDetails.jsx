@@ -1,4 +1,4 @@
-import ProfilePhoto from "../../assets/icons/dudaaraujo.jpg"
+import ProfilePhoto from "../../assets/icons/simbperfil.png"
 import { useState, useRef, useEffect } from "react";
 import Input from "../General/Input";
 import Button from "../General/Button"

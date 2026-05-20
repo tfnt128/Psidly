@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 export default function BoxExcluirConta(){
-    const email = localStorage.getItem('resetPasswordEmail');
+    const email = localStorage.getItem('email');
     const {t} = useTranslation()
     const [senhaExcluir, setSenhaExcluir] = useState("");
 
