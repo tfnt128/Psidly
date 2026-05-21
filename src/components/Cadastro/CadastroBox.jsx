@@ -25,12 +25,13 @@ export default function CadastroBox({}){
         setStandState(true);
         try {
             const response = await postCadastro(crp, nome, email, dataNasc, senha, senhaConfirmada, convs);
-            if(response.status == true){
+            console.log("RESPOSTA:", response);
+
+            if (response?.success) {
                 goToInicio();
-            }
-            if(response.success == false){
-                alert(response.message)
-                setStandState(false)  
+            } else {
+                alert(response?.message || "Erro ao cadastrar");
+                setStandState(false);
             }
 
         } catch (err) {

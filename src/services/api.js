@@ -72,6 +72,8 @@ export async function postConfirmarSenha(email, codigo, senha, senhaConfirmada) 
 
 export async function postCadastro(crp, nome, email, dataNasc, senha, senhaConfirmada, convs) {
     try {
+
+        console.log(crp)
         const response = await axios.post(`${API_URL}/auth/register`, {
             crp: crp,
             name: nome,              
@@ -82,12 +84,25 @@ export async function postCadastro(crp, nome, email, dataNasc, senha, senhaConfi
             insurances: convs
         })
 
+        console.log(response.data)
+
 
         
         return response.data;
     } catch (err) {
-        console.log(err);  //debug
-        throw err;  
+        console.log("ERRO COMPLETO:");
+        console.log(err);
+
+        console.log("RESPONSE:");
+        console.log(err.response);
+
+        console.log("DATA:");
+        console.log(err.response?.data);
+
+        console.log("MESSAGE:");
+        console.log(err.message);
+
+        throw err;
     }
 }
 
