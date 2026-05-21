@@ -33,21 +33,19 @@ export default function Login(){
     const navigate = useNavigate()
 
     const handleInstallPWA = async () => {
-        if (!deferredPrompt) return;
+        if (!deferredPrompt) {
+            console.log("PWA não disponível");
+            return;
+        }
 
         deferredPrompt.prompt();
+
         const { outcome } = await deferredPrompt.userChoice;
 
-        if (outcome === "accepted") {
-            console.log("PWA instalado");
-        }
+        console.log("Resultado instalação:", outcome);
 
         setDeferredPrompt(null);
         setCanInstall(false);
-        console.log("beforeinstallprompt disparou!") 
-
-
-        navigate("/")
     };
 
     return(
