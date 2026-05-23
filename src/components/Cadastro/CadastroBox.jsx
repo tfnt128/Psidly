@@ -5,6 +5,7 @@ import { postCadastro } from "../../services/api";
 import { data, useNavigate } from "react-router-dom";
 import LoadingCircle from "../Animations/LoadingCircle";
 import ConvOption from "./ConvOption";
+import { isNullOrUndef } from "chart.js/helpers";
 
 export default function CadastroBox({}){
     
@@ -24,6 +25,17 @@ export default function CadastroBox({}){
     const handleCadastro = async ()=>{
         setStandState(true);
         try {
+
+            if(convs.length == 0 )
+            {
+                alert("Selecione ao menos um convênio.")
+                return;
+            }else if(isNullOrUndef(email))
+            {
+                alert("Email inválido")
+                return;
+            }
+                
             const response = await postCadastro(crp, nome, email, dataNasc, senha, senhaConfirmada, convs);
             console.log("RESPOSTA:", response);
 
