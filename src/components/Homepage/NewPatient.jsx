@@ -45,7 +45,7 @@ export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, 
             return;
         }
         setStandState(true)
-        const response = await createPatient(nome, cpf, email, senha, telefone, dataNasc, convenio, fotoBase64)
+        const response = await createPatient(nome.toUpperCase(), cpf, email, senha, telefone, dataNasc, convenio, fotoBase64)
         if (response.success){
             if(window.innerWidth >= 1024){
                 setSlide("animate-slide-left")
