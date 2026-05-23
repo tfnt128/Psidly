@@ -75,7 +75,7 @@ export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, 
     }
 
     return(
-        <div className="relative bg-quarternario mb-40 lg:mb-0 h-[830px] lg:h-[2300px] mt-400 lg:mt-0 lg:w-[1200px] w-[350px] flex flex-col items-center lg:rounded-[150px] rounded-[30px]">
+        <div className="relative bg-quarternario mb-40 lg:mb-0 h-[830px] lg:h-[2300px] mt-60 lg:mt-0 lg:w-[1200px] w-[350px] flex flex-col items-center lg:rounded-[150px] rounded-[30px]">
             {
                 standState &&
                     <div className="absolute h-full justify-center w-full inset-0 bg-black/90 rounded-[30px] lg:rounded-[150px] z-10 flex flex-col items-center">
@@ -83,7 +83,7 @@ export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, 
                     </div>
             }
 
-            <h1 className="font-aboreto text-[30px] lg:text-[80px] lg:mt-10 mt-3">{t('novoPaciente')}</h1>
+            <h1 className="font-aboreto text-[20px] lg:text-[80px] lg:mt-10 mt-2">{t('novoPaciente')}</h1>
 
             <img
                 src={foto || ProfilePhoto}
