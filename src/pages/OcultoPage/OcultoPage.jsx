@@ -87,7 +87,7 @@ export default function OcultoPage(){
             <div className="flex flex-col items-center mt-10 lg:mt-20">
                 <h1 className="font-aboreto text-[20px] lg:text-[70px] color-quarternario">{t('pacientesOcultos')}</h1>
             </div>
-            <div className="flex flex-col gap-10 mb-[120px] items-center mt-20 lg:grid lg:grid-cols-4 lg:gap-x-0 lg:gap-y-30 lg:gap-1 lg:mt-60 lg:w-[60%]  lg:items-center lg:ml-200">
+            <div className="flex flex-col gap-10 mb-[160px] items-center mt-20 lg:grid lg:grid-cols-4 lg:gap-x-0 lg:gap-y-30 lg:gap-1 lg:mt-60 lg:w-[60%]  lg:items-center lg:ml-200">
                 {
                     ocultPatients.map(ocultPatient=>(
                         <div key={ocultPatient.id} className="w-full flex flex-col items-center">
