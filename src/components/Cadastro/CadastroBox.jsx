@@ -25,12 +25,13 @@ export default function CadastroBox({}){
         setStandState(true);
         try {
             const response = await postCadastro(crp, nome, email, dataNasc, senha, senhaConfirmada, convs);
-            if(response.status == true){
+            console.log("RESPOSTA:", response);
+
+            if (response?.success) {
                 goToInicio();
-            }
-            if(response.success == false){
-                alert(response.message)
-                setStandState(false)  
+            } else {
+                alert(response?.message || "Erro ao cadastrar");
+                setStandState(false);
             }
 
         } catch (err) {
@@ -143,14 +144,7 @@ export default function CadastroBox({}){
                 {/* <ConvOption name={name}/> */}
             </div>
 
-            <div className="flex flex-col mr-5 mt-5 lg:mt-15 ">
-                <h1 className="text-[12px] lg:text-[35px] font-lexenddeca color-terciario "><a>Termos e condições de uso</a></h1>
-                <div className="flex flex-row mt-4 gap-1">
-                    <input type="checkbox" className="w-4 h-4 lg:w-8 lg:h-8 rounded-[10px]"/>
-                    <h1 className="text-[12px] lg:text-[35px] lg:w-[470px] w-[200px] font-lexenddeca color-terciario ">Li e concordo com os termos e condições de uso</h1>
-                </div>
-                
-            </div>
+
 
 
             <div className="w-full flex flex-row items-center gap-3 justify-center bottom-0">

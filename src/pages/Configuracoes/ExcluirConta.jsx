@@ -18,7 +18,7 @@ export default function ExcluirConta(){
                 </div>
                 <div className="hidden lg:flex lg:fixed bottom-0 left-0 h-full w-[10%] ">
                     {
-                        role == 'pat' ? <HomemenuPat BgSelectPerfil={"bg-quarternario"} /> : <Homemenu BgSelectPerfil={"bg-quarternario"} />
+                        role == 'pat' ? <HomemenuasidePat BgSelectPerfil={"bg-quarternario"} /> : <Homemenuaside BgSelectPerfil={"bg-quarternario"} />
                     }
                 </div>
 

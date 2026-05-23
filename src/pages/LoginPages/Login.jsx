@@ -18,36 +18,37 @@ export default function Login(){
     const [canInstall, setCanInstall] = useState(false);
 
     useEffect(() => {
+        if (window.__deferredPrompt) {
+            setDeferredPrompt(window.__deferredPrompt);
+            setCanInstall(true);
+        }
+
         const handler = (e) => {
             e.preventDefault();
+            window.__deferredPrompt = e;
             setDeferredPrompt(e);
             setCanInstall(true);
         };
 
         window.addEventListener("beforeinstallprompt", handler);
-
-        return () => {
-            window.removeEventListener("beforeinstallprompt", handler);
-        };
+        return () => window.removeEventListener("beforeinstallprompt", handler);
     }, []);
     const navigate = useNavigate()
 
     const handleInstallPWA = async () => {
-        if (!deferredPrompt) return;
+        if (!deferredPrompt) {
+            console.log("PWA não disponível");
+            return;
+        }
 
         deferredPrompt.prompt();
+
         const { outcome } = await deferredPrompt.userChoice;
 
-        if (outcome === "accepted") {
-            console.log("PWA instalado");
-        }
+        console.log("Resultado instalação:", outcome);
 
         setDeferredPrompt(null);
         setCanInstall(false);
-        console.log("beforeinstallprompt disparou!") 
-
-
-        navigate("/")
     };
 
     return(
