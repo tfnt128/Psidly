@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const API_URL = "http://psidly-api-env-env.eba-jiwtkzde.us-east-2.elasticbeanstalk.com/api";
+const API_URL = "https://psidly-api-env-env.eba-jiwtkzde.us-east-2.elasticbeanstalk.com/api";
 
 export async function postLogin(email, senha){
     try {
