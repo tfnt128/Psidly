@@ -98,7 +98,7 @@ export default function OcultPatientDetails({Style, PatientId, setMessageOk, mes
         <div className={`relative bg-quarternario ${Style} flex flex-col mb-20 lg:mb-0 items-center lg:mt-[-80px] p-10 lg:pt-60 lg:rounded-[70px] rounded-[30px]`}
             onClick={() => closeOptions()}>
             
-            <div className="relative lg:w-[100%] w-[100%] flex flex-col items-center gap-5 mt-5 lg:mt-0 lg:gap-15">
+            <div className="relative lg:w-[100%] w-[120%] flex flex-col items-center gap-5 mt-5 lg:mt-0 lg:gap-15">
                 {
                     options &&
                         <div className="absolute z-10 top-3 animate-slide-down right-4 mr-7 lg:mr-40 lg:mt-[-100px] mt-[10px] w-[200px] h-[75px] lg:w-[400px] lg:h-[200px] rounded-[10px] lg:rounded-[25px] bg-white"
