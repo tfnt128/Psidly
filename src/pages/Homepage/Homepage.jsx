@@ -71,7 +71,8 @@ export default function Homepage(){
     async function handlePesquisar(){
         if(!patientName) return
         try {
-            const response = await searchPatient(patientName)
+            console.log(patientName.toUpperCase())
+            const response = await searchPatient(patientName.toUpperCase())
             setPatients(Array.isArray(response) ? response : [])   
         } catch (err) {
             console.log(err)
