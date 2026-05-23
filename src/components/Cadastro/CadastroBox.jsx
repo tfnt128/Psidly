@@ -29,10 +29,12 @@ export default function CadastroBox({}){
             if(convs.length == 0 )
             {
                 alert("Selecione ao menos um convênio.")
+                setStandState(false)
                 return;
             }else if(isNullOrUndef(email))
             {
                 alert("Email inválido")
+                setStandState(false)
                 return;
             }
                 
