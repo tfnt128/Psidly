@@ -18,7 +18,7 @@ export default function LoadingPage(){
     )
      
     return(
-        <div className=" bg-loading flex flex-col items-center w-full min-h-screen">
+        <div className=" bg-loading flex flex-col items-center w-full min-h-screen zoom-[20%]">
             <div className=" mt-[200px] lg:mt-[120px] flex flex-col items-center">
                 <Title Style={"lg:w-[1400px]"}/>
                 <LoadingCircle Style={'w-[40%] mt-[-25%] lg:mt-[-15%]'}/>

@@ -30,7 +30,7 @@ import TermosPat from "./pages/Termos/TermosPat";
 
 function App() {
   return (
-    <>
+    <div>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoadingPage/>}/>
@@ -113,7 +113,7 @@ function App() {
           <Route path="*" element={<NotFound/>}/>
         </Routes>
       </BrowserRouter>
-    </>
+    </div>
   )
 }
 

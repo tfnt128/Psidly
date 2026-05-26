@@ -7,12 +7,15 @@ import ShowPut from "../General/ShowPut";
 import StarAvaliated from "../HomepagePat/StarsAvaliated";
 import i18n from "../../services/i18n";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { findPatById, ocultPat, findAvaliation, editPatient, deletePatient,  commentPsicologo } from "../../services/api";
 
 export default function PatientDetails({Style, PatientId, setMessageOk, messageOk, Text, textButton, setText, setTextButton, setScreenBlurPD}){
     const { t } = useTranslation();
     
     const [foto, setFoto] = useState(null);
+
+    const navigator = useNavigate();
 
     const [nome, setNome] = useState()
     const [email, setEmail] = useState()
@@ -234,6 +237,10 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
         if (file) setFoto(URL.createObjectURL(file));
     }
 
+    function goBack()
+    {
+        navigator("/homepage")
+    }
 
 
 
@@ -261,7 +268,22 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
                         </div>
                 }
                 
-                <div className="flex justify-end w-full pr-4 pt-2 lg:mr-60">
+                    <div
+                    className="fixed top-4 left-4 z-50 
+                                w-[35px] h-[35px] lg:w-[200px] lg:h-[100px]
+                                bg-white/80 hover:bg-blue-100
+                                rounded-[10px]
+                                flex items-center justify-center
+                                cursor-pointer
+                                transition-all duration-300
+                                overflow-hidden group"
+                    onClick={goBack}
+                    >
+                    <p className="hidden group-hover:block text-black text-[11px] lg:text-[50px] font-lexenddeca whitespace-nowrap">
+                        Voltar
+                    </p>
+                    </div>
+                    <div className="flex justify-end w-full pr-4 pt-2 lg:mr-60">
                     <div className=" hover:bg-blue-100 rounded-[10px] w-[35px] h-[35px] lg:w-[100px] lg:h-[100px] hover:w-[100px] lg:hover:w-[250px] flex items-center justify-center cursor-pointer transition-all duration-300 overflow-hidden group"
                         onClick={(e) => { e.stopPropagation(); openOptions(); }}>
                         <p className="text-[20px] lg:text-[70px] text-black group-hover:hidden">⋮</p>
@@ -321,6 +343,7 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
                         PlaceHolder={"dd/mm/aaaa"}
                         setValue={setData} 
                         onEnter={getAvaliationByDate}
+                        maxLength={10}
                         Style={"w-[100%] outline-none bg-primario p-[15px] lg:p-[30px] rounded-[10px] lg:rounded-[25px] lg:text-[40px] m-3 "}/>
                 </div>
                 <div className="flex flex-col lg:flex-row items-center">

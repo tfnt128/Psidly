@@ -120,28 +120,28 @@ export default function CadastroBox({}){
                     onChange={(e) => setSelected(e.target.value)}
                     className="w-[90%] h-[60px] lg:h-[170px] rounded-[15px] bg-white lg:rounded-[35px] p-2 lg:p-[55px] lg:text-[40px] outline-none border-none lg:mt-[27px] mt-[15px] lg:mt-[20px]"
                 >
-                    <option>Amil</option>
-                    <option>Bradesco Saúde</option>
-                    <option>SulAmérica</option>
-                    <option>Unimed</option>
-                    <option>NotreDame Interm.</option>
-                    <option>Porto Seg. Saúde</option>
-                    <option>Hapvida</option>
-                    <option>Cassi</option>
-                    <option>Geap</option>
-                    <option>Omint</option>
-                    <option>Care Plus</option>
-                    <option>Allianz Saúde</option>
-                    <option>Golden Cross</option>
-                    <option>Prevent Senior</option>
-                    <option>Ameplan</option>
-                    <option>Assim Saúde</option>
-                    <option>Clinipam</option>
-                    <option>Green Line</option>
-                    <option>MedSenior</option>
-                    <option>Trasmontano</option>
-                    <option>Unimed Seguros</option>
-                    <option>Particular</option>
+                <option>Allianz Saúde</option>
+                <option>Ameplan</option>
+                <option>Amil</option>
+                <option>Assim Saúde</option>
+                <option>Bradesco Saúde</option>
+                <option>Cassi</option>
+                <option>Care Plus</option>
+                <option>Clinipam</option>
+                <option>Geap</option>
+                <option>Golden Cross</option>
+                <option>Green Line</option>
+                <option>Hapvida</option>
+                <option>MedSenior</option>
+                <option>NotreDame Interm.</option>
+                <option>Omint</option>
+                <option>Particular</option>
+                <option>Porto Seg. Saúde</option>
+                <option>Prevent Senior</option>
+                <option>SulAmérica</option>
+                <option>Trasmontano</option>
+                <option>Unimed</option>
+                <option>Unimed Seguros</option>
                 </select>
                 <Button Style={"w-[30%] h-[60px] lg:h-[140px] text-[15px] lg:text-[30px] hover:bg-white transition duration-300 ease-in-out hover:text-black font-lexenddeca rounded-[15px] mt-6 lg:rounded-[20px] text-white bg-quarternario"} OnClickFunction={handleOk} Text={"Ok"}
                     />

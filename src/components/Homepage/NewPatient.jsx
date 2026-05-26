@@ -107,7 +107,8 @@ export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, 
             <Input PlaceHolder={t('insiraCpf')}
                 Style={"w-[90%] text-[10px] h-[50px] lg:h-[160px] lg:rounded-[30px] lg:text-[40px] lg:p-6 lg:mt-10 p-3 rounded-[10px] bg-white mt-6 border-none outline-none hover:scale-107 transition-transform durantion-200"}
                 value={cpf}
-                setValue={setCpf}/>
+                setValue={setCpf}
+                maxLength={11}/>
             <Input PlaceHolder={t('insiraEmail')}
                 Style={"w-[90%] text-[10px] h-[50px] lg:h-[160px] lg:rounded-[30px] lg:text-[40px] lg:p-6 lg:mt-10 p-3 rounded-[10px] bg-white mt-6 border-none outline-none hover:scale-107 transition-transform durantion-200"}
                 Type={"email"}
@@ -122,7 +123,8 @@ export default function NewPatient({messageOk, setMessageOk, setTextMessagePad, 
                 Style={"w-[90%] text-[10px] h-[50px] lg:h-[160px] lg:rounded-[30px] lg:text-[40px] lg:p-6 lg:mt-10 p-3 rounded-[10px] bg-white mt-6 border-none outline-none hover:scale-107 transition-transform durantion-200"}
                 Type={"number"}
                 value={telefone}
-                setValue={setTelefone}/>
+                setValue={setTelefone}
+                maxLength={11}/>
             <h3 className="text-[10px] lg:text-[45px] font-aboreto mt-3 lg:mt-6">{t('insiraDataNasc')}</h3>
             <Input
                 Type={"date"}
