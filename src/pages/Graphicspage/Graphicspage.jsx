@@ -28,7 +28,7 @@ export default function Graphicspage() {
     async function handlePesquisar() {
         if (!patientName) return
         try {
-            const response = await searchPatient(patientName)
+            const response = await searchPatient(patientName.toUpperCase())
             setPatients(Array.isArray(response) ? response : [])
         } catch (err) {
             console.log(err)

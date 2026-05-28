@@ -86,7 +86,7 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
                 setAvaliationId(response.data.id)
 
                 if(response.data.obsPsicologo == null){
-                    setComentPsi("Ainda não há observações de seu psicólogo.")
+                    setComentPsi("Ainda não há observações do psicólogo. ")
                 }
                 else{
                     setComentPsi(response.data.obsPsicologo)
@@ -239,7 +239,7 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
 
     function goBack()
     {
-        navigator("/homepage")
+        window.location.reload()
     }
 
 
@@ -269,19 +269,16 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
                 }
                 
                     <div
-                    className="fixed top-4 left-4 z-50 
-                                w-[35px] h-[35px] lg:w-[200px] lg:h-[100px]
-                                bg-white/80 hover:bg-blue-100
-                                rounded-[10px]
-                                flex items-center justify-center
-                                cursor-pointer
-                                transition-all duration-300
-                                overflow-hidden group"
-                    onClick={goBack}
+                        className="fixed top-4 left-4 z-[9999]
+                        w-[35px] h-[35px] lg:w-[200px] lg:h-[100px]
+                        bg-red-300 rounded-[10px]
+                        flex items-center justify-center cursor-pointer"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            goBack();
+                        }}
                     >
-                    <p className="hidden group-hover:block text-black text-[11px] lg:text-[50px] font-lexenddeca whitespace-nowrap">
-                        Voltar
-                    </p>
+                        <p className="text-black">Voltar</p>
                     </div>
                     <div className="flex justify-end w-full pr-4 pt-2 lg:mr-60">
                     <div className=" hover:bg-blue-100 rounded-[10px] w-[35px] h-[35px] lg:w-[100px] lg:h-[100px] hover:w-[100px] lg:hover:w-[250px] flex items-center justify-center cursor-pointer transition-all duration-300 overflow-hidden group"
@@ -386,6 +383,7 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
                                     }}
                                     placeholder={comentPsi}
                                 /> 
+                                <h1 className={"font-lexenddeca color-quarternario text-[10px] lg:text-[30px] mt-[-20px] mb-5  "}>Pressione ENTER para enviar</h1>
 
 
                             </div>

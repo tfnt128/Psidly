@@ -35,7 +35,7 @@ export default function Homemenuaside({BgSelectGraph, BgSelectPerfil, BgSelectPs
                 <Button Style={`w-full h-[70%] flex ${BgSelectPsi} justify-center items-center ease-in-out transition hover:bg-blue-200 hover:duration-300`} Src={Psico} ImgStyle={"w-[105px]"} OnClickFunction={goToHomePage} />
                 <Button Style={`w-full h-[70%] flex justify-center items-center ease-in-out transition hover:bg-blue-200 hover:duration-300 ${BgSelectGraph}`} Src={SimbGraph} ImgStyle={"w-[105px]"} OnClickFunction={goToGraphicsPage} />
                 <Button Style={`w-full h-full mt-[150%] flex justify-center items-center ease-in-out transition hover:bg-blue-200 hover:duration-300 ${BgSelectPerfil}`} Src={simbperfil} ImgStyle={"w-[145px]"}  OnClickFunction={gotToProfilePage} />
-                <Button Style={`w-full h-full mt-[0%] flex justify-center items-center ease-in-out transition hover:bg-blue-200 hover:duration-300`} Src={LogoutImg} ImgStyle={"w-[45px]"} OnClickFunction={logout}/>
+                <Button Style={`w-full h-[30%] mt-[0%] flex justify-center items-center ease-in-out transition hover:bg-blue-200 hover:duration-300`} Src={LogoutImg} ImgStyle={"w-[45px]"} OnClickFunction={logout}/>
                 
             </div>
 
