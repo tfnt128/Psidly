@@ -268,24 +268,25 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
                         </div>
                 }
                 
-                    <div
-                        className="fixed top-4 left-4 z-[9999]
-                        w-[35px] h-[35px] lg:w-[200px] lg:h-[100px]
-                        bg-red-300 rounded-[10px]
-                        flex items-center justify-center cursor-pointer"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            goBack();
-                        }}
-                    >
-                        <p className="text-black">Voltar</p>
-                    </div>
+
                     <div className="flex justify-end w-full pr-4 pt-2 lg:mr-60">
                     <div className=" hover:bg-blue-100 rounded-[10px] w-[35px] h-[35px] lg:w-[100px] lg:h-[100px] hover:w-[100px] lg:hover:w-[250px] flex items-center justify-center cursor-pointer transition-all duration-300 overflow-hidden group"
                         onClick={(e) => { e.stopPropagation(); openOptions(); }}>
                         <p className="text-[20px] lg:text-[70px] text-black group-hover:hidden">⋮</p>
                         <p className="hidden group-hover:block text-black text-[11px] lg:text-[50px] font-lexenddeca whitespace-nowrap">Opções</p>
                     </div>
+                </div>
+                <div
+                        className="lg:fixed mr-60 mt-[-50px] lg:mr-200 p-7 z-2
+                        w-[70px] lg:w-[35px] h-[35px] lg:w-[200px] lg:h-[100px]
+                        bg-blue-300 rounded-[10px]
+                        flex items-center justify-center cursor-pointer"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            goBack();
+                        }}
+                    >
+                        <p className="text-black text-[15px] lg:text-[45px]">Voltar</p>
                 </div>
                 {/* <img src={ProfilePhoto} className="w-24 lg:w-88 lg:h-88 h-24 rounded-full object-cover cursor-pointer lg:mt-2 lg:mb-30"/> */}
                 <div className="relative w-24 h-24 lg:w-78 lg:h-78 mt-[-30px] cursor-pointer group"
