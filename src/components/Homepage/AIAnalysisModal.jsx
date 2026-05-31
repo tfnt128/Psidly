@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 
-// groq aqui
 const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
-// ─────────────────────────────────────────────
-
 const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
 
 if (typeof document !== "undefined" && !document.getElementById("ai-spinner-style")) {
@@ -14,6 +12,7 @@ if (typeof document !== "undefined" && !document.getElementById("ai-spinner-styl
 }
 
 export default function AIAnalysisModal({ onClose, patientName, emotion, period, labels, data, cor }) {
+  const { t } = useTranslation();
   const [status,   setStatus]   = useState("loading");
   const [response, setResponse] = useState("");
   const isMobile = window.screen.width < 768;
@@ -22,28 +21,35 @@ export default function AIAnalysisModal({ onClose, patientName, emotion, period,
     const min    = Math.min(...data);
     const max    = Math.max(...data);
     const avg    = (data.reduce((a, b) => a + b, 0) / data.length).toFixed(1);
-    const trend  = data[data.length - 1] > data[0] ? "crescente" : data[data.length - 1] < data[0] ? "decrescente" : "estável";
     const maxIdx = data.indexOf(max);
     const minIdx = data.indexOf(min);
 
-    return `Você é um assistente clínico auxiliar. Analise os dados emocionais abaixo de forma clara e profissional para o psicólogo responsável.
+    // tendência usando chaves do i18n — consistente com o idioma atual
+    const trend =
+      data[data.length - 1] > data[0] ? t('tendenciaCrescente') :
+      data[data.length - 1] < data[0] ? t('tendenciaDecrescente') :
+      t('tendenciaEstavel');
 
-Paciente: ${patientName}
-Emoção: ${emotion}
-Período: de ${labels[0]} até ${labels[labels.length - 1]}
-Mínimo: ${min}/10 (dia ${labels[minIdx]})
-Máximo: ${max}/10 (dia ${labels[maxIdx]})
-Média: ${avg}/10
-Tendência: ${trend}
-Valores registrados: ${data.join(", ")}
+    return `You are a clinical support assistant. Analyze the emotional data below clearly and professionally for the responsible psychologist.
 
-Escreva uma análise clínica curta (3 a 4 parágrafos) cobrindo:
-1. Resumo geral da variação no período
-2. Momentos de destaque (pico e vale) e possível significado clínico
-3. Tendência atual e o que pode indicar
-4. Sugestão de atenção para o psicólogo
+Patient: ${patientName}
+Emotion: ${emotion}
+Period: from ${labels[0]} to ${labels[labels.length - 1]}
+Minimum: ${min}/10 (day ${labels[minIdx]})
+Maximum: ${max}/10 (day ${labels[maxIdx]})
+Average: ${avg}/10
+Trend: ${trend}
+Recorded values: ${data.join(", ")}
 
-Use linguagem profissional mas acessível. Escreva em texto corrido, sem bullet points.Vale lembrar também que caso a data de inicio seja maior que a de fim, provavelmentr se passou um ano daquela primeira consulta Responda em português.`;
+Write a short clinical analysis (3 to 4 paragraphs) covering:
+1. General summary of variation over the period
+2. Notable moments (peak and valley) and possible clinical significance
+3. Current trend and what it may indicate
+4. Suggested points of attention for the psychologist
+
+Use professional but accessible language. Write in continuous prose, no bullet points. Note that if the start date is later than the end date, approximately one year has passed since the first record.
+
+${t('promptRespondaEm')}`;
   };
 
   const analyze = async () => {
@@ -68,14 +74,13 @@ Use linguagem profissional mas acessível. Escreva em texto corrido, sem bullet 
       setResponse(json.choices?.[0]?.message?.content || "");
       setStatus("done");
     } catch (err) {
-      setResponse("Não foi possível conectar à IA. Verifique sua chave e tente novamente.");
+      setResponse(err.message || "Erro desconhecido");
       setStatus("error");
     }
   };
 
   useEffect(() => { analyze(); }, []);
 
-  // mesma coisa aqui | mobile usa px fixos
   const fs = isMobile ? {
     overlay:     { position: "fixed", inset: 0, background: "rgba(0,0,0,0.75)", backdropFilter: "blur(4px)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: "16px" },
     modal:       { background: "#0f0f1a", border: "1px solid #1a1a2e", borderRadius: "20px", width: "100%", maxWidth: "480px", maxHeight: "80vh", overflowY: "auto", padding: "20px 18px", fontFamily: "'Lexend Deca', sans-serif", position: "relative" },
@@ -89,7 +94,6 @@ Use linguagem profissional mas acessível. Escreva em texto corrido, sem bullet 
     errorText:   { color: "#ff4d4d", fontSize: "12px", lineHeight: "1.6" },
     retryBtn:    { marginTop: "12px", padding: "7px 16px", borderRadius: "999px", border: "1.5px solid #4d8bff", background: "rgba(77,139,255,0.1)", color: "#4d8bff", fontSize: "11px", fontWeight: "600", cursor: "pointer", fontFamily: "'Lexend Deca', sans-serif" },
   } : {
-    // dei uma arrumadinha pra ficar bom no zoom de 25%
     overlay:     { position: "fixed", inset: 0, background: "rgba(0,0,0,0.75)", backdropFilter: "blur(4px)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: "2vw" },
     modal:       { background: "#0f0f1a", border: "0.1vw solid #1a1a2e", borderRadius: "1.5vw", width: "40vw", maxHeight: "75vh", overflowY: "auto", padding: "2.5vw 2.5vw", fontFamily: "'Lexend Deca', sans-serif", position: "relative" },
     closeBtn:    { position: "absolute", top: "1.2vw", right: "1.2vw", background: "transparent", border: "none", color: "#555577", fontSize: "1.2vw", cursor: "pointer" },
@@ -111,8 +115,8 @@ Use linguagem profissional mas acessível. Escreva em texto corrido, sem bullet 
         <div style={{ display: "flex", alignItems: "flex-start", gap: isMobile ? "8px" : "0.8vw", marginBottom: isMobile ? "14px" : "1.2vw" }}>
           <span style={{ fontSize: isMobile ? "16px" : "1.4vw", marginTop: "2px", color: cor }}>✦</span>
           <div>
-            <p style={fs.title}>Análise de IA — {emotion}</p>
-            <p style={fs.subtitle}>{patientName} · {labels[0]} até {labels[labels.length - 1]}</p>
+            <p style={fs.title}>{t('analiseIA')} — {emotion}</p>
+            <p style={fs.subtitle}>{patientName} · {labels[0]} {t('ate')} {labels[labels.length - 1]}</p>
           </div>
         </div>
 
@@ -121,7 +125,7 @@ Use linguagem profissional mas acessível. Escreva em texto corrido, sem bullet 
         {status === "loading" && (
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: isMobile ? "10px" : "1vw", padding: isMobile ? "24px 0" : "3vw 0" }}>
             <div style={fs.spinner} />
-            <p style={fs.loadingText}>Analisando variação emocional...</p>
+            <p style={fs.loadingText}>{t('analisando')}</p>
           </div>
         )}
 
@@ -132,7 +136,7 @@ Use linguagem profissional mas acessível. Escreva em texto corrido, sem bullet 
         {status === "error" && (
           <div>
             <p style={fs.errorText}>{response}</p>
-            <button style={fs.retryBtn} onClick={analyze}>Tentar novamente</button>
+            <button style={fs.retryBtn} onClick={analyze}>{t('tentarNovamente')}</button>
           </div>
         )}
       </div>
