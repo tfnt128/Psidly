@@ -12,8 +12,8 @@ export default function ProfilePat({}){
             <h1 className="font-aboreto lg:text-[70px] mt-5 color-quarternario lg:mt-20 lg:mb-20 mb-5 ">{t('meuPerfil')}</h1>
 
             
-            <ShowPut Text={nome} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[230px] hover:transform hover:scale-110 hover:duration-300"}  Label={t('nome')} />
-            <ShowPut Text={email} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] lg:mt-20 mt-5 h-[65px] lg:w-[1400px] lg:h-[230px] hover:transform hover:scale-110 hover:duration-300"}  Label={t('email')} />
+            <ShowPut Text={nome} ReadOnly={true} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] h-[65px] lg:w-[1400px] lg:h-[230px] hover:transform hover:scale-110 hover:duration-300"}  Label={t('nome')} />
+            <ShowPut Text={email} ReadOnly={true} BorderBg={"border-blue-300"} TextColor={"text-blue-300"} Style={"w-[300px] lg:mt-20 mt-5 h-[65px] lg:w-[1400px] lg:h-[230px] hover:transform hover:scale-110 hover:duration-300"}  Label={t('email')} />
         </div>
     )
 }

@@ -69,10 +69,17 @@ export default function Homepage(){
     }
 
     async function handlePesquisar(){
-        if(!patientName) return
+        if(!patientName)
+        {
+            const id = localStorage.getItem("id")
+            const response = await listPatient(id)
+            console.log(response)
+            setPatients(response)
+        }
         try {
             console.log(patientName.toUpperCase())
             const response = await searchPatient(patientName.toUpperCase())
+            console.log("resultado busca:", response)
             setPatients(Array.isArray(response) ? response : [])   
         } catch (err) {
             console.log(err)

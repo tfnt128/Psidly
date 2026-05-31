@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import Homemenu from "../../components/Homepage/Homemenu";
-import Homemenuaside from "../../components/Homepage/Homemenuaside";
+import HomemenuPat from "../../components/HomepagePat/HomemenuPat";
+import HomemenuasidePat from "../../components/HomepagePat/HomemenuasidePat";
+
 
 export default function SobrePat() {
     const navigator = useNavigate();
@@ -8,10 +9,10 @@ export default function SobrePat() {
     return (
         <div className="min-h-screen font-lexenddeca">
             <div className="fixed lg:hidden bottom-0 left-0 w-full z-50">
-                <Homemenu BgSelectPerfil={"bg-quarternario"} />
+                <HomemenuPat BgSelectPerfil={"bg-quarternario"} />
             </div>
             <div className="hidden lg:flex lg:fixed bottom-0 left-0 h-full w-[10%] z-50">
-                <Homemenuaside BgSelectPerfil={"bg-quarternario"} />
+                <HomemenuasidePat BgSelectPerfil={"bg-quarternario"} />
             </div>
 
             <div className="flex flex-col items-center lg:ml-[10%] px-4 lg:px-20 py-8 lg:py-20 mb-[100px]">
