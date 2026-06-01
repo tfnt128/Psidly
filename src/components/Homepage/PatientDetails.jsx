@@ -51,6 +51,7 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
 
                 setPatId(response.id)
                 setFoto(response.photo)
+                console.log(response.photo)
                 setNome(response.name)
                 setEmail(response.email)
                 setCpf(response.cpf)
@@ -234,7 +235,11 @@ export default function PatientDetails({Style, PatientId, setMessageOk, messageO
     const inputRef = useRef(null);
     function handleFoto(e) {
         const file = e.target.files[0];
-        if (file) setFoto(URL.createObjectURL(file));
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => setFoto(e.target.result); // já vira "data:image/jpeg;base64,..."
+            reader.readAsDataURL(file);
+        }
     }
 
     function goBack()
