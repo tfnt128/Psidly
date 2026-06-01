@@ -14,37 +14,37 @@ import {
 import { Line } from "react-chartjs-2";
 import { getMobileStyles } from "./EmotionsChart.styles";
 import AIAnalysisModal from "./AIAnalysisModal";
+import { useTranslation } from 'react-i18next';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend);
 
-const EMOTIONS      = ["Tristeza", "Felicidade", "Ansiedade", "Raiva", "Estresse"];
-const PERIODS_FULL  = ["7 Dias", "15 Dias", "1 Mês", "6 Meses", "1 Ano"];
-const PERIODS_CURTO = ["7D", "15D", "1M", "6M", "1A"];
+// chaves estáveis para mapear dias — independente do idioma
+const PERIOD_KEYS = ["7d", "15d", "1m", "6m", "1a"];
 
-const coresPorEmocao = {
-  Tristeza:   "#4d8bff",
-  Felicidade: "#36e900",
-  Ansiedade:  "#ff05c9",
-  Raiva:      "#ff3b3b",
-  Estresse:   "#e05c2a",
-};
-
-// quantos dias cada periodo representa
-const diasPorPeriodo = {
-  "7 Dias":  7,
-  "15 Dias": 15,
-  "1 Mês":   30,
-  "6 Meses": 180,
-  "1 Ano":   365,
+const diasPorPeriodoKey = {
+  "7d":  7,
+  "15d": 15,
+  "1m":  30,
+  "6m":  180,
+  "1a":  365,
 };
 
 // converte o nome da emocao do front pro campo que vem do back
 const camposPorEmocao = {
-  Tristeza:   "tristeza",
-  Felicidade: "alegria",
-  Ansiedade:  "ansiedade",
-  Raiva:      "raiva",
-  Estresse:   "estresse",
+  tristeza:   "tristeza",
+  alegria:    "alegria",
+  ansiedade:  "ansiedade",
+  raiva:      "raiva",
+  estresse:   "estresse",
+};
+
+// chaves i18n → cor (estável, independente do idioma)
+const coresPorChave = {
+  tristeza:   "#4d8bff",
+  alegria:    "#36e900",
+  ansiedade:  "#ff05c9",
+  raiva:      "#ff3b3b",
+  estresse:   "#e05c2a",
 };
 
 function formatarData(date) {
@@ -55,7 +55,12 @@ function formatarData(date) {
 }
 
 export default function EmotionsChart({ patientId, patientName }) {
-  const [selectedEmotion,   setSelectedEmotion]   = useState("Tristeza");
+  const { t } = useTranslation();
+
+  // chaves de emoção (estáveis, não mudam com idioma)
+  const EMOTION_KEYS = ["tristeza", "alegria", "ansiedade", "raiva", "estresse"];
+
+  const [selectedKey,       setSelectedKey]       = useState("tristeza");
   const [selectedPeriodIdx, setSelectedPeriodIdx] = useState(2);
   const [isMobile,          setIsMobile]          = useState(false);
   const [showAI,            setShowAI]            = useState(false);
@@ -70,18 +75,17 @@ export default function EmotionsChart({ patientId, patientName }) {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  const selectedPeriod = PERIODS_FULL[selectedPeriodIdx];
-  const corAtual       = coresPorEmocao[selectedEmotion];
-  const s              = getMobileStyles(isMobile);
+  const selectedPeriodKey = PERIOD_KEYS[selectedPeriodIdx];
+  const corAtual          = coresPorChave[selectedKey];
+  const s                 = getMobileStyles(isMobile);
 
-  // busca os dados do back sempre que mudar paciente, emocao ou periodo
   useEffect(() => {
     if (!patientId) return;
 
     async function buscar() {
       const hoje   = new Date();
       const inicio = new Date();
-      inicio.setDate(hoje.getDate() - diasPorPeriodo[selectedPeriod]);
+      inicio.setDate(hoje.getDate() - diasPorPeriodoKey[selectedPeriodKey]);
 
       const json = await listAvaliations(
         patientId,
@@ -91,26 +95,25 @@ export default function EmotionsChart({ patientId, patientName }) {
 
       if (!json?.success) return;
 
-      // ordena por data antes de plotar, pq o back pode vir fora de ordem
       const ordenado = [...json.data].sort((a, b) => {
         const [dA, mA, aA] = a.date.split("/");
         const [dB, mB, aB] = b.date.split("/");
         return new Date(`${aA}-${mA}-${dA}`) - new Date(`${aB}-${mB}-${dB}`);
       });
 
-      const campo = camposPorEmocao[selectedEmotion];
+      const campo = camposPorEmocao[selectedKey];
       setCurrentData(ordenado.map((av) => av[campo]));
       setCurrentLabels(ordenado.map((av) => av.date.slice(0, 5)));
     }
 
     buscar();
-  }, [patientId, selectedEmotion, selectedPeriod]);
+  }, [patientId, selectedKey, selectedPeriodKey]);
 
   const chartData = useMemo(() => ({
     labels: currentLabels,
     datasets: [{
       fill: true,
-      label: selectedEmotion,
+      label: t(selectedKey),
       data: currentData,
       borderColor: corAtual,
       backgroundColor: (context) => {
@@ -122,22 +125,20 @@ export default function EmotionsChart({ patientId, patientName }) {
         return gradient;
       },
       borderWidth:          isMobile ? 2 : 3,
-      pointRadius:          isMobile ? 5 : 7,       // maior pra aparecer mesmo com 1 ponto
+      pointRadius:          isMobile ? 5 : 7,
       pointHoverRadius:     isMobile ? 7 : 9,
       pointBackgroundColor: corAtual,
       spanGaps: true,
       tension: 0.1,
     }],
-  }), [selectedEmotion, corAtual, isMobile, currentLabels, currentData]);
+  }), [selectedKey, corAtual, isMobile, currentLabels, currentData, t]);
 
   const chartOptions = isMobile
     ? {
         responsive: true,
         maintainAspectRatio: false,
         layout: { padding: { top: 12, left: 0, right: 8, bottom: 8 } },
-        elements: {
-          point: { radius: 5 }   // garante o ponto mesmo sem linha
-        },
+        elements: { point: { radius: 5 } },
         plugins: {
           legend: { display: false },
           tooltip: {
@@ -180,9 +181,7 @@ export default function EmotionsChart({ patientId, patientName }) {
         responsive: true,
         maintainAspectRatio: false,
         layout: { padding: { top: 60, left: 30, right: 40, bottom: 30 } },
-        elements: {
-          point: { radius: 7 }   // garante o ponto mesmo sem linha
-        },
+        elements: { point: { radius: 7 } },
         plugins: {
           legend: { display: false },
           tooltip: {
@@ -222,18 +221,18 @@ export default function EmotionsChart({ patientId, patientName }) {
     <>
       <div style={s.container}>
         <button onClick={() => window.location.href = "/Graphicspage"} style={s.backButton}>
-          Voltar
+          {t('voltar')}
         </button>
 
-        {/* botoes de emocao scroll horizontal no mobile */}
+        {/* botoes de emocao */}
         <div style={s.emotionTabs}>
-          {EMOTIONS.map((emotion) => {
-            const cor = coresPorEmocao[emotion];
-            const sel = selectedEmotion === emotion;
+          {EMOTION_KEYS.map((key) => {
+            const cor = coresPorChave[key];
+            const sel = selectedKey === key;
             return (
               <button
-                key={emotion}
-                onClick={() => setSelectedEmotion(emotion)}
+                key={key}
+                onClick={() => setSelectedKey(key)}
                 style={{
                   ...s.emotionBtn,
                   borderColor: sel ? cor : "#d1d5db",
@@ -241,7 +240,7 @@ export default function EmotionsChart({ patientId, patientName }) {
                   color:       sel ? cor : "#9ca3af",
                 }}
               >
-                {emotion}
+                {t(key)}
               </button>
             );
           })}
@@ -250,30 +249,33 @@ export default function EmotionsChart({ patientId, patientName }) {
         {/* card do grafico */}
         <div style={s.chartCard}>
           <div style={s.cardHeader}>
-            <h2 style={s.cardTitle}>{selectedEmotion} ao longo do tempo</h2>
+            <h2 style={s.cardTitle}>{t(selectedKey)} {t('aoLongoDoTempo')}</h2>
 
             <div style={s.periodTabs}>
-              {(isMobile ? PERIODS_CURTO : PERIODS_FULL).map((label, idx) => (
-                <button
-                  key={label}
-                  onClick={() => setSelectedPeriodIdx(idx)}
-                  style={{
-                    ...s.periodBtn,
-                    borderColor: selectedPeriodIdx === idx ? corAtual : "#2a2a4a",
-                    background:  selectedPeriodIdx === idx ? corAtual + "22" : "transparent",
-                    color:       selectedPeriodIdx === idx ? corAtual : "#555577",
-                  }}
-                >
-                  {label}
-                </button>
-              ))}
+              {PERIOD_KEYS.map((key, idx) => {
+                const label = isMobile ? t(`periodo${key}Curto`) : t(`periodo${key}`);
+                return (
+                  <button
+                    key={key}
+                    onClick={() => setSelectedPeriodIdx(idx)}
+                    style={{
+                      ...s.periodBtn,
+                      borderColor: selectedPeriodIdx === idx ? corAtual : "#2a2a4a",
+                      background:  selectedPeriodIdx === idx ? corAtual + "22" : "transparent",
+                      color:       selectedPeriodIdx === idx ? corAtual : "#555577",
+                    }}
+                  >
+                    {label}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           <div style={s.chartWrapper}>
             {currentData.length === 0 ? (
               <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", color: "#555577", fontFamily: "'Lexend Deca', sans-serif", fontSize: isMobile ? "12px" : "1.2vw" }}>
-                Nenhuma avaliação encontrada nesse período
+                {t('nenhumaAvaliacao')}
               </div>
             ) : (
               <Line data={chartData} options={chartOptions} />
@@ -282,10 +284,9 @@ export default function EmotionsChart({ patientId, patientName }) {
         </div>
       </div>
 
-      {/* botao da ia fica fora do grafico, fiz isso na fé de deus e do claude */}
       <button
         onClick={() => setShowAI(true)}
-        title="Analisar com IA"
+        title={t('analisarIA')}
         style={{
           position:       "fixed",
           bottom:         isMobile ? "100px" : "2.5vw",
@@ -313,13 +314,12 @@ export default function EmotionsChart({ patientId, patientName }) {
         ✦
       </button>
 
-      {/* modal de analise da ia */}
       {showAI && (
         <AIAnalysisModal
           onClose={() => setShowAI(false)}
           patientName={patientName}
-          emotion={selectedEmotion}
-          period={selectedPeriod}
+          emotion={t(selectedKey)}
+          period={t(`periodo${selectedPeriodKey}`)}
           labels={currentLabels}
           data={currentData}
           cor={corAtual}

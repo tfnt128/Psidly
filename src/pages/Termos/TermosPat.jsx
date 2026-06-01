@@ -1,32 +1,18 @@
 import { useNavigate } from "react-router-dom";
-import HomemenuPat from "../../components/HomepagePat/HomemenuPat"
-import HomemenuasidePat from "../../components/HomepagePat/HomemenuasidePat"
-
+import HomemenuPat from "../../components/HomepagePat/HomemenuPat";
+import HomemenuasidePat from "../../components/HomepagePat/HomemenuasidePat";
+import { useTranslation } from 'react-i18next';
 
 export default function TermosPat() {
     const navigator = useNavigate();
+    const { t } = useTranslation();
 
     const termosPat = [
-        {
-            titulo: "1. Uso da Plataforma",
-            texto: "O sistema deve ser utilizado exclusivamente para fins de acompanhamento emocional e apoio ao processo terapêutico. Não é permitido o uso da plataforma para fins ilegais ou que violem normas éticas."
-        },
-        {
-            titulo: "2. Responsabilidade do Usuário",
-            texto: "O usuário é responsável pelas informações inseridas no sistema, incluindo dados pessoais e registros emocionais. Recomenda-se que as informações sejam fornecidas de forma verdadeira e consciente."
-        },
-        {
-            titulo: "3. Privacidade e Segurança",
-            texto: "Os dados inseridos no sistema são armazenados de forma segura e utilizados apenas para fins relacionados ao funcionamento da aplicação. O acesso às informações é restrito ao próprio usuário e ao psicólogo vinculado."
-        },
-        {
-            titulo: "4. Limitações do Sistema",
-            texto: "O Psidly não substitui acompanhamento médico ou psicológico profissional. As informações apresentadas no sistema têm caráter informativo e de apoio."
-        },
-        {
-            titulo: "5. Alterações nos Termos",
-            texto: "Os termos de uso podem ser atualizados a qualquer momento, sendo responsabilidade do usuário acompanhar eventuais mudanças."
-        },
+        { titulo: t('termos1Titulo'), texto: t('termos1Texto') },
+        { titulo: t('termos2Titulo'), texto: t('termos2Texto') },
+        { titulo: t('termos3Titulo'), texto: t('termos3Texto') },
+        { titulo: t('termos4Titulo'), texto: t('termos4Texto') },
+        { titulo: t('termos5Titulo'), texto: t('termos5Texto') },
     ];
 
     return (
@@ -45,11 +31,11 @@ export default function TermosPat() {
                         onClick={() => navigator("/profilepagepat")}
                         className="self-start text-primario font-bold text-lg lg:text-5xl uppercase tracking-widest hover:opacity-70 transition font-arboreto"
                     >
-                        ← Voltar
+                        ← {t('voltar')}
                     </button>
 
                     <h1 className="text-primario text-center font-bold text-2xl lg:text-7xl uppercase tracking-widest font-arboreto">
-                        Termos de Uso
+                        {t('termosDeUso')}
                     </h1>
 
                     {termosPat.map((item, index) => (

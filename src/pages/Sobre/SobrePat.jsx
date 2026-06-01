@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import HomemenuPat from "../../components/HomepagePat/HomemenuPat";
 import HomemenuasidePat from "../../components/HomepagePat/HomemenuasidePat";
-
+import { useTranslation } from 'react-i18next';
 
 export default function SobrePat() {
     const navigator = useNavigate();
+    const { t } = useTranslation();
 
     return (
         <div className="min-h-screen font-lexenddeca">
@@ -22,32 +23,23 @@ export default function SobrePat() {
                         onClick={() => navigator("/profilepagepat")}
                         className="self-start text-primario font-bold text-lg lg:text-5xl uppercase tracking-widest hover:opacity-70 transition font-arboreto"
                     >
-                        ← Voltar
+                        ← {t('voltar')}
                     </button>
 
                     <h1 className="text-primario text-center font-bold text-2xl lg:text-7xl uppercase tracking-widest font-arboreto">
-                        Sobre o App
+                        {t('sobreOApp')}
                     </h1>
 
                     <p className="text-primario text-base lg:text-5xl leading-relaxed font-inter">
-                        O <strong className="font-lexenddeca">Psidly</strong> é uma aplicação web desenvolvida com o objetivo de auxiliar
-                        no acompanhamento emocional de pacientes em conjunto com profissionais da psicologia.
-                        A plataforma permite o registro diário de emoções por meio de autoavaliações,
-                        possibilitando a análise contínua do estado emocional ao longo do tempo.
+                        {t('sobreDescricao1')}
                     </p>
 
                     <p className="text-primario text-base lg:text-5xl leading-relaxed font-inter">
-                        A aplicação foi projetada para facilitar a comunicação entre paciente e psicólogo,
-                        permitindo que o profissional acompanhe as avaliações realizadas, registre observações
-                        e identifique padrões comportamentais. Além disso, o sistema apresenta gráficos que
-                        auxiliam na visualização das informações e no apoio à tomada de decisões durante o
-                        processo terapêutico.
+                        {t('sobreDescricao2')}
                     </p>
 
                     <p className="text-primario text-base lg:text-5xl leading-relaxed font-inter">
-                        O Psidly <strong className="font-lexenddeca">não substitui</strong> o acompanhamento psicológico profissional,
-                        mas atua como uma ferramenta de apoio, contribuindo para um acompanhamento mais
-                        estruturado e eficiente.
+                        {t('sobreDescricao3')}
                     </p>
 
                 </div>
