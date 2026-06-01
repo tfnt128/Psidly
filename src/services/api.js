@@ -182,7 +182,11 @@ export async function editPatient(id, nome, cpf, email, dataNasc, convenio, foto
 
         // GARANTIA DA DATA: Se 'dataNasc' vier como objeto Date ou String longa, 
         // convertemos para o formato YYYY-MM-DD exigido pelo DateOnly do .NET
-        const dataFormatada = dataNasc ? new Date(dataNasc).toISOString().split('T')[0] : null;
+        const dataFormatada = dataNasc
+            ? dataNasc.includes('/')
+                ? dataNasc.split('/').reverse().join('-')  // dd/mm/aaaa → aaaa-mm-dd
+                : dataNasc  // já está no formato correto
+            : null;
 
         const response = await axios.put(`${API_URL}/patients/${id}`, {
             name: nome,
