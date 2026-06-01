@@ -179,11 +179,16 @@ export async function editPatient(id, nome, cpf, email, dataNasc, convenio, foto
     try {
         const idPsi = localStorage.getItem("id")
         const token = localStorage.getItem("token")
+
+        // GARANTIA DA DATA: Se 'dataNasc' vier como objeto Date ou String longa, 
+        // convertemos para o formato YYYY-MM-DD exigido pelo DateOnly do .NET
+        const dataFormatada = dataNasc ? new Date(dataNasc).toISOString().split('T')[0] : null;
+
         const response = await axios.put(`${API_URL}/patients/${id}`, {
             name: nome,
             email: email,
             cpf: cpf,
-            birthDate: dataNasc,
+            birthDate: dataFormatada, // Envia a data tratada aqui
             insurance: convenio,
             photo: foto
         },
@@ -192,7 +197,6 @@ export async function editPatient(id, nome, cpf, email, dataNasc, convenio, foto
                 Authorization: `Bearer ${token}`
             }
         })
-        
         console.log(response.data)
         return response.data
     } catch (err) {
