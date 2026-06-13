@@ -345,7 +345,7 @@ export async function findPsi(patId) {
     }
 }
 
-export async function createAvaliation(id, alegria, tristeza, raiva, estresse, ansiedade, obsPat, date, hour) {
+export async function createAvaliation(id, alegria, tristeza, raiva, ansiedade, estresse, obsPat, date, hour) {
     try {
         const token = localStorage.getItem("token")
         const response = await axios.post(`${API_URL}/avaliation/create-avaliation`, {
@@ -353,8 +353,8 @@ export async function createAvaliation(id, alegria, tristeza, raiva, estresse, a
             Alegria: alegria,
             Tristeza: tristeza,
             Raiva: raiva,
-            Estresse: estresse,
-            Ansiedade: ansiedade,
+            Estresse: ansiedade,
+            Ansiedade: estresse,
             ObsPaciente: obsPat,
             Date: date,
             Hour: hour

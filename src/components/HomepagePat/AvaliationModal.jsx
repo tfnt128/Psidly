@@ -26,7 +26,7 @@ export default function AvaliationModal({Style, setBlur, messageOk, setMessageOk
         try {
             const hora = new Date().toLocaleTimeString()
             const id = localStorage.getItem("id")
-            const response = await createAvaliation(id, alegria, tristeza, raiva, estresse, ansiedade, obs, hoje, hora) 
+            const response = await createAvaliation(id, alegria, tristeza, raiva, ansiedade, estresse, obs, hoje, hora) 
             console.log(response)
             if(window.innerWidth >= 1024){
                 setSlide("animate-slide-left")
